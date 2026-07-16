@@ -67,14 +67,14 @@ OPC UA PubSub, Simulator（模拟器）
 
 ### 下载与运行
 
-1. 从 [Releases](https://gitee.com/xxx/IndustrialDataCollector/releases) 下载最新版本
+1. 从 [Releases](https://gitee.com/jede_master/IndustrialDataCollector/releases) 下载最新版本
 2. 解压到任意目录
 3. 双击 `IndustrialDataCollector.exe` 启动
 
 ### 编译
 
 ```bash
-git clone https://gitee.com/xxx/IndustrialDataCollector.git
+git clone https://gitee.com/jede_master/IndustrialDataCollector.git
 cd IndustrialDataCollector
 # 用 Visual Studio 2019+ 打开 IndustrialDataCollection.sln 编译
 ```
