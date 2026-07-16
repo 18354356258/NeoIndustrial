@@ -7,124 +7,367 @@
 [![.NET Framework 4.8](https://img.shields.io/badge/.NET-4.8-blue)](https://dotnet.microsoft.com/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-green)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey)]()
+[![Gitee](https://img.shields.io/badge/Gitee-jede_master-red)](https://gitee.com/jede_master/IndustrialDataCollector)
 
-**40 种工业协议 · MQTT 推送 · MCP AI 集成 · 多数据库支持**
+**40 协议全免费 · MQTT 毫秒级上云 · AI 原生操控 · 工业 4.0 就绪**
 
 </div>
 
 ---
 
-## 📖 简介
+## 📖 为什么选它
 
-IndustrialDataCollector（工业数采平台）是一款开源的工业数据采集软件，支持 **40 种工业协议**驱动，可连接 PLC、CNC、传感器、智能仪表、楼宇自动化设备，并将数据通过 MQTT 推送到云端或写入本地数据库。
+这不是又一个 Modbus 调试工具。
 
-**社区版**基于 Apache 2.0 协议开源，免费用于商业和非商业用途。企业版提供语义建模、Fabric 时序分析、配置模板、设备克隆等高级功能，请访问 [industrialdata.cn](https://industrialdata.cn) 了解。
+IndustrialDataCollector 是一套**生产级工业数据采集引擎**——从冲压车间的 PLC 到海上风场的 IEC 61850 变电站，从 CNC 五轴加工中心的 Fanuc 控制器到半导体 SECS/GEM 机台，**一套代码全部通吃**。40 种驱动、4 种数据库、MQTT 双层话题推送、50 个 MCP AI 原子工具，零门槛启动，无加密无认证无 License。
 
-## ✨ 核心功能
+**社区版 Apache 2.0 开源，永久免费。** 你只需要把时间花在工艺优化上，而不是在"谁能连接上谁"的破事上。
 
-| 模块 | 功能 |
+---
+
+## 🧠 架构一览
+
+```
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│  PLC / CNC  │    │  传感器/仪表  │    │ 电力/楼宇设备 │
+│ 40 种协议   │    │  Modbus RTU  │    │  BACnet/DLT  │
+└──────┬──────┘    └──────┬──────┘    └──────┬──────┘
+       │                  │                  │
+       └──────────────────┼──────────────────┘
+                          ▼
+              ┌───────────────────────┐
+              │   DataCollectionEngine │
+              │   毫秒级轮询 · 字节序自适应  │
+              └───────────┬───────────┘
+                          │
+          ┌───────────────┼───────────────┐
+          ▼               ▼               ▼
+   ┌──────────┐   ┌──────────┐   ┌──────────────┐
+   │  MQTT    │   │ 4 种 DB  │   │  MCP / REST  │
+   │ 毫秒推送  │   │ 并行写入  │   │  AI 数据面    │
+   └──────────┘   └──────────┘   └──────────────┘
+```
+
+## ✨ 核心能力
+
+| 模块 | 社区版 |
+|------|:---:|
+| 🔌 **40 工业协议驱动** — PLC / CNC / 仪表 / 楼宇 / 电力 / 半导体 | ✅ |
+| 📡 **MQTT 双层话题** — 批量 JSON + 逐变量子话题，Sparkplug B 兼容 | ✅ |
+| 🗄️ **4 种数据库并行写入** — SQLite / MySQL / SQL Server / PostgreSQL | ✅ |
+| 🤖 **MCP 协议 50 工具** — AI 直接用自然语言管理设备、查数据、控启停 | ✅ |
+| 🔄 **REST API** — HTTP 实时数据查询，Bearer Token 认证 | ✅ |
+| 📊 **CSV 批量管理** — Excel 兼容 UTF-8，变量点一键导入/导出 | ✅ |
+| 🌍 **中英双语** — 运行时无重启切换 | ✅ |
+| 🧪 **模拟器驱动** — 20+ 模拟变量，没硬件也能跑通全链路 | ✅ |
+| 🚀 **零门槛** — 无加密、无认证、无 License、无硬件绑定，解压即用 | ✅ |
+
+## 🔌 40 协议驱动全清单
+
+### ⚙️ PLC / 控制器（11 种）
+| 驱动 | 支持的品牌/协议 |
+|------|---------------|
+| **Modbus TCP** | 施耐德、西门子、三菱、台达、汇川、信捷等所有支持 Modbus TCP 的设备 |
+| **Modbus RTU** | 串口 RS-232/485，同上 |
+| **Siemens S7** | S7-200/300/400/1200/1500，支持 DB/Input/Output/Merk |
+| **Siemens 840D** | Sinumerik 840D/840Di 数控系统直连 |
+| **Beckhoff ADS** | TwinCAT 2/3 全系列 |
+| **CODESYS** | CODESYS V3+ 兼容控制器（倍福、和利时、汇川等） |
+| **Mitsubishi FX** | FX1S/1N/2N/3U/5U 系列 |
+| **Mitsubishi MELSEC** | iQ-R/iQ-F/Q/L 系列（MC 协议） |
+| **Keyence KV** | KV-5000/7000/8000 系列 |
+| **Panasonic Mewtocol** | FP 全系列 |
+| **Omron FINS / HostLink** | CJ/CS/CP 全系列 |
+
+### 🔧 CNC 数控机床（4 种）
+| 驱动 | 说明 |
 |------|------|
-| 🔌 **多协议驱动** | 40 种工业协议，覆盖 PLC / CNC / 仪表 / 楼宇 / 电力 |
-| 📡 **MQTT 推送** | 支持 MQTT 3.1.1，自定义主题，JSON 格式数据包 |
-| 🗄️ **数据存储** | SQLite / MySQL / SQL Server / PostgreSQL |
-| 🤖 **MCP 协议** | 50 个 AI 工具，支持远程设备管理与数据查询 |
-| 🌍 **国际化** | 中/英文界面，运行时可切换 |
-| 📊 **CSV 导入导出** | 批量变量点导入，Excel 兼容 UTF-8 |
-| 🔄 **REST API** | HTTP 实时数据查询接口 |
+| **Fanuc FOCAS** | 0i/16i/18i/21i/30i/31i/32i，读写宏变量 + 主轴负载 + 报警号 |
+| **Haas CNC** | NGC 控制器全系列 |
+| **Mazak** | Mazatrol 控制器（Smooth 系列） |
+| **Heidenhain** | TNC 系列（HEIDENHAIN Remo Tools） |
 
-## 🔌 支持的协议驱动
+### 🌐 工业以太网（3 种）
+**EtherNet/IP** — Rockwell AB ControlLogix/CompactLogix · **Profinet** — Siemens PROFINET IO · **OPC UA** — 跨平台数据建模
 
-### PLC / 控制器
-Modbus TCP/RTU, Siemens S7, Siemens 840D, Beckhoff ADS, CODESYS, Mitsubishi FX, Mitsubishi MELSEC, Keyence KV, Panasonic Mewtocol, Omron FINS, Omron HostLink
+### 🔗 现场总线（3 种）
+**PROFIBUS** — Siemens PROFIBUS DP · **DeviceNet** — Allen-Bradley · **CC-Link** — Mitsubishi
 
-### CNC 机床
-Fanuc FOCAS, Haas CNC, Mazak, Heidenhain
+### ⚡ 电力/能源（3 种）
+**IEC 104** — 电力远动规约 · **IEC 61850** — 智能变电站 · **DNP3** — 北美电力 SCADA
 
-### 工业以太网
-EtherNet/IP, Profinet, OPC UA, OPC DA
+### 🏢 楼宇自动化（5 种）
+**BACnet** — 霍尼韦尔/江森/西门子楼控 · **KNX** — 智能建筑总线 · **DALI** — 数字可寻址照明 · **LonWorks** — 楼宇控制网络 · **MBus** — 热表/水表/电表
 
-### 现场总线
-PROFIBUS, DeviceNet, CC-Link
+### ☁️ 物联网 / 半导体 / 其他（11 种）
+| 驱动 | 说明 |
+|------|------|
+| **MQTT Subscribe** | 订阅第三方 MQTT Broker 数据（反向采集） |
+| **Sparkplug B** | 工业物联网 MQTT 子协议 |
+| **HTTP REST** | RESTful JSON API 轮询采集 |
+| **DLMS/COSEM** | 智能电表国际标准 |
+| **HART IP** | HART 仪表 IP 版 |
+| **MTConnect** | 数控机床互联标准 |
+| **SECS/GEM** | 半导体设备通信标准 |
+| **OPC DA** | 经典 OPC Data Access |
+| **OPC UA PubSub** | OPC UA 发布/订阅模式 |
+| **Simulator** | 内置 20+ 模拟变量（正弦波/方波/随机/递增） |
 
-### 电力/能源
-IEC 104, IEC 61850, DNP3
+---
 
-### 楼宇自动化
-BACnet, KNX, DALI, LonWorks, MBus
-
-### 物联网
-MQTT Subscribe, Sparkplug B, HTTP REST, DLMS, HART IP, MTConnect, SECS/GEM
-
-### 其他
-OPC UA PubSub, Simulator（模拟器）
-
-## 🚀 快速开始
+## 🚀 5 分钟上手
 
 ### 环境要求
 - Windows 7 SP1+ / Windows Server 2008 R2+
-- .NET Framework 4.8
+- .NET Framework 4.8（[微软官方下载](https://dotnet.microsoft.com/download/dotnet-framework/net48)）
 - 4 GB+ RAM
 
-### 下载与运行
-
-1. 从 [Releases](https://gitee.com/jede_master/IndustrialDataCollector/releases) 下载最新版本
-2. 解压到任意目录
-3. 双击 `IndustrialDataCollector.exe` 启动
-
-### 编译
+### 安装
 
 ```bash
+# 1. 克隆仓库
 git clone https://gitee.com/jede_master/IndustrialDataCollector.git
-cd IndustrialDataCollector
-# 用 Visual Studio 2019+ 打开 IndustrialDataCollection.sln 编译
+
+# 2. 用 Visual Studio 2019+ 打开 .sln 编译
+# 或者直接下载 Release 压缩包解压运行
 ```
 
-## 📁 项目结构
+### 第一个采集任务（模拟器模式，无需硬件）
+
+1. 启动 `IndustrialDataCollector.exe`
+2. 左侧设备树右键 → **添加设备** → 驱动选 `Simulator`
+3. 点击 **CSV 导入** → 用模拟器默认变量 → 保存
+4. 点击 **▶ 开始采集**
+5. 看到数据滚动起来了
+
+### 连接真实设备
+
+| 设备类型 | 配置要点 |
+|----------|---------|
+| Modbus TCP PLC | IP + 端口 502 + 寄存器地址 + 数据类型 |
+| Siemens S7-1200 | IP + Rack=0 Slot=1 + DB 地址（如 DB1.0.0） |
+| Fanuc CNC | IP + 端口 8193 + 宏变量号 |
+| MQTT Broker | Broker 地址 + 端口 + 主题前缀 |
+
+---
+
+## 📖 使用手册
+
+### 设备管理（四级组织架构）
+
+平台采用 **公司 → 车间 → 工序 → 设备** 四级树结构组织设备：
+
+- **右键树节点** → 添加/重命名/删除文件夹或设备
+- **拖拽** → 把设备移到其他工序/车间，文件夹批量迁移
+- **搜索框** → 按设备名或 IP 实时过滤
+- **右键「移动到…」** → 弹出路径选择对话框精准迁移
+
+### 变量点配置
+
+每个设备下挂载变量点（Data Points），定义采集什么、怎么处理：
+
+| 字段 | 说明 |
+|------|------|
+| 变量名 | 中/英文标签（如 `温度传感器`） |
+| 地址 | 协议相关地址（如 Modbus `40001`, S7 `DB1.0.0`） |
+| 数据类型 | int16 / uint16 / int32 / float32 / double / string... |
+| 字节序 | ABCD（大端）/ DCBA（小端）/ BADC / CDAB |
+| 线性缩放 | `y = kx + b`，原始值 ×k +b = 工程值 |
+| 修约 | 保留 N 位小数 |
+| 报警阈值 | HH / H / L / LL 四级设定 |
+| 单位 | 工程单位（℃, MPa, rpm, mm…） |
+
+### MQTT 数据格式
+
+每轮采集周期发一个 JSON 包到 `{TopicPrefix}/{DeviceName}`：
+
+```json
+{
+  "timestamp": "2026-07-16T14:30:00.123",
+  "driver": "Simulator",
+  "device": "28号挤压机",
+  "values": [
+    {"id": "temperature", "dt": "float32", "v": 245.6, "u": "℃"},
+    {"id": "pressure", "dt": "float32", "v": 32.1, "u": "MPa"}
+  ]
+}
+```
+
+同时每个变量有独立子话题 `{TopicPrefix}/{DeviceName}/temperature` 推送单值。
+
+### 数据库配置
+
+| 数据库 | 连接串示例 | 自动建表 |
+|--------|-----------|:---:|
+| SQLite | 默认 `Data/industrial.db` | ✅ |
+| MySQL | `Server=192.168.1.100;Database=idc;User=root;Password=xxx;` | ✅ |
+| SQL Server | `Server=.;Database=idc;Integrated Security=True;` | ✅ |
+| PostgreSQL | `Host=192.168.1.100;Database=idc;Username=postgres;Password=xxx;` | ✅ |
+
+4 库的表结构统一：`industrial_data(id, db_type, device, variable, data_type, value, unit, timestamp)`
+
+### MCP AI 集成
+
+平台内置 MCP Server，提供 50 个 AI 可调用工具。任何支持 MCP 的 AI 客户端（Claude Desktop 等）连接后即可用自然语言操控设备：
 
 ```
-IndustrialDataCollector/
-├── Drivers/          # 40 个工业协议驱动
-├── Forms/            # WinForms UI 界面
-├── Models/           # 数据模型
-├── Services/         # 核心服务（采集/存储/MQTT/MCP/REST）
-├── Resources/        # 中英文语言包
-└── Utils/            # 工具类（日志/词汇表）
+用户：帮我添加一台三菱 FX5U PLC，IP 192.168.1.50，采集 D100 温度、D101 压力
+AI：  调用 add_device → add_variables → reload_config → 设备上线
 ```
 
-## 🆚 企业版对比
+工具覆盖：设备 CRUD · 变量管理 · 采集启停 · 实时查询 · 数据库查询 · 数据源管理
 
-| 功能 | 社区版 | 企业版 |
-|------|:---😐:---:|
+### CSV 批量导入模板
+
+CSV 格式（UTF-8，Excel 可直接编辑）：
+
+| 变量名 | 地址 | 数据类型 | 单位 | 修约 | 缩放K | 缩放B | HH | H | L | LL |
+|--------|------|----------|------|------|-------|-------|----|---|---|----|
+| 主机电流 | 40001 | float32 | A | 2 | 0.1 | 0 | 500 | 450 | 50 | 10 |
+| 温度传感器 | 40003 | int16 | ℃ | 1 | 1 | 0 | 300 | 250 | -10 | -20 |
+
+桌面已备模板文件：`变量点模板_ModbusTCP.csv`
+
+### 日志与排错
+
+- 日志目录：`Logs/log_YYYYMMDD.txt`
+- 默认 **Info 级别**（启动/停止/错误/API 请求），不刷屏
+- 排查采集细节时在 `Logger.cs` 中设 `LogLevel.Debug` 恢复全量
+- 30 天前日志自动清理
+
+---
+
+## 🆚 企业版 — 工厂级火力全开
+
+<section class="rich-panel">
+<div class="rich-panel-title">别用社区版的尺子量企业版——这是两套完全不同的武器系统</div>
+
+社区版帮你 **连上设备**。企业版帮你 **管好整座工厂**。以下每一项都是社区版不具备的、为大型工业场景从头设计的重型能力：
+
+</section>
+
+### 🧬 语义层 · 数字孪生引擎
+
+> 把"40001 = 245.6"变成"3号挤压车间▶1号线▶主机▶缸体温度偏高，建议检查冷却泵 #3"
+
+- **自动建模** — 设备树 + 数据源树双路镜像，拖拽重组即变更数字孪生拓扑
+- **标签体系** — 跨设备/跨协议统一变量命名空间，一套 TAG 走遍全厂
+- **关系图谱** — 设备→变量→数据源三体联动，AI 可追溯任意数据的"来源设备→采集驱动→数据库表→MQTT 话题"
+- **状态跟踪** — 在线/离线/停用/已删除四态标记，AI 知道什么活着、什么死了、什么时候死的
+- **变量事件** — 速率、累计、持续时长等派生指标自动计算
+
+### ⚡ Fabric 时序分析引擎
+
+> 8 算子热插拔，比 SQL 快 10 倍，比写 Python 脚本省 100 倍时间
+
+| 算子 | 功能 | 工业场景 |
+|------|------|---------|
+| **Aggregate** | 窗口聚合（avg/max/min/sum/count/stddev） | 小时均温、日峰值功率 |
+| **Correlation** | 多变量皮尔逊相关系数 | 振动与温度的关联诊断 |
+| **Anomaly** | 3-sigma/IQR 离群检测 | 突跳报警、传感器漂移 |
+| **Digital Twin** | 理论值 vs 实测值偏差 | 能耗对标、效率衰减 |
+| **Rate** | 变化率 d/dt | 温升速率、压力变化率 |
+| **Accumulate** | 累积量（积分） | 总产量、总能耗、总运行时间 |
+| **Threshold** | 动态上下限判定 | 自适应工艺窗口报警 |
+| **Prediction** | 线性回归趋势预测 | 预测性维护、备件预警 |
+
+分析结果随原始数据一起落入数据库，可被 MCP AI 工具实时查询。
+
+### 🎛️ Dashboard 数据看板
+
+- 工厂级实时监控大屏，设备/产线/车间三级下钻
+- 趋势曲线 + 报警面板 + 设备状态矩阵
+- 报警四色分级（HH 红 / H 橙 / L 蓝 / LL 紫）+ 20 分钟时间窗口 + 增量行更新不闪屏
+- 支持多显示器独立投屏
+
+### 📦 模板 · 克隆 · 批量部署
+
+- **配置模板** — 把一台设备的完整配置（驱动 + 变量 + 报警参数 + MQTT 话题）导出为模板
+- **一键克隆** — 选模板 → 填 IP → 10 台同上设备配置完成
+- **差异化覆盖** — 模板批量应用后，每台设备可单独调整，互不干扰
+- 百台规模部署从 2 小时变 2 分钟
+
+### 🗄️ TDengine 时序数据库
+
+- 专为工业时序优化的列式存储，10 万点/秒写入
+- 超级表自动分区，10 年数据秒级查询
+- 压缩比 10:1~20:1，GB 级数据变 MB 级硬盘占用
+- 4 个踩坑经验已内置到 MCP `introduce_platform("tdengine")`，AI 自动规避
+
+### 🛡️ 工业级可靠性
+
+| 能力 | 说明 |
+|------|------|
+| **离线缓存** | 网络断开时数据写本地 SQLite，恢复后自动补发 MQTT + 补写数据库 |
+| **心跳监测** | 每设备独立心跳，只记录状态转换不刷盘 |
+| **指数退避重连** | 连续失败 1→2→4→8→16→32→60s 退避，成功自清零 |
+| **配置文件多代备份** | `config.json.bak.1~50`，最多 50 代回退 |
+| **事件规则引擎** | 条件→动作（MQTT/DB/报警），IF `温度>300` THEN `发 MQTT + 写库 + 弹报警` |
+| **认证与安全** | SHA256+SALT 密码 + MAC 硬件绑定 + Token 认证 |
+
+### 📊 完整对比
+
+| 能力维度 | 社区版 | 企业版 |
+|----------|:---:|:---:|
 | 40 工业协议驱动 | ✅ | ✅ |
-| MQTT 数据推送 | ✅ | ✅ |
-| SQLite 存储 | ✅ | ✅ |
-| MySQL / SQL Server / PostgreSQL | ✅ | ✅ |
-| MCP AI 协议（50 工具） | ✅ | ✅ |
-| REST API 数据查询 | ✅ | ✅ |
-| CSV 导入导出 | ✅ | ✅ |
-| 中英文界面 | ✅ | ✅ |
-| 语义层（数字孪生建模） | ❌ | ✅ |
-| Fabric 时序分析引擎 | ❌ | ✅ |
-| 配置模板与设备克隆 | ❌ | ✅ |
-| TDengine 时序数据库 | ❌ | ✅ |
-| 数据看板 Dashboard | ❌ | ✅ |
-| 认证与硬件绑定 | ❌ | ✅ |
-| 离线缓存与补发 | ❌ | ✅ |
-| 事件规则引擎 | ❌ | ✅ |
-| 边缘计算 | ❌ | ✅ |
+| MQTT 毫秒级推送 | ✅ | ✅ |
+| SQLite / MySQL / SQL Server / PostgreSQL | ✅ | ✅ |
+| MCP AI 50 工具 | ✅ | ✅ |
+| REST API | ✅ | ✅ |
+| CSV 批量导入导出 | ✅ | ✅ |
+| 中英双语界面 | ✅ | ✅ |
+| **语义层数字孪生建模** | ❌ | ✅ |
+| **Fabric 8 算子时序分析引擎** | ❌ | ✅ |
+| **Dashboard 监控大屏** | ❌ | ✅ |
+| **配置模板 · 设备克隆** | ❌ | ✅ |
+| **TDengine 时序数据库** | ❌ | ✅ |
+| **离线缓存 · 补发** | ❌ | ✅ |
+| **事件规则引擎** | ❌ | ✅ |
+| **认证 · 硬件绑定 · Token** | ❌ | ✅ |
+| **配置文件多代滚动备份** | ❌ | ✅ |
+| **商用授权 · 技术支持** | ❌ | ✅ |
 
-👉 [了解更多企业版功能](https://industrialdata.cn)
+> 🔥 **企业版不是社区版的"加料版"——它是重新设计的工厂级数据操作系统。** 了解详情：[industrialdata.cn](https://industrialdata.cn)
+
+---
+
+## 📋 版本记录
+
+### v1.0.0 | 2026-07-16 — 社区版首次发布
+
+- **40 工业协议驱动** — Modbus / Siemens S7 / OPC UA / BACnet / EtherNet/IP / Profinet / PROFIBUS / Beckhoff / CODESYS / Mitsubishi / Fanuc / IEC 104 61850 / DNP3 / KNX / DALI / SECS/GEM / MTConnect 等
+- **4 数据库并行写入** — SQLite / MySQL / SQL Server / PostgreSQL
+- **MQTT 双层话题** — 批量 JSON + 逐变量子话题推送
+- **MCP 协议 50 工具** — AI 可直接管理设备、查询数据、控制启停
+- **REST API** — HTTP 实时数据查询接口
+- **CSV 批量导入导出** — Excel 兼容 UTF-8
+- **中英双语** — 运行时切换，无需重启
+- **模拟器驱动** — 20+ 模拟变量，零硬件走通全流程
+- **零门槛启动** — 无认证、无加密、无 License，解压即用
+
+> 企业版历史版本（v1.0 ~ v2.6.1）详见企业版文档 `docs/工业数采平台_版本记录.md`
+
+---
 
 ## 🤝 贡献
 
-欢迎提交 Issue 和 Pull Request。在发起 PR 前，请确保代码通过编译。
+- 提交 Bug → [Issues](https://gitee.com/jede_master/IndustrialDataCollector/issues)
+- 贡献代码 → Fork → PR（确保编译通过）
+- 需求新驱动 → Issue 标签 `driver-request`
+- 技术交流 → QQ 群 / 企业微信（见官网）
 
 ## 📄 许可证
 
-本项目基于 [Apache License 2.0](LICENSE) 开源。
+社区版基于 [Apache License 2.0](LICENSE) 开源，**免费用于商业和非商业用途**。
+
+企业版需获得商业许可。联系：[industrialdata.cn](https://industrialdata.cn)
 
 ---
 
 <div align="center">
-  <b>IndustrialDataCollector</b> — 开源工业数据采集，让连接更简单
+
+**IndustrialDataCollector** — 开源工业数据采集，让连接更简单
+
+© 2026 张成龙 · 社区版 Apache 2.0 · 企业版商业许可
+
 </div>
