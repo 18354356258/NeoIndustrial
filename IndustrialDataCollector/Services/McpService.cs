@@ -714,214 +714,7 @@ namespace IndustrialDataCollection.Services
                 "尝试修复所有断开的数据库连接（重连+健康检查）。返回修复后各数据库的连接状态。适用于：数据库重启、网络闪断后恢复。",
                 new RepairDatabaseTool());
 
-            // ── 语义层工具 ──
-
-            // 工具 8: 查询车间
-            _registry.Register("semantic_list_workshops",
-                "查询所有车间列表。返回车间编号、名称、编码、描述。",
-                new SemanticListWorkshopsTool());
-
-            // 工具 9: 查询产线
-            _registry.Register("semantic_list_production_lines",
-                "查询产线列表，可按车间过滤。返回产线编号、名称、所属车间、描述。",
-                new SemanticListLinesTool(),
-                new Dictionary<string, (string, string, bool)>
-                {
-                    ["workshop_id"] = ("string", "车间编号，可选。不填则返回全部产线", false)
-                });
-
-            // 工具 10: 查询设备
-            _registry.Register("semantic_list_equipments",
-                "查询语义设备列表，可按车间/产线过滤。返回设备编号、名称、类型、所属车间/产线、描述。",
-                new SemanticListEquipmentsTool(),
-                new Dictionary<string, (string, string, bool)>
-                {
-                    ["workshop_id"] = ("string", "车间编号，可选", false),
-                    ["production_line_id"] = ("string", "产线编号，可选", false)
-                });
-
-            // 工具 11: 查询设备标签
-            _registry.Register("semantic_list_tags",
-                "查询指定设备的所有语义标签（采集变量）。返回标签名称、编码、变量角色、单位、数据类型。",
-                new SemanticListTagsTool(),
-                new Dictionary<string, (string, string, bool)>
-                {
-                    ["equipment_id"] = ("string", "设备编号，必填", true)
-                });
-
-            // 工具 12: 查询节点事件（v2，支持时间范围）
-            _registry.Register("semantic_list_events",
-                "查询节点事件记录（启动/停止/报警/故障/恢复/参数修改/通讯中断/维护保养）。支持按节点ID、事件类型、时间范围筛选，按时间倒序。",
-                new SemanticListEventsV2Tool(),
-                new Dictionary<string, (string, string, bool)>
-                {
-                    ["node_id"] = ("string", "节点ID，可选。不填则返回全部事件", false),
-                    ["event_type"] = ("string", "事件类型筛选，可选", false),
-                    ["from"] = ("string", "起始时间，可选。格式 yyyy-MM-dd HH:mm:ss", false),
-                    ["to"] = ("string", "结束时间，可选", false),
-                    ["limit"] = ("integer", "返回条数，可选。默认 500", false)
-                });
-
-            // ── 语义层 v2 工具（灵活层级树模型） ──
-
-            // 工具 14: 查询语义节点（统一替代原 workshops/lines/equipments/tags）
-            _registry.Register("semantic_list_nodes",
-                "查询语义层灵活层级树节点。支持按父节点、节点类型、关键字、状态过滤。返回节点ID、名称、编码、类型、状态、来源、属性等。",
-                new SemanticListNodesTool(),
-                new Dictionary<string, (string, string, bool)>
-                {
-                    ["parent_id"] = ("string", "父节点ID，可选。不填则返回根节点", false),
-                    ["kind"] = ("string", "节点类型过滤（Company/Workshop/ProductionLine/Equipment/Variable/Datasource/DataTable/DataField/Custom），可选", false),
-                    ["keyword"] = ("string", "关键字搜索（匹配名称或编码），可选", false),
-                    ["status"] = ("string", "状态过滤（Online/Offline/Stopped/Deleted），可选", false)
-                });
-
-            // 工具 15: 查询变量关系
-            _registry.Register("semantic_list_variable_relations",
-                "查询变量与数据源字段/常量/表达式的关联关系。支持按变量节点ID和关系类型过滤。返回关系类型（上限/下限/目标值/标准值等）、目标类型、目标字段等。",
-                new SemanticListVariableRelationsTool(),
-                new Dictionary<string, (string, string, bool)>
-                {
-                    ["variable_node_id"] = ("string", "变量节点ID，可选。不填则返回全部", false),
-                    ["relation_type"] = ("string", "关系类型过滤（上限/下限/目标值/标准值/SOP步骤/SIP要求/质量判定/报警阈值/补偿系数/计算公式/参考变量/业务关联），可选", false)
-                });
-
-            // 工具 16: 查询节点关系（替代原 semantic_list_relations）
-            _registry.Register("semantic_list_node_relations",
-                "查询节点之间的业务关系。支持按节点ID过滤。返回源节点、目标节点、关系类型。适用于设备/数据源/车间等任意节点类型的关系查询。",
-                new SemanticListNodeRelationsTool(),
-                new Dictionary<string, (string, string, bool)>
-                {
-                    ["node_id"] = ("string", "节点ID，可选。不填则返回全部关系", false)
-                });
-
-            // 工具 17: 查询节点路径
-            _registry.Register("semantic_get_node_path",
-                "获取指定节点从根到自身的完整路径。返回路径上每个节点的ID、名称、类型。",
-                new SemanticGetNodePathTool(),
-                new Dictionary<string, (string, string, bool)>
-                {
-                    ["node_id"] = ("string", "节点ID，必填", true)
-                });
-
-            // 工具 18: 查询设备变量（含实时值）
-            _registry.Register("semantic_list_device_variables",
-                "查询指定设备节点的所有变量（含实时采集值）。返回变量名称、编码、变量角色、单位、数据类型、实时值。",
-                new SemanticListDeviceVariablesTool(),
-                new Dictionary<string, (string, string, bool)>
-                {
-                    ["equipment_node_id"] = ("string", "设备节点ID，必填", true)
-                });
-
-            // ═══ v1.10.0+ 新增 7 个强力工具 ═══
-
-            // 工具 19: 获取完整语义树
-            _registry.Register("semantic_get_full_tree",
-                "获取完整语义树结构（内存建树，非递归SQL）。一次性查询全部节点，避免逐层SQL N+1 问题。支持 root_kind/max_depth/max_nodes。",
-                new SemanticGetFullTreeTool(),
-                new Dictionary<string, (string, string, bool)>
-                {
-                    ["root_kind"] = ("string", "根节点类型筛选，如 Workshop/ProductionLine/Equipment", false),
-                    ["max_depth"] = ("string", "最大递归深度，默认6", false),
-                    ["max_nodes"] = ("string", "最大返回节点数，默认500", false)
-                });
-
-            // 工具 20: 子树实时快照
-            _registry.Register("semantic_get_realtime_snapshot",
-                "获取指定节点下所有变量的实时采集值快照。AI 可回答「某车间现在运行状态如何？」。返回在线/离线计数及每个变量的值和时间戳。",
-                new SemanticGetRealtimeSnapshotTool(),
-                new Dictionary<string, (string, string, bool)>
-                {
-                    ["node_id"] = ("string", "语义节点ID（车间/产线/设备均可），必填", true)
-                });
-
-            // 工具 21: 数据流追溯
-            _registry.Register("semantic_get_data_flow",
-                "追溯数据的完整链路：设备→变量→关系→数据源表字段。AI 可理解「这个数据从哪里来、到哪里去」。",
-                new SemanticGetDataFlowTool(),
-                new Dictionary<string, (string, string, bool)>
-                {
-                    ["node_id"] = ("string", "语义节点ID（设备/变量/数据源均可），必填", true)
-                });
-
-            // 工具 22: 报警摘要
-            _registry.Register("semantic_get_alarm_summary",
-                "获取指定时间窗口内的报警聚合摘要。AI 可快速感知「最近哪些设备在报警、频次最高的报警级别」。默认最近24小时。",
-                new SemanticGetAlarmSummaryTool(),
-                new Dictionary<string, (string, string, bool)>
-                {
-                    ["node_id"] = ("string", "语义节点ID，可留空查询全部", false),
-                    ["hours"] = ("string", "时间窗口小时数，默认24", false)
-                });
-
-            // 工具 23: 智能关系推荐
-            _registry.Register("semantic_suggest_relations",
-                "基于变量名与数据源字段名的相似度（Jaro-Winkler算法），智能推荐可能的变量→字段映射关系。AI 可辅助建立数据绑定。",
-                new SemanticSuggestRelationsTool(),
-                new Dictionary<string, (string, string, bool)>
-                {
-                    ["variable_node_id"] = ("string", "变量节点ID，可留空扫描全部", false)
-                });
-
-            // 工具 24: 执行数据源SQL查询
-            _registry.Register("semantic_execute_query",
-                "通过语义层直接查询数据源的历史数据。AI 可执行 SELECT 查询获取统计/趋势数据。返回列名、行数据、耗时。",
-                new SemanticExecuteQueryTool(),
-                new Dictionary<string, (string, string, bool)>
-                {
-                    ["datasource_id"] = ("string", "数据源ID，必填", true),
-                    ["sql"] = ("string", "SQL查询语句，必填", true)
-                });
-
-            // 工具 25: 批量更新节点
-            _registry.Register("semantic_batch_update_nodes",
-                "AI 驱动的批量节点维护：支持修改名称、描述、状态、自定义属性。单次最多100条。返回每条更新的成功/失败状态。",
-                new SemanticBatchUpdateNodesTool(),
-                new Dictionary<string, (string, string, bool)>
-                {
-                    ["updates"] = ("array", "更新数组，每项含 node_id + 要改的字段(name/description/status/prop_xxx)", true)
-                });
-
-            // 工具 26: 变量影响分析（语义图谱）
-            _registry.Register("semantic_get_impact_graph",
-                "语义图谱影响分析：以某个变量为起点，BFS 展开所有上下游变量关系（影响/被约束/计算来源/关联设备）。返回完整的有向影响链路，含变量名称、关系类型、深度层次。",
-                new SemanticImpactGraphTool(),
-                new Dictionary<string, (string, string, bool)>
-                {
-                    ["variable_node_id"] = ("string", "变量节点ID，必填", true),
-                    ["max_depth"] = ("number", "最大深度，默认5", false)
-                });
-
-            // 工具 27: 变量上游依赖
-            _registry.Register("semantic_get_upstream",
-                "查询变量的上游依赖链：哪些变量影响了当前变量？按深度排列，返回变量名称、关系类型。",
-                new SemanticUpstreamTool(),
-                new Dictionary<string, (string, string, bool)>
-                {
-                    ["variable_node_id"] = ("string", "变量节点ID，必填", true),
-                    ["max_depth"] = ("number", "最大深度，默认5", false)
-                });
-
-            // 工具 28: 变量下游影响
-            _registry.Register("semantic_get_downstream",
-                "查询变量的下游影响链：当前变量影响了哪些变量？按深度排列，返回变量名称、关系类型。适用于故障传播分析和变更影响评估。",
-                new SemanticDownstreamTool(),
-                new Dictionary<string, (string, string, bool)>
-                {
-                    ["variable_node_id"] = ("string", "变量节点ID，必填", true),
-                    ["max_depth"] = ("number", "最大深度，默认5", false)
-                });
-
-            // 工具 29: 变量历史数据源查询
-            _registry.Register("semantic_get_variable_history_source",
-                "查询变量的历史数据存储位置。给定变量节点ID，返回该变量关联的「历史数据源」关系——即数据存储在哪个数据源、哪张表、哪些字段。AI Agent 可据此自动定位历史数据执行查询。",
-                new SemanticGetVariableHistorySourceTool(),
-                new Dictionary<string, (string, string, bool)>
-                {
-                    ["variable_node_id"] = ("string", "变量节点ID，必填", true)
-                });
-
-            // ======================== 设备 CRUD 工具（Phase 1: AI 可配置设备） ========================
+            // ── 设备 CRUD 工具（Phase 1: AI 可配置设备） ──
 
             _registry.Register("add_device",
                 "创建新采集设备。支持全部40种驱动协议。name 必填，driver 默认为 Simulator。",
@@ -992,30 +785,6 @@ namespace IndustrialDataCollection.Services
                 "热重载设备配置，使 add_device/add_variables/update_device 等变更立即生效。无需重启应用。",
                 new ReloadConfigTool());
 
-            // ======================== 语义层写工具 ========================
-
-            _registry.Register("semantic_create_variable_relation",
-                "创建两个变量之间的语义关系（上限/下限/SOP步骤/业务关联等17种类型）。AI可建立设备间的数据约束与业务逻辑。",
-                new SemanticCreateVariableRelationTool(),
-                new Dictionary<string, (string, string, bool)>
-                {
-                    ["source_node_id"] = ("string", "源变量语义节点ID，必填", true),
-                    ["target_node_id"] = ("string", "目标变量语义节点ID，必填。可以是另一个变量节点或常量/数据源字段", true),
-                    ["relation_type"] = ("string", "关系类型，必填。17种可选: 上限/下限/目标值/标准值/SOP步骤/SIP要求/质量判定/报警阈值/补偿系数/计算公式/参考变量/业务关联/影响/约束/计算来源/关联设备/历史数据源", true),
-                    ["description"] = ("string", "关系描述说明", false)
-                });
-
-            _registry.Register("semantic_create_event_config",
-                "为设备/变量配置事件规则（启动/停止/报警/故障等9种类型）。可指定事件触发后的12种处理方式。",
-                new SemanticCreateEventConfigTool(),
-                new Dictionary<string, (string, string, bool)>
-                {
-                    ["node_id"] = ("string", "语义节点ID（设备/变量均可），必填", true),
-                    ["event_type"] = ("string", "事件类型，必填。9种: 启动/停止/报警/故障/恢复/参数修改/通讯中断/维护保养/AI分析", true),
-                    ["processing_method"] = ("string", "处理方式。12种: 仅记录/报警/消息通知/站内消息/邮件/短信/Webhook/调用API/触发工作流/生成工单/触发MCP任务/触发AI分析", false),
-                    ["description"] = ("string", "事件描述", false)
-                });
-
             // ======================== 数据源分析工具 ========================
 
             _registry.Register("datasource_list_all",
@@ -1055,29 +824,14 @@ namespace IndustrialDataCollection.Services
                     ["limit"] = ("number", "最大返回行数，默认100", false)
                 });
 
-            // v2.5.1: 平台自描述工具
+            // v2.5.1: 平台自描述工具（社区版：overview/drivers/tools）
             var introService = new McpPlatformIntroService();
             _registry.Register("introduce_platform",
-                "介绍工业数采平台的核心能力、41种驱动、48个MCP工具分类和使用方法。AI Agent连接后建议优先调用此工具了解平台全貌。支持 topic 参数：overview(概览)/drivers(驱动)/tools(工具)/semantic(语义)/fabric(分析)/best_practices(最佳实践)",
+                "介绍工业数采平台的核心能力、40种驱动、MCP工具分类和使用方法。AI Agent连接后建议优先调用此工具了解平台全貌。支持 topic 参数：overview(概览)/drivers(驱动)/tools(工具)/best_practices(最佳实践)",
                 new IntroducePlatformTool(introService),
                 new Dictionary<string, (string, string, bool)>
                 {
-                    ["topic"] = ("string", "主题：overview(默认)/drivers/tools/semantic/fabric/best_practices", false)
-                });
-
-            _registry.Register("fabric_list_operators",
-                "列出所有可用的 Fabric 声明式分析算子（window_aggregate/trend_detect/threshold_alarm/daily_report）及其参数说明",
-                new FabricListOperatorsTool());
-
-            _registry.Register("fabric_execute",
-                "执行 Fabric 声明式分析请求。operator 选择 window_aggregate/trend_detect/threshold_alarm/daily_report，params 按算子要求传入。返回结构化分析结果",
-                new FabricExecuteTool(),
-                new Dictionary<string, (string, string, bool)>
-                {
-                    ["operator"] = ("string", "算子名称: window_aggregate/trend_detect/threshold_alarm/daily_report", true),
-                    ["params"] = ("object", "算子参数 JSON 对象，键值按算子要求传入", true),
-                    ["time_range"] = ("string", "时间范围: realtime/5m/1h/24h/7d 或 '2026-06-30 08:00/2026-06-30 20:00'", false),
-                    ["output"] = ("object", "输出配置: {type: return|file|mqtt, path: '...', topic: '...'}", false)
+                    ["topic"] = ("string", "主题：overview(默认)/drivers/tools/best_practices", false)
                 });
         }
 
@@ -1362,58 +1116,6 @@ namespace IndustrialDataCollection.Services
                 }).ToList()
             });
         }
-    }
-
-    /// <summary>Fabric: 列出可用分析算子</summary>
-    internal class FabricListOperatorsTool : IMcpTool
-    {
-        public Task<object> ExecuteAsync(JObject args)
-        {
-            }).ToList();
-
-            return Task.FromResult<object>(new { total = ops.Count, operators = ops });
-        }
-    }
-
-    /// <summary>Fabric: 执行声明式分析</summary>
-    internal class FabricExecuteTool : IMcpTool
-    {
-        public async Task<object> ExecuteAsync(JObject args)
-        {
-            string op = args["operator"]?.ToString() ?? "";
-            if (string.IsNullOrEmpty(op))
-                throw new ArgumentException("缺少 operator 参数");
-
-            var request = new FabricRequest
-            {
-                Operator = op,
-                TimeRange = args["time_range"]?.ToString() ?? "1h"
-            };
-
-            // 解析 params
-            if (args["params"] is JObject paramObj)
-            {
-                foreach (var prop in paramObj.Properties())
-                {
-                    if (prop.Value is JArray arr)
-                        request.Params[prop.Name] = arr.Select(x => ((JValue)x).Value).ToList();
-                    else
-                        request.Params[prop.Name] = ((JValue)prop.Value)?.Value;
-                }
-            }
-
-            // 解析 output
-            if (args["output"] is JObject outObj)
-            {
-                request.Output = new FabricOutput
-                {
-                    Type = outObj["type"]?.ToString() ?? "return",
-                    Path = outObj["path"]?.ToString() ?? "",
-                    Topic = outObj["topic"]?.ToString() ?? "",
-                    Email = outObj["email"]?.ToString() ?? ""
-                };
-            }
-
     }
 
     /// <summary>v2.5.1: 平台自描述工具</summary>
