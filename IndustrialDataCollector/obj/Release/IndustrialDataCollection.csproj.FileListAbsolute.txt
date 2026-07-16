@@ -1,0 +1,9 @@
+C:\Users\Administrator\Desktop\C#\开原版\IndustrialDataCollector-Community\IndustrialDataCollector\obj\Release\IndustrialDataCollection.csproj.AssemblyReference.cache
+C:\Users\Administrator\Desktop\C#\开原版\IndustrialDataCollector-Community\IndustrialDataCollector\obj\Release\IndustrialDataCollection.Properties.Resources.resources
+C:\Users\Administrator\Desktop\C#\开原版\IndustrialDataCollector-Community\IndustrialDataCollector\obj\Release\IndustrialDataCollection.csproj.GenerateResource.cache
+C:\Users\Administrator\Desktop\C#\开原版\IndustrialDataCollector-Community\IndustrialDataCollector\obj\Release\IndustrialDataCollection.Forms.DatabaseConfigForm.resources
+C:\Users\Administrator\Desktop\C#\开原版\IndustrialDataCollector-Community\IndustrialDataCollector\obj\Release\IndustrialDataCollection.Forms.AboutForm.resources
+C:\Users\Administrator\Desktop\C#\开原版\IndustrialDataCollector-Community\IndustrialDataCollector\obj\Release\IndustrialDataCollection.Forms.MainForm.resources
+C:\Users\Administrator\Desktop\C#\开原版\IndustrialDataCollector-Community\IndustrialDataCollector\obj\Release\IndustrialDataCollection.Forms.DeviceConfigForm.resources
+C:\Users\Administrator\Desktop\C#\开原版\IndustrialDataCollector-Community\IndustrialDataCollector\obj\Release\IndustrialDataCollection.Forms.MqttConfigForm.resources
+C:\Users\Administrator\Desktop\C#\开原版\IndustrialDataCollector-Community\IndustrialDataCollector\obj\Release\IndustrialDataCollection.csproj.CoreCompileInputs.cache

@@ -1,0 +1,22 @@
+# NuGet packages — 通过 nuget restore 恢复
+packages/
+
+# Build output
+bin/
+obj/
+*.suo
+*.user
+*.vs/
+
+# Logs
+Logs/
+*.log
+
+# Data
+Data/
+*.db
+*.db-journal
+
+# IDE
+.vs/
+*.csproj.user

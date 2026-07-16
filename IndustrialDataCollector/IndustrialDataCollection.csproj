@@ -1,0 +1,434 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{880808C6-B633-45A5-8725-80FC4AB0DC42}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>IndustrialDataCollection</RootNamespace>
+    <AssemblyName>IndustrialDataCollector</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <!-- <LangVersion>7.3</LangVersion> -->
+    <ApplicationIcon>tubiao.ico</ApplicationIcon>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=2.0.17.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.17\lib\net45\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="MQTTnet, Version=4.3.7.1207, Culture=neutral, PublicKeyToken=fdb7629f2e364a63, processorArchitecture=MSIL">
+      <HintPath>..\packages\MQTTnet.4.3.7.1207\lib\net48\MQTTnet.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NModbus, Version=3.0.82.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NModbus.3.0.82\lib\net46\NModbus.dll</HintPath>
+    </Reference>
+    <Reference Include="NModbus.Serial, Version=3.0.82.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NModbus.Serial.3.0.82\lib\net46\NModbus.Serial.dll</HintPath>
+    </Reference>
+    <Reference Include="S7.Net, Version=0.20.0.0, Culture=neutral, PublicKeyToken=d5812d469e84c693, processorArchitecture=MSIL">
+      <HintPath>..\packages\S7netplus.0.20.0\lib\net462\S7.Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data">
+      <HintPath>..\packages\MySql.Data.8.0.33\lib\net48\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Npgsql">
+      <HintPath>..\packages\Npgsql.4.1.14\lib\net461\Npgsql.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\netstandard2.0\System.Numerics.Vectors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.HashCode.1.1.1\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=6.0.0.4, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.4\lib\net461\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Opc.Ua.Core, Version=1.4.372.0, Culture=neutral, PublicKeyToken=bfa7a73c5cf4b6e8, processorArchitecture=MSIL">
+      <HintPath>..\packages\OPCFoundation.NetStandard.Opc.Ua.Core.1.4.372.76\lib\net48\Opc.Ua.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Opc.Ua.Client, Version=1.4.372.0, Culture=neutral, PublicKeyToken=bfa7a73c5cf4b6e8, processorArchitecture=MSIL">
+      <HintPath>..\packages\OPCFoundation.NetStandard.Opc.Ua.Client.1.4.372.76\lib\net48\Opc.Ua.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Opc.Ua.Configuration, Version=1.4.372.0, Culture=neutral, PublicKeyToken=bfa7a73c5cf4b6e8, processorArchitecture=MSIL">
+      <HintPath>..\packages\OPCFoundation.NetStandard.Opc.Ua.Configuration.1.4.372.76\lib\net48\Opc.Ua.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Opc.Ua.Bindings.Https, Version=1.4.372.0, Culture=neutral, PublicKeyToken=bfa7a73c5cf4b6e8, processorArchitecture=MSIL">
+      <HintPath>..\packages\OPCFoundation.NetStandard.Opc.Ua.Bindings.Https.1.4.372.76\lib\net48\Opc.Ua.Bindings.Https.dll</HintPath>
+    </Reference>
+    <Reference Include="Opc.Ua.Security.Certificates, Version=1.4.372.0, Culture=neutral, PublicKeyToken=bfa7a73c5cf4b6e8, processorArchitecture=MSIL">
+      <HintPath>..\packages\OPCFoundation.NetStandard.Opc.Ua.Security.Certificates.1.4.372.76\lib\net48\Opc.Ua.Security.Certificates.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.SQLite">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.118.0\lib\net46\System.Data.SQLite.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Drivers\IDriver.cs" />
+    <Compile Include="Drivers\DriverManager.cs" />
+    <Compile Include="Drivers\ModbusTcpDriver.cs" />
+    <Compile Include="Drivers\SiemensS7Driver.cs" />
+    <Compile Include="Drivers\SimulatorDriver.cs" />
+    <Compile Include="Drivers\ModbusHelper.cs" />
+    <Compile Include="Drivers\ModbusRtuDriver.cs" />
+    <Compile Include="Drivers\MqttSubscribeDriver.cs" />
+    <Compile Include="Drivers\OpcUaDriver.cs" />
+    <Compile Include="Drivers\HttpRestDriver.cs" />
+    <Compile Include="Drivers\EtherNetIpDriver.cs" />
+    <Compile Include="Drivers\ProfinetDriver.cs" />
+    <Compile Include="Drivers\BACnetDriver.cs" />
+    <Compile Include="Drivers\IEC104Driver.cs" />
+    <Compile Include="Drivers\IEC61850Driver.cs" />
+    <Compile Include="Drivers\DNP3Driver.cs" />
+    <Compile Include="Drivers\LonWorksDriver.cs" />
+    <Compile Include="Drivers\KNXDriver.cs" />
+    <Compile Include="Drivers\SecsGemDriver.cs" />
+    <Compile Include="Drivers\FanucFocasDriver.cs" />
+    <Compile Include="Drivers\MTConnectDriver.cs" />
+    <Compile Include="Drivers\HeidenhainDriver.cs" />
+    <Compile Include="Drivers\OpcUaPubSubDriver.cs" />
+    <Compile Include="Drivers\SparkplugBDriver.cs" />
+    <Compile Include="Drivers\MELSECMcDriver.cs" />
+    <Compile Include="Drivers\FinsDriver.cs" />
+    <Compile Include="Drivers\HostLinkDriver.cs" />
+    <Compile Include="Drivers\KeyenceKVDriver.cs" />
+    <Compile Include="Drivers\CODESYSDriver.cs" />
+    <Compile Include="Drivers\BeckhoffADSDriver.cs" />
+    <Compile Include="Drivers\CCLinkDriver.cs" />
+    <Compile Include="Drivers\PROFIBUSDriver.cs" />
+    <Compile Include="Drivers\DeviceNetDriver.cs" />
+    <Compile Include="Drivers\MitsubishiFXDriver.cs" />
+    <Compile Include="Drivers\PanasonicMewtocolDriver.cs" />
+    <Compile Include="Drivers\HaasCNCDriver.cs" />
+    <Compile Include="Drivers\Siemens840DDriver.cs" />
+    <Compile Include="Drivers\MazakDriver.cs" />
+    <Compile Include="Drivers\DALIDriver.cs" />
+    <Compile Include="Drivers\MBusDriver.cs" />
+    <Compile Include="Drivers\DLMSDriver.cs" />
+    <Compile Include="Drivers\HARTIPDriver.cs" />
+    <Compile Include="Drivers\OPCDADriver.cs" />
+    <Compile Include="Controls\TunnelSelectionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+      <SubType>Form</SubType>
+    </Compile>
+      <DependentUpon>DeviceCloneForm.cs</DependentUpon>
+    </Compile>
+      <SubType>Form</SubType>
+    </Compile>
+      <DependentUpon>TemplateApplyForm.cs</DependentUpon>
+    </Compile>
+      <SubType>Form</SubType>
+    </Compile>
+      <DependentUpon>TemplateGeneratorForm.cs</DependentUpon>
+    </Compile>
+      <SubType>Form</SubType>
+    </Compile>
+      <DependentUpon>TemplateManagerForm.cs</DependentUpon>
+    </Compile>
+      <SubType>Form</SubType>
+    </Compile>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MainForm.DeviceTree.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DeviceConfigForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DeviceConfigForm.Designer.cs">
+      <DependentUpon>DeviceConfigForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MqttConfigForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MqttConfigForm.Designer.cs">
+      <DependentUpon>MqttConfigForm.cs</DependentUpon>
+    </Compile>
+      <SubType>Form</SubType>
+    </Compile>
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Forms\DatabaseConfigForm.resx">
+      <DependentUpon>DatabaseConfigForm.cs</DependentUpon>
+    </EmbeddedResource>
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+      <SubType>Form</SubType>
+    </Compile>
+      <SubType>Form</SubType>
+    </Compile>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AboutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DataSourceManagerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DatabaseConfigForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\McpConfigForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Models\DeviceConfig.cs" />
+    <Compile Include="Models\DeviceGroupInfo.cs" />
+    <Compile Include="Models\NetworkTunnel.cs" />
+    <Compile Include="Models\DataPoint.cs" />
+    <Compile Include="Models\DataSourceConnection.cs" />
+    <Compile Include="Models\DataSourceFolder.cs" />
+    <Compile Include="Models\TableMeta.cs" />
+    <Compile Include="Models\MqttConfig.cs" />
+    <Compile Include="Models\CollectedData.cs" />
+    <Compile Include="Services\TunnelPoolService.cs" />
+    <Compile Include="Services\ConfigService.cs" />
+    <Compile Include="Services\DataCollectionService.cs" />
+    <Compile Include="Services\DataSourceService.cs" />
+    <Compile Include="Services\DatabaseWriteService.cs" />
+    <Compile Include="Services\DbAdapters\IDbAdapter.cs" />
+    <Compile Include="Services\DbAdapters\MySqlAdapter.cs" />
+    <Compile Include="Services\DbAdapters\SQLiteAdapter.cs" />
+    <Compile Include="Services\DbAdapters\SqlServerAdapter.cs" />
+    <Compile Include="Services\DbAdapters\PostgreSqlAdapter.cs" />
+    <Compile Include="Services\DbAdapters\DataSourceRouter.cs" />
+    <Compile Include="Services\RestApiService.cs" />
+    <Compile Include="Services\McpService.cs" />
+    <Compile Include="Services\MqttPublishService.cs" />
+    <Compile Include="Services\DataProcessor.cs" />
+    <Compile Include="Services\McpDeviceTools.cs" />
+    <Compile Include="Models\DataPacket.cs" />
+    <Compile Include="Services\McpPlatformIntroService.cs" />
+    <Compile Include="Services\CommunityStubs.cs" />
+    <Compile Include="Utils\LanguageManager.cs" />
+    <Compile Include="Utils\CredentialStore.cs" />
+    <Compile Include="Utils\Logger.cs" />
+    <Compile Include="Utils\IndustrialVocabulary.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+    <Compile Include="Controls\\TunnelSelectionControl.cs" />
+    <Compile Include="Drivers\\BACnetDriver.cs" />
+    <Compile Include="Drivers\\BeckhoffADSDriver.cs" />
+    <Compile Include="Drivers\\CCLinkDriver.cs" />
+    <Compile Include="Drivers\\CODESYSDriver.cs" />
+    <Compile Include="Drivers\\DALIDriver.cs" />
+    <Compile Include="Drivers\\DLMSDriver.cs" />
+    <Compile Include="Drivers\\DNP3Driver.cs" />
+    <Compile Include="Drivers\\DeviceNetDriver.cs" />
+    <Compile Include="Drivers\\DriverManager.cs" />
+    <Compile Include="Drivers\\EtherNetIpDriver.cs" />
+    <Compile Include="Drivers\\FanucFocasDriver.cs" />
+    <Compile Include="Drivers\\FinsDriver.cs" />
+    <Compile Include="Drivers\\HARTIPDriver.cs" />
+    <Compile Include="Drivers\\HaasCNCDriver.cs" />
+    <Compile Include="Drivers\\HeidenhainDriver.cs" />
+    <Compile Include="Drivers\\HostLinkDriver.cs" />
+    <Compile Include="Drivers\\HttpRestDriver.cs" />
+    <Compile Include="Drivers\\IDriver.cs" />
+    <Compile Include="Drivers\\IEC104Driver.cs" />
+    <Compile Include="Drivers\\IEC61850Driver.cs" />
+    <Compile Include="Drivers\\KNXDriver.cs" />
+    <Compile Include="Drivers\\KeyenceKVDriver.cs" />
+    <Compile Include="Drivers\\LonWorksDriver.cs" />
+    <Compile Include="Drivers\\MBusDriver.cs" />
+    <Compile Include="Drivers\\MELSECMcDriver.cs" />
+    <Compile Include="Drivers\\MTConnectDriver.cs" />
+    <Compile Include="Drivers\\MazakDriver.cs" />
+    <Compile Include="Drivers\\MitsubishiFXDriver.cs" />
+    <Compile Include="Drivers\\ModbusHelper.cs" />
+    <Compile Include="Drivers\\ModbusRtuDriver.cs" />
+    <Compile Include="Drivers\\ModbusTcpDriver.cs" />
+    <Compile Include="Drivers\\MqttSubscribeDriver.cs" />
+    <Compile Include="Drivers\\OPCDADriver.cs" />
+    <Compile Include="Drivers\\OpcUaDriver.cs" />
+    <Compile Include="Drivers\\OpcUaPubSubDriver.cs" />
+    <Compile Include="Drivers\\PROFIBUSDriver.cs" />
+    <Compile Include="Drivers\\PanasonicMewtocolDriver.cs" />
+    <Compile Include="Drivers\\ProfinetDriver.cs" />
+    <Compile Include="Drivers\\SecsGemDriver.cs" />
+    <Compile Include="Drivers\\Siemens840DDriver.cs" />
+    <Compile Include="Drivers\\SiemensS7Driver.cs" />
+    <Compile Include="Drivers\\SimulatorDriver.cs" />
+    <Compile Include="Drivers\\SparkplugBDriver.cs" />
+    <Compile Include="Forms\\AboutForm.cs" />
+    <Compile Include="Forms\\DataSourceManagerForm.cs" />
+    <Compile Include="Forms\\DatabaseConfigForm.cs" />
+    <Compile Include="Forms\\DeviceConfigForm.Designer.cs" />
+    <Compile Include="Forms\\DeviceConfigForm.cs" />
+    <Compile Include="Forms\\MainForm.Designer.cs" />
+    <Compile Include="Forms\\MainForm.DeviceTree.cs" />
+    <Compile Include="Forms\\MainForm.cs" />
+    <Compile Include="Forms\\McpConfigForm.cs" />
+    <Compile Include="Forms\\MqttConfigForm.Designer.cs" />
+    <Compile Include="Forms\\MqttConfigForm.cs" />
+    <Compile Include="Models\\CollectedData.cs" />
+    <Compile Include="Models\\DataPacket.cs" />
+    <Compile Include="Models\\DataPoint.cs" />
+    <Compile Include="Models\\DataSourceConnection.cs" />
+    <Compile Include="Models\\DataSourceFolder.cs" />
+    <Compile Include="Models\\DeviceConfig.cs" />
+    <Compile Include="Models\\DeviceGroupInfo.cs" />
+    <Compile Include="Models\\MqttConfig.cs" />
+    <Compile Include="Models\\NetworkTunnel.cs" />
+    <Compile Include="Models\\TableMeta.cs" />
+    <Compile Include="Properties\\AssemblyInfo.cs" />
+    <Compile Include="Properties\\Resources.Designer.cs" />
+    <Compile Include="Properties\\Settings.Designer.cs" />
+    <Compile Include="Services\\CommunityStubs.cs" />
+    <Compile Include="Services\\ConfigService.cs" />
+    <Compile Include="Services\\DataCollectionService.cs" />
+    <Compile Include="Services\\DataProcessor.cs" />
+    <Compile Include="Services\\DataSourceService.cs" />
+    <Compile Include="Services\\DatabaseWriteService.cs" />
+    <Compile Include="Services\\DbAdapters\\DataSourceRouter.cs" />
+    <Compile Include="Services\\DbAdapters\\IDbAdapter.cs" />
+    <Compile Include="Services\\DbAdapters\\MySqlAdapter.cs" />
+    <Compile Include="Services\\DbAdapters\\PostgreSqlAdapter.cs" />
+    <Compile Include="Services\\DbAdapters\\SQLiteAdapter.cs" />
+    <Compile Include="Services\\DbAdapters\\SqlServerAdapter.cs" />
+    <Compile Include="Services\\McpDeviceTools.cs" />
+    <Compile Include="Services\\McpPlatformIntroService.cs" />
+    <Compile Include="Services\\McpService.cs" />
+    <Compile Include="Services\\MqttPublishService.cs" />
+    <Compile Include="Services\\RestApiService.cs" />
+    <Compile Include="Services\\TunnelPoolService.cs" />
+    <Compile Include="Utils\\CredentialStore.cs" />
+    <Compile Include="Utils\\IndustrialVocabulary.cs" />
+    <Compile Include="Utils\\LanguageManager.cs" />
+    <Compile Include="Utils\\Logger.cs" />
+    <Compile Include="obj\\Release\\.NETFramework,Version=v4.8.AssemblyAttributes.cs" />
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="tubiao.ico" />
+    <EmbeddedResource Include="Forms\AboutForm.resx">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DeviceConfigForm.resx">
+      <DependentUpon>DeviceConfigForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MqttConfigForm.resx">
+      <DependentUpon>MqttConfigForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Resources\Lang_zh.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Lang_en.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>powershell -Command "Copy-Item '$(ProjectDir)..\packages\System.Data.SQLite.Core.1.0.118.0\lib\net46\x86\SQLite.Interop.dll' '$(TargetDir)' -Force"</PostBuildEvent>
+  </PropertyGroup>
+</Project>
+  <ItemGroup>
+    <EmbeddedResource Include="Forms\\AboutForm.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Forms\\DatabaseConfigForm.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Forms\\DeviceConfigForm.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Forms\\MainForm.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Forms\\MqttConfigForm.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\\Resources.resx" />
+  </ItemGroup>
