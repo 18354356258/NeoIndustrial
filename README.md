@@ -84,6 +84,7 @@ IndustrialDataCollector 是一套**生产级工业数据采集引擎 ** — 已�
    └──────────┘   └──────────┘   └──────────────┘
 ```
 
+
 ## ✨ 核心能力
 
 | 模块 | 社区版 |
@@ -97,6 +98,18 @@ IndustrialDataCollector 是一套**生产级工业数据采集引擎 ** — 已�
 | 🌍 **中英双语** — 运行时无重启切换 | ✅ |
 | 🧪 **模拟器驱动** — 20+ 模拟变量，没硬件也能跑通全链路 | ✅ |
 | 🚀 **零门槛** — 无加密、无认证、无 License、无硬件绑定，解压即用 | ✅ |
+
+设备管理：
+
+![设备管理](picture/%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86.png)
+
+设备模板生成：
+
+![设备模板生成](picture/%E8%AE%BE%E5%A4%87%E6%A8%A1%E6%9D%BF%E7%94%9F%E6%88%90-%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86.png)
+
+设备配置：
+
+![配置](picture/%E8%AE%BE%E5%A4%87%E6%A8%A1%E6%9D%BF%E7%94%9F%E6%88%90-%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86.png)
 
 ## 🔌 40 协议驱动全清单
 
@@ -149,6 +162,8 @@ IndustrialDataCollector 是一套**生产级工业数据采集引擎 ** — 已�
 | **OPC UA PubSub** | OPC UA 发布/订阅模式 |
 | **Simulator** | 内置 20+ 模拟变量（正弦波/方波/随机/递增） |
 
+
+
 ---
 
 ## 🚀 5 分钟上手
@@ -198,7 +213,30 @@ git clone https://gitee.com/jede_master/IndustrialDataCollector.git
 - **搜索框** → 按设备名或 IP 实时过滤
 - **右键「移动到…」** → 弹出路径选择对话框精准迁移
 
-### 变量点配置
+### 变量点配置 （每一个变量均可单独清洗、配置、设置语义、报警。。。业务场景有的这里应该都有。。没有的大家来出主意。。）
+
+
+基本信息：
+
+![输入图片说明](picture/%E5%8F%98%E9%87%8F%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF.png)
+
+变量报警：
+
+![输入图片说明](picture/%E5%8F%98%E9%87%8F%E6%8A%A5%E8%AD%A6.png)
+
+变量自定义脚本：
+
+![输入图片说明](picture/%E5%8F%98%E9%87%8F%E8%87%AA%E5%AE%9A%E4%B9%89%E8%84%9A%E6%9C%AC.png)
+
+变量边缘计算：
+
+![输入图片说明](picture/%E5%8F%98%E9%87%8F%E8%BE%B9%E7%BC%98%E8%AE%A1%E7%AE%97.png)
+
+变量高级计算：
+
+![输入图片说明](picture/%E5%8F%98%E9%87%8F%E9%AB%98%E7%BA%A7%E8%AE%A1%E7%AE%97-%E5%85%AC%E5%BC%8F%E5%A5%97%E7%94%A8%E8%BD%AC%E6%8D%A2.png)
+
+
 
 每个设备下挂载变量点（Data Points），定义采集什么、怎么处理：
 
@@ -232,6 +270,10 @@ git clone https://gitee.com/jede_master/IndustrialDataCollector.git
 同时每个变量有独立子话题 `{TopicPrefix}/{DeviceName}/temperature` 推送单值。
 
 ### 数据库配置
+
+
+![输入图片说明](picture/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%86%99%E5%85%A5%E9%85%8D%E7%BD%AE.png)
+
 
 | 数据库 | 连接串示例 | 自动建表 |
 |--------|-----------|:---:|
@@ -283,6 +325,14 @@ CSV 格式（UTF-8，Excel 可直接编辑）：
 </section>
 
 ### 🧬 语义层 · 数字孪生引擎
+
+
+![输入图片说明](picture/%E7%9C%8B%E6%9D%BF.png)
+
+
+![输入图片说明](picture/%E8%AF%AD%E4%B9%89%E7%AE%A1%E7%90%86.png)
+
+
 
 > 把"40001 = 245.6"变成"3号挤压车间▶1号线▶主机▶缸体温度偏高，建议检查冷却泵 #3"
 
