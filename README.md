@@ -184,13 +184,27 @@ IndustrialDataCollector 是一套**生产级工业数据采集引擎 ** — 已�
 
 ### 安装
 
-```bash
-# 1. 克隆仓库
-git clone https://gitee.com/jede_master/IndustrialDataCollector.git
+> ⚠️ **下载 zip 的用户务必先看这里！** Windows 会对下载的文件打上安全标记，导致 VS 编译报错。
 
-# 2. 用 Visual Studio 2019+ 打开 .sln 编译
-# 或者直接下载 Release 压缩包解压运行
+**方式一：下载 Release 包（推荐，无需编译）**
+
+去 [Releases](https://gitee.com/jede_master/IndustrialDataCollector/releases) 下载最新 zip，解压后**双击运行 `setup.bat`**（解除 Web 标记 + 还原 NuGet 包），然后用 VS 打开 `.sln` 编译。
+
+或直接运行 `Release/IndustrialDataCollector.exe`（已编译好，无需 VS）。
+
+**方式二：Git 克隆**
+
+```bash
+git clone https://gitee.com/jede_master/IndustrialDataCollector.git
+cd IndustrialDataCollector
+setup.bat          # 一键还原 NuGet 包
 ```
+
+然后用 Visual Studio 2019+ 打开 `IndustrialDataCollector.sln` → 生成 → 运行。
+
+> 如果 `setup.bat` 无法运行，手动执行两步：
+> 1. PowerShell 管理员运行：`Get-ChildItem -Recurse | Unblock-File`
+> 2. VS 中右键解决方案 → 还原 NuGet 包
 
 ### 第一个采集任务（模拟器模式，无需硬件）
 
