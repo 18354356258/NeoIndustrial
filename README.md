@@ -103,9 +103,6 @@ IndustrialDataCollector 是一套**生产级工业数据采集引擎 ** — 已�
 
 ![设备管理](picture/%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86.png)
 
-设备模板生成：
-
-![设备模板生成](picture/%E8%AE%BE%E5%A4%87%E6%A8%A1%E6%9D%BF%E7%94%9F%E6%88%90-%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86.png)
 
 设备配置：
 
