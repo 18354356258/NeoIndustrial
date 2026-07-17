@@ -61,6 +61,18 @@ IndustrialDataCollector 是一套**生产级工业数据采集引擎 ** — 已�
 
 ---
 
+ **AI对话式获取实时数据、增加设备、变量、分析历史数据** 
+
+![输入图片说明](picture/AI%E5%AF%B9%E8%AF%9D.png)
+
+
+![输入图片说明](picture/AI%E5%AF%B9%E8%AF%9D1.png)
+
+
+![输入图片说明](picture/AI%E5%AF%B9%E8%AF%9D2.png)
+
+
+
 ## 🧠 架构一览
 
 ```
