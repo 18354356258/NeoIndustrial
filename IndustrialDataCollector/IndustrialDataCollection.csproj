@@ -250,7 +250,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-  <Compile Include="Services\CommunityStubs.cs" /><Compile Include="obj\Release\.NETFramework,Version=v4.8.AssemblyAttributes.cs" /></ItemGroup>
+  <Compile Include="Services\CommunityStubs.cs" /></ItemGroup>
   <ItemGroup>
     <Content Include="tubiao.ico" />
     <EmbeddedResource Include="Forms\AboutForm.resx">

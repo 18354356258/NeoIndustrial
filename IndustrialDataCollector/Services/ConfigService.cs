@@ -42,6 +42,8 @@ namespace IndustrialDataCollection.Services
         private readonly string _groupsFile;
         private MqttConfig _mqttConfig;
 
+        private static readonly System.Text.UTF8Encoding Utf8WithBom = new System.Text.UTF8Encoding(true);
+
         private ConfigService()
         {
             _configDir = Path.Combine(
@@ -90,7 +92,7 @@ namespace IndustrialDataCollection.Services
                     try { await Task.Run(() => File.Copy(_devicesFile, bak1, true)); } catch { }
                 }
 
-                await Task.Run(() => File.WriteAllText(_devicesFile, json));
+                await Task.Run(() => File.WriteAllText(_devicesFile, json, Utf8WithBom));
                 Logger.Info("设备配置已保存: " + devices.Count + " 台设备");
                 OnSaved?.Invoke();
 
@@ -175,7 +177,7 @@ namespace IndustrialDataCollection.Services
                             // 备份损坏文件，用 bak 恢复
                             string corrupted = _devicesFile + ".corrupted";
                             try { File.Copy(_devicesFile, corrupted, true); } catch { }
-                            File.WriteAllText(_devicesFile, bakJson);
+                            File.WriteAllText(_devicesFile, bakJson, Utf8WithBom);
                             Logger.Info($"[RECOVERY] 成功从备份恢复 {recovered.Count} 台设备，损坏文件已保存至 .corrupted");
                             return recovered;
                         }
@@ -197,7 +199,7 @@ namespace IndustrialDataCollection.Services
                         var histDevices = JsonConvert.DeserializeObject<List<DeviceConfig>>(histJson);
                         if (histDevices != null && histDevices.Count > 0)
                         {
-                            File.WriteAllText(_devicesFile, histJson);
+                            File.WriteAllText(_devicesFile, histJson, Utf8WithBom);
                             Logger.Info($"[RECOVERY] 从历史备份 .bak.{i} 恢复 {histDevices.Count} 台设备");
                             return histDevices;
                         }
@@ -235,7 +237,7 @@ namespace IndustrialDataCollection.Services
                     try { File.Copy(_devicesFile, bak1, true); } catch { }
                 }
 
-                File.WriteAllText(_devicesFile, json);
+                File.WriteAllText(_devicesFile, json, Utf8WithBom);
 
                 // v2.6.0: 语义层数据库联动备份
                 string semDb = Path.Combine(_configDir, "semantic_v2.db");
@@ -275,7 +277,7 @@ namespace IndustrialDataCollection.Services
             {
                 _mqttConfig = config;
                 var json = JsonConvert.SerializeObject(config, Formatting.Indented);
-                await Task.Run(() => File.WriteAllText(_mqttFile, json));
+                await Task.Run(() => File.WriteAllText(_mqttFile, json, Utf8WithBom));
                 Logger.Info("MQTT 配置已保存");
             }
             catch (Exception ex)
@@ -340,7 +342,7 @@ namespace IndustrialDataCollection.Services
             {
                 _mqttConfig = config;
                 var json = JsonConvert.SerializeObject(config, Formatting.Indented);
-                File.WriteAllText(_mqttFile, json);
+                File.WriteAllText(_mqttFile, json, Utf8WithBom);
             }
             catch { }
         }
