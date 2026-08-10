@@ -4,6 +4,7 @@ packages/
 # Build output
 bin/
 obj/
+Release/
 *.suo
 *.user
 *.vs/
