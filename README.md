@@ -1,10 +1,10 @@
-# IndustrialDataCollector Community Edition
+# NeoIndustrial Community Edition
 
 <div align="center">
 
 [中文](README.md) | [English](README.en.md)
 
-**工业数据采集平台 · 社区版**
+**新工业AI数据基座 · 社区版**
 
 [![.NET Framework 4.8](https://img.shields.io/badge/.NET-4.8-blue)](https://dotnet.microsoft.com/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-green)](LICENSE)
@@ -190,7 +190,7 @@ IndustrialDataCollector 是一套**生产级工业数据采集引擎 ** — 已�
 
 **⬇️ 下载企业版客户端（免安装，解压即用）**
 
-企业版客户端可直接下载体验，无需 License、无需编译：
+企业版客户端可直接下载体验、License（底部邮件获取）、无需编译：
 
 > 📦 [下载企业版客户端 QY_Client.rar](https://github.com/18354356258/NeoIndustrial/raw/main/QY_Client.rar)
 
