@@ -188,6 +188,15 @@ IndustrialDataCollector 是一套**生产级工业数据采集引擎 ** — 已�
 
 > ⚠️ **下载 zip 的用户务必先看这里！** Windows 会对下载的文件打上安全标记，导致 VS 编译报错。
 
+**⬇️ 下载企业版客户端（免安装，解压即用）**
+
+企业版客户端可直接下载体验，无需 License、无需编译：
+
+> 📦 [下载企业版客户端 QY_Client.rar](https://github.com/18354356258/NeoIndustrial/raw/main/QY_Client.rar)
+
+- 解压后运行 `IndustrialDataCollection.exe` 即可启动（已编译好，无需安装、无需 VS）
+- 内置中英双语语言包；首次运行如被 Windows SmartScreen 拦截，点击「仍要运行」即可
+
 **方式一：下载 Release 包（推荐，无需编译）**
 
 去 [Releases](https://gitee.com/jede_master/IndustrialDataCollector/releases) 下载最新 zip，解压后**双击运行 `setup.bat`**（解除 Web 标记 + 还原 NuGet 包），然后用 VS 打开 `.sln` 编译。

