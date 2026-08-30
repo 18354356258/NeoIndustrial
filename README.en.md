@@ -1,10 +1,10 @@
-# IndustrialDataCollector Community Edition
+# NeoIndustrial Community Edition
 
 [中文](README.md) | **English**
 
 <div align="center">
 
-**Industrial Data Acquisition Platform · Community Edition**
+**NeoIndustrial Data Acquisition Platform · Community Edition**
 
 [![.NET Framework 4.8](https://img.shields.io/badge/.NET-4.8-blue)](https://dotnet.microsoft.com/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-green)](LICENSE)
@@ -190,7 +190,7 @@ Device configuration:
 
 **⬇️ Download the Enterprise Edition client (no install, unzip and run)**
 
-The Enterprise Edition client is available for direct download — no license, no build required:
+The Enterprise Edition client is available for direct download — License (obtain via email at bottom), no build required:
 
 > 📦 [Download Enterprise Client QY_Client.rar](https://github.com/18354356258/NeoIndustrial/raw/main/QY_Client.rar)
 
