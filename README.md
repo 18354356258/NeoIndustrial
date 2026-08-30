@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[中文](README.md) | **English**
+[中文](README.md) | [English](README.en.md)
 
 **工业数据采集平台 · 社区版**
 
