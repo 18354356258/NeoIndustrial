@@ -2,6 +2,8 @@
 
 <div align="center">
 
+[中文](README.md) | **English**
+
 **工业数据采集平台 · 社区版**
 
 [![.NET Framework 4.8](https://img.shields.io/badge/.NET-4.8-blue)](https://dotnet.microsoft.com/)
