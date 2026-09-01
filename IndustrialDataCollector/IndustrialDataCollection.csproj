@@ -184,6 +184,9 @@
     <Compile Include="Forms\DeviceConfigForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\PointEditForm_Edge.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\DeviceConfigForm.Designer.cs">
       <DependentUpon>DeviceConfigForm.cs</DependentUpon>
     </Compile>

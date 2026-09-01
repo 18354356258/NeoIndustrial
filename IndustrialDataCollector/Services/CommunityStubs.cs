@@ -294,17 +294,6 @@ namespace IndustrialDataCollection.Forms
     {
         public SemanticNodePickerForm() { }
     }
-    public class PointEditFormEdge : Form
-    {
-        public PointEditFormEdge() { }
-    }
-    public class PointEditForm_Edge : Form
-    {
-        public PointEditForm_Edge() { }
-        public PointEditForm_Edge(Models.DataPoint point, Models.DeviceConfig parentDevice) { }
-        public bool IsSaved => false;
-        public Models.DataPoint DataPoint => null;
-    }
     public class ApiServiceConfigForm : Form
     {
         public ApiServiceConfigForm(Services.RestApiService apiService) { }
