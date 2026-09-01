@@ -15,7 +15,7 @@
 
 </div>
 
----
+--- --- Download the Enterprise Edition client below, located in the 'Get Started in 5 Minutes' area.
 
 ## 🎨 The Story Behind This Software
 
