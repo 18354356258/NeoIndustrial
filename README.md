@@ -197,17 +197,12 @@ IndustrialDataCollector 是一套**生产级工业数据采集引擎 ** — 已�
 - 解压后运行 `IndustrialDataCollection.exe` 即可启动（已编译好，无需安装、无需 VS）
 - 内置中英双语语言包；首次运行如被 Windows SmartScreen 拦截，点击「仍要运行」即可
 
-**方式一：下载 Release 包（推荐，无需编译）**
-
-去 [Releases](https://gitee.com/jede_master/IndustrialDataCollector/releases) 下载最新 zip，解压后**双击运行 `setup.bat`**（解除 Web 标记 + 还原 NuGet 包），然后用 VS 打开 `.sln` 编译。
-
-或直接运行 `Release/IndustrialDataCollector.exe`（已编译好，无需 VS）。
 
 **方式二：Git 克隆**
 
 ```bash
-git clone https://gitee.com/jede_master/IndustrialDataCollector.git
-cd IndustrialDataCollector
+git clone https://gitee.com/jede_master/NeoIndustrial.git
+cd NeoIndustrial
 setup.bat          # 一键还原 NuGet 包
 ```
 
