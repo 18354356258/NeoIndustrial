@@ -89,20 +89,20 @@
       <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.4\lib\net461\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Opc.Ua.Core, Version=1.4.372.0, Culture=neutral, PublicKeyToken=bfa7a73c5cf4b6e8, processorArchitecture=MSIL">
-      <HintPath>..\packages\OPCFoundation.NetStandard.Opc.Ua.Core.1.4.372.76\lib\net48\Opc.Ua.Core.dll</HintPath>
+    <Reference Include="Opc.Ua.Core, Version=1.5.374.0, Culture=neutral, PublicKeyToken=bfa7a73c5cf4b6e8, processorArchitecture=MSIL">
+      <HintPath>..\packages\OPCFoundation.NetStandard.Opc.Ua.Core.1.5.374.118\lib\net48\Opc.Ua.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Opc.Ua.Client, Version=1.4.372.0, Culture=neutral, PublicKeyToken=bfa7a73c5cf4b6e8, processorArchitecture=MSIL">
-      <HintPath>..\packages\OPCFoundation.NetStandard.Opc.Ua.Client.1.4.372.76\lib\net48\Opc.Ua.Client.dll</HintPath>
+    <Reference Include="Opc.Ua.Client, Version=1.5.374.0, Culture=neutral, PublicKeyToken=bfa7a73c5cf4b6e8, processorArchitecture=MSIL">
+      <HintPath>..\packages\OPCFoundation.NetStandard.Opc.Ua.Client.1.5.374.118\lib\net48\Opc.Ua.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Opc.Ua.Configuration, Version=1.4.372.0, Culture=neutral, PublicKeyToken=bfa7a73c5cf4b6e8, processorArchitecture=MSIL">
-      <HintPath>..\packages\OPCFoundation.NetStandard.Opc.Ua.Configuration.1.4.372.76\lib\net48\Opc.Ua.Configuration.dll</HintPath>
+    <Reference Include="Opc.Ua.Configuration, Version=1.5.374.0, Culture=neutral, PublicKeyToken=bfa7a73c5cf4b6e8, processorArchitecture=MSIL">
+      <HintPath>..\packages\OPCFoundation.NetStandard.Opc.Ua.Configuration.1.5.374.118\lib\net48\Opc.Ua.Configuration.dll</HintPath>
     </Reference>
-    <Reference Include="Opc.Ua.Bindings.Https, Version=1.4.372.0, Culture=neutral, PublicKeyToken=bfa7a73c5cf4b6e8, processorArchitecture=MSIL">
-      <HintPath>..\packages\OPCFoundation.NetStandard.Opc.Ua.Bindings.Https.1.4.372.76\lib\net48\Opc.Ua.Bindings.Https.dll</HintPath>
+    <Reference Include="Opc.Ua.Bindings.Https, Version=1.5.374.0, Culture=neutral, PublicKeyToken=bfa7a73c5cf4b6e8, processorArchitecture=MSIL">
+      <HintPath>..\packages\OPCFoundation.NetStandard.Opc.Ua.Bindings.Https.1.5.374.118\lib\net48\Opc.Ua.Bindings.Https.dll</HintPath>
     </Reference>
-    <Reference Include="Opc.Ua.Security.Certificates, Version=1.4.372.0, Culture=neutral, PublicKeyToken=bfa7a73c5cf4b6e8, processorArchitecture=MSIL">
-      <HintPath>..\packages\OPCFoundation.NetStandard.Opc.Ua.Security.Certificates.1.4.372.76\lib\net48\Opc.Ua.Security.Certificates.dll</HintPath>
+    <Reference Include="Opc.Ua.Security.Certificates, Version=1.5.374.0, Culture=neutral, PublicKeyToken=bfa7a73c5cf4b6e8, processorArchitecture=MSIL">
+      <HintPath>..\packages\OPCFoundation.NetStandard.Opc.Ua.Security.Certificates.1.5.374.118\lib\net48\Opc.Ua.Security.Certificates.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Data.SQLite">
