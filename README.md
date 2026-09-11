@@ -9,7 +9,7 @@
 [![.NET Framework 4.8](https://img.shields.io/badge/.NET-4.8-blue)](https://dotnet.microsoft.com/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-green)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey)]()
-[![Gitee](https://img.shields.io/badge/Gitee-jede_master-red)](https://gitee.com/jede_master/IndustrialDataCollector)
+[![Gitee](https://img.shields.io/badge/Gitee-JEDI_MASTER-red)](https://gitee.com/JEDI_MASTER/neoIndustrial)
 
 ** MCP + 工业数采 =  **全球首位**  40 协议全免费 · MQTT 毫秒级上云 · AI 原生操控 · 工业 4.0 就绪**
 
@@ -192,7 +192,10 @@ IndustrialDataCollector 是一套**生产级工业数据采集引擎 ** — 已�
 
 企业版客户端可直接下载体验、License（底部邮件获取）、无需编译：
 
-> 📦 [下载企业版客户端 QY_Client.rar](https://github.com/18354356258/NeoIndustrial/raw/main/QY_Client.rar)
+> 📦 企业版客户端（最新版，解压即用）下载入口：
+> [GitHub Releases](https://github.com/18354356258/NeoIndustrial/releases)　|　[Gitee Releases](https://gitee.com/JEDI_MASTER/neoIndustrial/releases)
+>
+> 社区版源码与客户端包同样在上述 Releases 页面获取。
 
 - 解压后运行 `IndustrialDataCollection.exe` 即可启动（已编译好，无需安装、无需 VS）
 - 内置中英双语语言包；首次运行如被 Windows SmartScreen 拦截，点击「仍要运行」即可
@@ -201,7 +204,7 @@ IndustrialDataCollector 是一套**生产级工业数据采集引擎 ** — 已�
 **方式二：Git 克隆**
 
 ```bash
-git clone https://gitee.com/jede_master/NeoIndustrial.git
+git clone https://gitee.com/JEDI_MASTER/neoIndustrial.git
 cd NeoIndustrial
 setup.bat          # 一键还原 NuGet 包
 ```
@@ -525,10 +528,10 @@ CSV 格式（UTF-8，Excel 可直接编辑）：
 
 所以，不管你来自哪个城市、哪家工厂、哪所学校——**这里是你的项目，和我们所有人的。**
 
-- 🐛 提交 Bug → [Issues](https://gitee.com/jede_master/IndustrialDataCollector/issues)
+- 🐛 提交 Bug → [Issues](https://gitee.com/JEDI_MASTER/neoIndustrial/issues)
 - 💻 贡献代码 → Fork → PR（确保编译通过）
 - 🔌 需求新驱动 → Issue 标签 `driver-request`
-- 💬 就是想聊聊 → [Issues](https://gitee.com/jede_master/IndustrialDataCollector/issues) 随便开，不一定要有 Bug 才来
+- 💬 就是想聊聊 → [Issues](https://gitee.com/JEDI_MASTER/neoIndustrial/issues) 随便开，不一定要有 Bug 才来
 
 > 如果你觉得这个项目帮到了你，**点个 Star ⭐**。不需要你付一分钱——那颗星星就是对我最大的鼓励。
 

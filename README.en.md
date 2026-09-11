@@ -9,7 +9,7 @@
 [![.NET Framework 4.8](https://img.shields.io/badge/.NET-4.8-blue)](https://dotnet.microsoft.com/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-green)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey)]()
-[![Gitee](https://img.shields.io/badge/Gitee-jede_master-red)](https://gitee.com/jede_master/IndustrialDataCollector)
+[![Gitee](https://img.shields.io/badge/Gitee-JEDI_MASTER-red)](https://gitee.com/JEDI_MASTER/neoIndustrial)
 
 **MCP + Industrial Data Acquisition = World's First** · 40 protocols completely free · Millisecond MQTT to cloud · AI-native control · Industry 4.0 ready
 
@@ -192,21 +192,24 @@ Device configuration:
 
 The Enterprise Edition client is available for direct download — License (obtain via email at bottom), no build required:
 
-> 📦 [Download Enterprise Client QY_Client.rar](https://github.com/18354356258/NeoIndustrial/raw/main/QY_Client.rar)
+> 📦 Enterprise Client (latest, unzip & run) download:
+> [GitHub Releases](https://github.com/18354356258/NeoIndustrial/releases)　|　[Gitee Releases](https://gitee.com/JEDI_MASTER/neoIndustrial/releases)
+>
+> Community edition source & client packages are available on the same Releases page.
 
 - Unzip and run `IndustrialDataCollection.exe` to start (pre-built — no installation, no Visual Studio needed)
 - Bilingual language pack (Chinese/English) built in; if Windows SmartScreen blocks the first launch, click "Run anyway"
 
 **Option 1: Download the Release package (recommended, no build needed)**
 
-Go to [Releases](https://gitee.com/jede_master/IndustrialDataCollector/releases), download the latest zip, unzip it, and **double-click `setup.bat`** (removes the web mark + restores NuGet packages), then open the `.sln` in Visual Studio and build.
+Go to [Releases](https://gitee.com/JEDI_MASTER/neoIndustrial/releases), download the latest zip, unzip it, and **double-click `setup.bat`** (removes the web mark + restores NuGet packages), then open the `.sln` in Visual Studio and build.
 
 Or run `Release/IndustrialDataCollector.exe` directly (pre-built, no VS needed).
 
 **Option 2: Git clone**
 
 ```bash
-git clone https://gitee.com/jede_master/IndustrialDataCollector.git
+git clone https://gitee.com/JEDI_MASTER/neoIndustrial.git
 cd IndustrialDataCollector
 setup.bat          # One-click NuGet restore
 ```
@@ -527,10 +530,10 @@ If you have industrial device protocols I haven't covered — **let's talk**. Ch
 
 So no matter which city, which factory, or which school you come from — **this is your project, and everyone's.**
 
-- 🐛 Report bugs → [Issues](https://gitee.com/jede_master/IndustrialDataCollector/issues)
+- 🐛 Report bugs → [Issues](https://gitee.com/JEDI_MASTER/neoIndustrial/issues)
 - 💻 Contribute code → Fork → PR (make sure it builds)
 - 🔌 Request a new driver → Issue tag `driver-request`
-- 💬 Just want to chat → [Issues](https://gitee.com/jede_master/IndustrialDataCollector/issues) — open one anytime, no bug required
+- 💬 Just want to chat → [Issues](https://gitee.com/JEDI_MASTER/neoIndustrial/issues) — open one anytime, no bug required
 
 > If this project has helped you, **give it a Star ⭐**. It won't cost you a cent — that little star is the biggest encouragement you can give me.
 
