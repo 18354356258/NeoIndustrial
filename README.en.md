@@ -11,6 +11,8 @@
 [![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey)]()
 [![Gitee](https://img.shields.io/badge/Gitee-JEDI_MASTER-red)](https://gitee.com/JEDI_MASTER/neoIndustrial)
 
+![logo](picture/elephant_logo_512.png)
+
 **MCP + Industrial Data Acquisition = World's First** · 40 protocols completely free · Millisecond MQTT to cloud · AI-native control · Industry 4.0 ready
 
 </div>

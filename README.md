@@ -11,6 +11,8 @@
 [![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey)]()
 [![Gitee](https://img.shields.io/badge/Gitee-JEDI_MASTER-red)](https://gitee.com/JEDI_MASTER/neoIndustrial)
 
+![logo](picture/elephant_logo_512.png)
+
 ** MCP + 工业数采 =  **全球首位**  40 协议全免费 · MQTT 毫秒级上云 · AI 原生操控 · 工业 4.0 就绪**
 
 </div>
