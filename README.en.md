@@ -230,6 +230,25 @@ Device configuration:
 
 ## 🔌 The Complete List of 40 Protocol Drivers
 
+> ⚠️ **Drivers that require a license — please read first**
+>
+> The protocols marked 🔑 below are governed by **commercial licenses from the original vendor or the standards body**. **Purchase a legitimate license before using them in production.** This software only implements protocol connectivity — it does **not** bundle or redistribute any vendor SDK, license file, or license key.
+>
+> | 🔑 Licensed drivers | License source (examples) |
+> |---|---|
+> | Fanuc FOCAS | FANUC (or an authorized distributor) |
+> | Heidenhain Remo Tools | HEIDENHAIN |
+> | SECS/GEM | SEMI standards plus the vendor SDK you use |
+> | OPC DA | The third-party OPC server vendor you connect to |
+> | HART IP | FieldComm Group specifications |
+> | PROFIBUS / PROFINET | PROFIBUS & PROFINET International (PI) |
+> | EtherNet/IP / DeviceNet | ODVA |
+> | CC-Link | CC-Link Partner Association |
+> | KNX | KNX Association |
+> | LonWorks | Echelon / ADI and their licensors |
+>
+> **Unmarked drivers** (Modbus, Siemens S7, Mitsubishi MC, Omron FINS, BACnet, IEC 104/61850, DNP3, MQTT, OPC UA, etc.) are implemented from open specifications and normally need no extra license. **Whether a license is required is ultimately governed by the vendor's and standards body's current terms — this table is a heads-up only.**
+
 ### ⚙️ PLC / Controllers (11)
 | Driver | Supported brands/protocols |
 |------|---------------|
@@ -248,22 +267,22 @@ Device configuration:
 ### 🔧 CNC Machine Tools (4)
 | Driver | Description |
 |------|------|
-| **Fanuc FOCAS** | 0i/16i/18i/21i/30i/31i/32i — read/write macro variables + spindle load + alarm numbers |
+| **Fanuc FOCAS** 🔑 | 0i/16i/18i/21i/30i/31i/32i — read/write macro variables + spindle load + alarm numbers |
 | **Haas CNC** | The full NGC controller range |
 | **Mazak** | Mazatrol controllers (Smooth series) |
-| **Heidenhain** | TNC series (HEIDENHAIN Remo Tools) |
+| **Heidenhain** 🔑 | TNC series (HEIDENHAIN Remo Tools) |
 
 ### 🌐 Industrial Ethernet (3)
-**EtherNet/IP** — Rockwell AB ControlLogix/CompactLogix · **Profinet** — Siemens PROFINET IO · **OPC UA** — cross-platform data modeling
+**EtherNet/IP** 🔑 — Rockwell AB ControlLogix/CompactLogix · **Profinet** 🔑 — Siemens PROFINET IO · **OPC UA** — cross-platform data modeling
 
 ### 🔗 Field Buses (3)
-**PROFIBUS** — Siemens PROFIBUS DP · **DeviceNet** — Allen-Bradley · **CC-Link** — Mitsubishi
+**PROFIBUS** 🔑 — Siemens PROFIBUS DP · **DeviceNet** 🔑 — Allen-Bradley · **CC-Link** 🔑 — Mitsubishi
 
 ### ⚡ Power / Energy (3)
 **IEC 104** — power telecontrol protocol · **IEC 61850** — smart substations · **DNP3** — North American power SCADA
 
 ### 🏢 Building Automation (5)
-**BACnet** — Honeywell/Johnson Controls/Siemens building control · **KNX** — smart building bus · **DALI** — digital addressable lighting · **LonWorks** — building control networks · **MBus** — heat/water/electricity meters
+**BACnet** — Honeywell/Johnson Controls/Siemens building control · **KNX** 🔑 — smart building bus · **DALI** — digital addressable lighting · **LonWorks** 🔑 — building control networks · **MBus** — heat/water/electricity meters
 
 ### ☁️ IoT / Semiconductor / Others (11)
 | Driver | Description |
@@ -272,12 +291,14 @@ Device configuration:
 | **Sparkplug B** | Industrial IoT MQTT sub-protocol |
 | **HTTP REST** | Poll and collect from RESTful JSON APIs |
 | **DLMS/COSEM** | International standard for smart meters |
-| **HART IP** | IP variant of HART instruments |
+| **HART IP** 🔑 | IP variant of HART instruments |
 | **MTConnect** | CNC machine connectivity standard |
-| **SECS/GEM** | Semiconductor equipment communication standard |
-| **OPC DA** | Classic OPC Data Access |
+| **SECS/GEM** 🔑 | Semiconductor equipment communication standard |
+| **OPC DA** 🔑 | Classic OPC Data Access |
 | **OPC UA PubSub** | OPC UA publish/subscribe mode |
 | **Simulator** | Built-in 20+ simulated variables (sine wave/square wave/random/increment) |
+
+> 🔑 **= this driver requires a legitimate license from the original vendor / standards body before production use.** This software does not provide, resell, or bundle any vendor SDK or license file; without a license, use it for learning, research and testing only.
 
 
 
@@ -590,7 +611,7 @@ Analysis results land in the database alongside the raw data, and can be queried
 
 | Capability | Details |
 |------|------|
-| 🔌 Industrial protocol drivers | 39 production-ready drivers built in (PLC / CNC / power / building / semiconductor / meters), sharing the same core as the desktop edition |
+| 🔌 Industrial protocol drivers | 39 production-ready drivers built in (PLC / CNC / power / building / semiconductor / meters), sharing the same core as the desktop edition; some protocols require a vendor license — see the 🔑 marks in the driver list |
 | 🗄️ Parallel database writes | 6 kinds: SQLite / MySQL / SQL Server / PostgreSQL / TDengine / Dameng DM8 (domestic, Xinchuang-ready) |
 | 🤖 MCP atomic tools | 83 AI-callable tools covering devices, variables, collection, data sources, dashboards, semantics and team memory |
 | 🧠 AI multi-agent | Built-in chat workspace; create your own agents, grant each one a capability boundary, and let them collaborate by dispatching tasks |
@@ -731,6 +752,7 @@ So no matter which city, which factory, or which school you come from — **this
 **Enterprise Edition (desktop client)**: requires a commercial license. The client can be downloaded for evaluation directly from this repository's Releases; to obtain a formal license, send your hardware ID to `751326339@qq.com`, or call `18354356258` / `18854344113` (Zhang Chenglong).
 
 **WEB Commercial Edition (web platform, closed source)**: **no public download**. A license must be applied for directly from the author and is priced by device/machine count. Please mark your request "WEB Commercial Edition license application" and include the following five items: **use case / company or individual / intended purpose / license period / number of devices**. Contact: `751326339@qq.com`, or call `18354356258` / `18854344113` (WeChat available).
+**Driver licensing (important)**: some industrial protocol drivers (Fanuc FOCAS, HEIDENHAIN Remo Tools, SECS/GEM, OPC DA, HART IP, PROFIBUS / PROFINET, EtherNet/IP / DeviceNet, CC-Link, KNX, LonWorks, etc.) are subject to commercial licenses from the vendor or standards body — **purchase a legitimate license before production use**. This software only implements protocol connectivity and does not bundle or redistribute any vendor SDK or license file. See the 🔑 marks in "The Complete List of 40 Protocol Drivers".
 
 ---
 

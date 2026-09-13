@@ -230,6 +230,25 @@ IndustrialDataCollector 是一套**生产级工业数据采集引擎 ** — 已�
 
 ## 🔌 40 协议驱动全清单
 
+> ⚠️ **关于需要授权的驱动（请务必先读）**
+>
+> 下面带 🔑 标记的协议，其规范、SDK 或运行库受**原厂或协议组织的商业授权**约束。**请购买正版授权后再用于生产环境**；本软件只提供协议对接实现，**不附带、不分发任何厂商 SDK、授权文件或授权信息**。
+>
+> | 🔑 需授权驱动 | 授权来源（示例） |
+> |---|---|
+> | Fanuc FOCAS | 发那科（FANUC）原厂或其授权代理 |
+> | Heidenhain Remo Tools | 海德汉（HEIDENHAIN） |
+> | SECS/GEM | SEMI 规范 + 所用厂商 SDK 的授权方 |
+> | OPC DA | 所对接的第三方 OPC Server 厂商 |
+> | HART IP | FieldComm Group 会员规范 |
+> | PROFIBUS / PROFINET | PROFIBUS & PROFINET International（PI） |
+> | EtherNet/IP / DeviceNet | ODVA |
+> | CC-Link | CC-Link 协会（三菱） |
+> | KNX | KNX 协会 |
+> | LonWorks | Echelon / ADI 及其授权方 |
+>
+> **未标记的驱动**（Modbus、Siemens S7、三菱 MC、欧姆龙 FINS、BACnet、IEC 104/61850、DNP3、MQTT、OPC UA 等）为公开协议实现，通常无需额外授权；**是否需要授权最终以原厂与协议组织现行条款为准，本表仅作提示。**
+
 ### ⚙️ PLC / 控制器（11 种）
 | 驱动 | 支持的品牌/协议 |
 |------|---------------|
@@ -248,22 +267,22 @@ IndustrialDataCollector 是一套**生产级工业数据采集引擎 ** — 已�
 ### 🔧 CNC 数控机床（4 种）
 | 驱动 | 说明 |
 |------|------|
-| **Fanuc FOCAS** | 0i/16i/18i/21i/30i/31i/32i，读写宏变量 + 主轴负载 + 报警号 |
+| **Fanuc FOCAS** 🔑 | 0i/16i/18i/21i/30i/31i/32i，读写宏变量 + 主轴负载 + 报警号 |
 | **Haas CNC** | NGC 控制器全系列 |
 | **Mazak** | Mazatrol 控制器（Smooth 系列） |
-| **Heidenhain** | TNC 系列（HEIDENHAIN Remo Tools） |
+| **Heidenhain** 🔑 | TNC 系列（HEIDENHAIN Remo Tools） |
 
 ### 🌐 工业以太网（3 种）
-**EtherNet/IP** — Rockwell AB ControlLogix/CompactLogix · **Profinet** — Siemens PROFINET IO · **OPC UA** — 跨平台数据建模
+**EtherNet/IP** 🔑 — Rockwell AB ControlLogix/CompactLogix · **Profinet** 🔑 — Siemens PROFINET IO · **OPC UA** — 跨平台数据建模
 
 ### 🔗 现场总线（3 种）
-**PROFIBUS** — Siemens PROFIBUS DP · **DeviceNet** — Allen-Bradley · **CC-Link** — Mitsubishi
+**PROFIBUS** 🔑 — Siemens PROFIBUS DP · **DeviceNet** 🔑 — Allen-Bradley · **CC-Link** 🔑 — Mitsubishi
 
 ### ⚡ 电力/能源（3 种）
 **IEC 104** — 电力远动规约 · **IEC 61850** — 智能变电站 · **DNP3** — 北美电力 SCADA
 
 ### 🏢 楼宇自动化（5 种）
-**BACnet** — 霍尼韦尔/江森/西门子楼控 · **KNX** — 智能建筑总线 · **DALI** — 数字可寻址照明 · **LonWorks** — 楼宇控制网络 · **MBus** — 热表/水表/电表
+**BACnet** — 霍尼韦尔/江森/西门子楼控 · **KNX** 🔑 — 智能建筑总线 · **DALI** — 数字可寻址照明 · **LonWorks** 🔑 — 楼宇控制网络 · **MBus** — 热表/水表/电表
 
 ### ☁️ 物联网 / 半导体 / 其他（11 种）
 | 驱动 | 说明 |
@@ -272,12 +291,14 @@ IndustrialDataCollector 是一套**生产级工业数据采集引擎 ** — 已�
 | **Sparkplug B** | 工业物联网 MQTT 子协议 |
 | **HTTP REST** | RESTful JSON API 轮询采集 |
 | **DLMS/COSEM** | 智能电表国际标准 |
-| **HART IP** | HART 仪表 IP 版 |
+| **HART IP** 🔑 | HART 仪表 IP 版 |
 | **MTConnect** | 数控机床互联标准 |
-| **SECS/GEM** | 半导体设备通信标准 |
-| **OPC DA** | 经典 OPC Data Access |
+| **SECS/GEM** 🔑 | 半导体设备通信标准 |
+| **OPC DA** 🔑 | 经典 OPC Data Access |
 | **OPC UA PubSub** | OPC UA 发布/订阅模式 |
 | **Simulator** | 内置 20+ 模拟变量（正弦波/方波/随机/递增） |
+
+> 🔑 **= 该驱动需先向原厂 / 协议组织购买正版授权后方可用于生产环境。** 本软件不提供、不代购、不附带任何厂商 SDK 与授权文件；无授权时请仅用于学习、研究与测试。
 
 
 
@@ -588,7 +609,7 @@ CSV 格式（UTF-8，Excel 可直接编辑）：
 
 | 能力 | 说明 |
 |------|------|
-| 🔌 工业协议驱动 | 内置 39 种生产就绪驱动（PLC / CNC / 电力 / 楼宇 / 半导体 / 仪表），与桌面版同源内核 |
+| 🔌 工业协议驱动 | 内置 39 种生产就绪驱动（PLC / CNC / 电力 / 楼宇 / 半导体 / 仪表），与桌面版同源内核；部分协议需原厂授权，见驱动清单 🔑 |
 | 🗄️ 数据库并行写入 | 6 类：SQLite / MySQL / SQL Server / PostgreSQL / TDengine / 达梦 DM8（国产信创） |
 | 🤖 MCP 原子工具 | 83 个 AI 可调用工具，覆盖设备、变量、采集、数据源、看板、语义与团队记忆 |
 | 🧠 AI 多智能体 | 内置对话页；可自建智能体、按能力边界授权、智能体之间协同派单完成任务 |
@@ -729,6 +750,8 @@ CSV 格式（UTF-8，Excel 可直接编辑）：
 **企业版（桌面客户端）**：需商业许可。客户端可直接从本仓库 [Releases](https://github.com/18354356258/NeoIndustrial/releases) 下载试用；获取正式授权请发送硬件编号至 `751326339@qq.com`，或致电 `18354356258` / `18854344113`（张成龙）。
 
 **WEB 商业版（Web 平台，闭源）**：**不提供公开下载**，需联系作者申请授权，按机台数量计费。申请请注明「申请 WEB 商业版」，并提供以下五项：**使用场景 / 公司或个人 / 申请用途 / 授权时间 / 设备数量**。联系：`751326339@qq.com`，或致电 `18354356258` / `18854344113`（微信同号）。
+
+**驱动授权（重要）**：部分工业协议驱动（Fanuc FOCAS、HEIDENHAIN Remo Tools、SECS/GEM、OPC DA、HART IP、PROFIBUS / PROFINET、EtherNet/IP / DeviceNet、CC-Link、KNX、LonWorks 等）受原厂或协议组织商业授权约束，**请购买正版授权后再用于生产环境**；本软件仅实现协议对接，不附带、不分发任何厂商 SDK 或授权文件。详见「40 协议驱动全清单」中的 🔑 说明。
 
 ---
 
