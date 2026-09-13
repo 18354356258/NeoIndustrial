@@ -15,7 +15,113 @@
 
 </div>
 
---- --- Download the Enterprise Edition client below, located in the 'Get Started in 5 Minutes' area. The WEB Commercial Edition requires a license application — see the License section at the end.
+> 📦 **This project ships in three editions**: **① Community Edition** (open source, free, download from Releases) · **② Enterprise Edition** (client downloadable from Releases for evaluation; formal license issued by hardware ID) · **③ WEB Commercial Edition** (browser platform, license by application). The table below explains all three; the Enterprise client is under "Get Started in 5 Minutes", and how to apply for the WEB edition is in the License section at the end.
+
+---
+
+## 🧭 Two Minutes In: Three Editions, Explained
+
+> **One core, three forms: desktop single-machine → desktop factory-grade → browser-based platform.**
+> From "get the data off the machine" to "let AI turn that data into decisions", the three editions cover three stages of plant digitalization.
+
+| | ① Community Edition | ② Enterprise Edition | ③ WEB Commercial Edition |
+|:--|:--|:--|:--|
+| **Form** | Windows desktop, single machine | Windows desktop, factory-grade | **B/S server + browser** |
+| **Price** | Open source, free (Apache 2.0) | Commercial license | Commercial license (priced by machine count) |
+| **How to get it** | Download from Releases / build from source | Client downloadable from Releases | **Apply to the author — no public download** |
+| **In one line** | The free foundation that gets industrial data off your machines | A factory-grade data OS on the desktop | **Collection → semantics → graph → AI collaboration, one unbroken chain** |
+| **Its strongest card** | 40 protocol drivers · millisecond MQTT · 50 MCP AI tools | Semantic digital-twin layer · Fabric engine · dashboards · templates & cloning | All of the above + 2D/3D knowledge graph · AI multi-agent · multi-user collaboration · Xinchuang-ready |
+| **Its honest weak spot** | Desktop single-machine only; no dashboards, no semantic layer, no commercial support | Still a single-machine desktop app; multi-user collaboration and web access remain unsolved | Needs a server to host it, and it is not publicly downloadable |
+
+### ① Community Edition — the free way in
+
+**Best for**: personal learning, single-device trials, secondary development, teaching.
+
+**Strengths**
+
+- **Genuinely open source under Apache 2.0** — free for commercial and non-commercial use, no feature crippling, no time bomb;
+- **40 industrial protocol drivers** out of the box (PLC / CNC / power / building / semiconductor), with millisecond MQTT uplink;
+- **50 MCP AI tools** + REST API, so AI can read your device data directly;
+- Parallel writes to 4 databases (SQLite / MySQL / SQL Server / PostgreSQL).
+
+**Weak spots (stated plainly)**
+
+- **Windows desktop, single machine only** — no browser access, no multi-user concurrency;
+- **No semantic layer, no dashboards, no Fabric engine** — those live in the Enterprise Edition;
+- **No commercial SLA** — maintained by one person; issues go through the repo and community.
+
+### ② Enterprise Edition — factory-grade firepower on the desktop
+
+**Best for**: a single plant running deep on one machine, needing semantic modeling and production dashboards.
+
+**Strengths**
+
+- Adds the **semantic-layer digital-twin engine** on top of the Community Edition, turning "40001 = 245.6" into a variable with business meaning;
+- **Fabric time-series engine (8 operators)** + **dashboard monitoring wall** + **event rule engine**;
+- **Config templates · device cloning** — configure one production line, clone it to the other ten;
+- **Industrial-grade reliability**: offline caching with re-send, heartbeat monitoring, exponential-backoff reconnect, multi-generation rolling config backups.
+
+**Weak spots (stated plainly)**
+
+- **Still a single-machine desktop app** — one operator, one PC; multi-user collaboration and remote access are not solved;
+- **Requires a Windows industrial PC** — not suitable for Xinchuang Linux environments;
+- **Still no knowledge graph and no AI multi-agent** — AI stops at the tool-calling level.
+
+### ③ WEB Commercial Edition — the most advanced generation: collection → semantics → graph → AI collaboration ⭐
+
+> If the Community and Enterprise editions solve **getting the data up**, the WEB Commercial Edition solves the **whole chain of "data → judgment → action"**.
+> Very few industrial software products have this chain **fully connected end to end** — most stop after one or two links.
+
+**Why it is ahead: one chain, all inside a single platform**
+
+| Stage | The usual approach (buy each piece, glue them yourself) | This platform (one platform does it all) |
+|:--|:--|:--|
+| ① Collection | Buy Kepware / SCADA to collect data | 39 drivers on the same core, millisecond MQTT, parallel writes to 6 databases |
+| ② Semantics | Keep a spreadsheet noting "what 40001 means" | Built-in industrial semantic tree + 69 variable relation types + 71 event type catalog |
+| ③ Graph | Nothing (or a separate 3D visualization project) | **2D / 3D knowledge-graph visualization** with digital-twin modeling and relation tracing |
+| ④ Analysis | Buy a BI tool / a time-series database | **Fabric engine with 27 hot-pluggable operators** (aggregate / correlation / anomaly / rate of change / accumulate / threshold / prediction…) |
+| ⑤ Prediction | None | Trend and threshold prediction operators over historical time series |
+| ⑥ Summarization | Someone writes the daily report by hand | **AI summarizes and draws conclusions automatically**, with user-defined agents by role |
+| ⑦ Collaboration | Chat groups plus spreadsheets | **AI multi-agent task dispatch** + team memory / knowledge distillation / self-evolving skills |
+
+**One platform replaces the 4–5 systems you would otherwise buy separately and glue together yourself.**
+
+**Strengths**
+
+- All seven stages above are **built in**;
+- **Browser (B/S) access** — no per-PC client; upgrade once and the whole plant is current;
+- **Three-tier permissions (organization / role / user) + audit trail** — who changed a config, who exported which data, all traceable;
+- **AI-native**: 83 MCP tools + multi-agent orchestration; AI can add devices, configure variables, query history and build dashboards directly;
+- **It grows with you**: AI memory, team knowledge distillation, and skills that are captured automatically and self-improve — the longer you use it, the better it knows your plant;
+- **Xinchuang-ready**: a self-contained Linux x64 runtime package (no .NET install) with Dameng DM8 usable out of the box;
+- **Trilingual**: Chinese / English / Vietnamese switchable at runtime, with the built-in manual in all three.
+
+**Weak spots (stated plainly)**
+
+- **Needs a server to host it** (or an always-on industrial PC) — it is not a double-click desktop app;
+- **Not publicly downloadable** — a license must be applied for from the author, priced by machine count;
+- **39 drivers** (the same core as the desktop edition, which ships 40);
+- The fuller the platform, the **more first-time setup it needs** — semantics, graphs and agents all need to be fed your data.
+
+### 📸 See it in action (screenshot / GIF slots)
+
+<!-- 📷 Slot A: full-chain demo — collection → semantics → graph → AI collaboration
+     Suggested file: picture/web-00-fullchain.gif
+     Usage: ![Full-chain demo](picture/web-00-fullchain.gif) -->
+
+<!-- 📷 Slot B: industrial semantic tree / semantic management UI
+     Suggested file: picture/web-00-semantic-tree.png
+     Usage: ![Industrial semantic tree](picture/web-00-semantic-tree.png) -->
+
+<!-- 📷 Slot C: knowledge graph 2D / 3D visualization (rotate, drill down)
+     Suggested file: picture/web-00-graph-3d.gif
+     Usage: ![Knowledge graph 3D](picture/web-00-graph-3d.gif) -->
+
+<!-- 📷 Slot D: AI analysis / prediction / summarization / multi-agent collaboration
+     Suggested file: picture/web-00-ai-agents.gif
+     Usage: ![AI multi-agent collaboration](picture/web-00-ai-agents.gif) -->
+
+---
 
 ## 🎨 The Story Behind This Software
 
