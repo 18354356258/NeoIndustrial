@@ -15,7 +15,7 @@
 
 </div>
 
---- --- Download the Enterprise Edition client below, located in the 'Get Started in 5 Minutes' area.
+--- --- Download the Enterprise Edition client below, located in the 'Get Started in 5 Minutes' area. The WEB Commercial Edition requires a license application — see the License section at the end.
 
 ## 🎨 The Story Behind This Software
 
@@ -427,28 +427,109 @@ Analysis results land in the database alongside the raw data, and can be queried
 
 ### 📊 Full Comparison
 
-| Capability | Community Edition | Enterprise Edition |
-|----------|:---:|:---:|
-| 40 industrial protocol drivers | ✅ | ✅ |
-| MQTT millisecond push | ✅ | ✅ |
-| SQLite / MySQL / SQL Server / PostgreSQL | ✅ | ✅ |
-| MCP AI 50 tools | ✅ | ✅ |
-| REST API | ✅ | ✅ |
-| CSV bulk import/export | ✅ | ✅ |
-| Bilingual UI (Chinese/English) | ✅ | ✅ |
-| **Semantic-layer digital twin modeling** | ❌ | ✅ |
-| **Fabric 8-operator time-series engine** | ❌ | ✅ |
-| **Dashboard monitoring wall** | ❌ | ✅ |
-| **Config templates · device cloning** | ❌ | ✅ |
-| **TDengine time-series database** | ❌ | ✅ |
-| **Offline caching · re-send** | ❌ | ✅ |
-| **Event rule engine** | ❌ | ✅ |
-| **Auth · hardware binding · Token** | ❌ | ✅ |
-| **Multi-generation rolling config backups** | ❌ | ✅ |
-| **Commercial license · technical support** | ❌ | ✅ |
+| Capability | Community Edition | Enterprise Edition | WEB Commercial Edition |
+|----------|:---:|:---:|:---:|
+| Industrial protocol drivers (PLC / CNC / power / building / semiconductor) | 40 | 40 | 39 (same core) |
+| MQTT millisecond push | ✅ | ✅ | ✅ |
+| SQLite / MySQL / SQL Server / PostgreSQL | ✅ | ✅ | ✅ |
+| TDengine time-series database | ❌ | ✅ | ✅ |
+| Dameng DM8 (domestic database) | ❌ | ❌ | ✅ |
+| MCP AI tools | 50 | 50 | 83 |
+| REST API | ✅ | ✅ | ✅ |
+| CSV bulk import/export | ✅ | ✅ | ✅ |
+| UI languages | Chinese / English | Chinese / English | Chinese / English / Vietnamese (+ built-in manual) |
+| **Semantic-layer digital twin modeling** | ❌ | ✅ | ✅ |
+| **2D / 3D knowledge-graph visualization** | ❌ | ❌ | ✅ |
+| **Fabric time-series engine** | ❌ | ✅ (8 operators) | ✅ (27 operators) |
+| **Dashboard monitoring wall** | ❌ | ✅ | ✅ |
+| **Config templates · device cloning** | ❌ | ✅ | ✅ |
+| **Offline caching · re-send** | ❌ | ✅ | ✅ |
+| **Event rule engine** | ❌ | ✅ | ✅ |
+| **Auth · hardware binding · Token** | ❌ | ✅ | ✅ |
+| **Multi-user online collaboration · audit trail** | ❌ | ❌ | ✅ |
+| **AI multi-agent · memory & self-evolving skills** | ❌ | ❌ | ✅ |
+| **Browser (B/S) access — no per-PC install** | ❌ | ❌ | ✅ |
+| **Xinchuang Linux support (self-contained package)** | ❌ | ❌ | ✅ |
+| **Multi-generation rolling config backups** | ❌ | ✅ | ✅ |
+| **Commercial license · technical support** | ❌ | ✅ | ✅ |
 
 > 🔥 **The Enterprise Edition is not the Community Edition "with extras" — it is a redesigned, factory-grade data operating system.**
+> 🌐 **The WEB Commercial Edition goes further: it moves that operating system into the browser, then grows multi-user collaboration, AI multi-agent orchestration and a 2D/3D knowledge graph on top — see the next section.**
 
+---
+
+## 🌐 WEB Commercial Edition — The Whole Factory in a Browser
+
+> The Community and Enterprise editions are software installed on an industrial PC. The WEB Commercial Edition is an industrial data operating system that lives on a server.
+>
+> The same protocol driver core, plus B/S multi-user collaboration, AI multi-agent orchestration and 2D/3D industrial semantics. It is not a port of the desktop edition — it is a redesigned, web-native platform.
+
+<!-- 📷 Screenshot slot 1: WEB Commercial Edition · login page / home overview
+     Suggested file: picture/web-01-login.png
+     Usage: ![WEB Commercial Edition · Home](picture/web-01-login.png) -->
+
+### What it solves that the desktop edition cannot
+
+- **One industrial PC → one network**: open a browser and go. No per-machine installs; upgrade once and the whole plant is on the new version.
+- **One operator → a whole team online**: three-tier permissions (organization / role / user) with concurrent access; who changed a config, who exported which data — everything is logged and auditable.
+- **AI as an add-on → AI-native**: a built-in AI chat workspace with multi-agent orchestration. AI operates the platform directly — add devices, configure variables, query historical data, build dashboards — and agents can dispatch tasks to one another.
+- **Forgets you → learns you**: AI memory, team knowledge distillation, and skills that are captured automatically and self-improve. The longer you use it, the better it understands your plant and your process.
+- **Flat tables → 2D/3D knowledge graph**: an industrial semantic tree plus relationship-graph visualization turns "40001 = 245.6" into a digital twin you can see, click into, and trace.
+
+<!-- 📷 Screenshot slot 2: WEB Commercial Edition · AI chat / multi-agent collaboration
+     Suggested file: picture/web-02-ai-agents.png
+     Usage: ![WEB Commercial Edition · Multi-agent](picture/web-02-ai-agents.png) -->
+
+### Core capabilities
+
+| Capability | Details |
+|------|------|
+| 🔌 Industrial protocol drivers | 39 production-ready drivers built in (PLC / CNC / power / building / semiconductor / meters), sharing the same core as the desktop edition |
+| 🗄️ Parallel database writes | 6 kinds: SQLite / MySQL / SQL Server / PostgreSQL / TDengine / Dameng DM8 (domestic, Xinchuang-ready) |
+| 🤖 MCP atomic tools | 83 AI-callable tools covering devices, variables, collection, data sources, dashboards, semantics and team memory |
+| 🧠 AI multi-agent | Built-in chat workspace; create your own agents, grant each one a capability boundary, and let them collaborate by dispatching tasks |
+| 🔬 Fabric time-series engine | 27 hot-pluggable operators: aggregate / correlation / anomaly / digital-twin benchmarking / rate / accumulate / threshold / prediction… |
+| 🕸️ Industrial semantics & knowledge graph | Semantic tree + 69 variable relation types + 71 event type catalog, with 2D/3D graph visualization |
+| 📊 Dashboards · alarms · scheduled jobs | Real-time monitoring wall, 4-level alarms, scheduled reports, in-app messages and a document workspace |
+| 👥 Permissions & audit | Three-tier permissions (organization / role / user), user activity tracing, system logs, hardware management |
+| 🌍 Trilingual | Chinese / English / Vietnamese, switchable at runtime, with the built-in product manual in all three |
+| 🧩 Xinchuang-ready | A self-contained Linux x64 runtime package (no .NET install required), with Dameng DM8 usable out of the box |
+| 🚀 Deployment | Runs on a single machine; .NET 8 + Blazor, browser access, no client install on every PC |
+
+<!-- 📷 Screenshot slot 3: WEB Commercial Edition · industrial knowledge graph (2D / 3D)
+     Suggested file: picture/web-03-graph.png
+     Usage: ![WEB Commercial Edition · Knowledge Graph](picture/web-03-graph.png) -->
+
+<!-- 📷 Screenshot slot 4: WEB Commercial Edition · dashboards / semantic management
+     Suggested file: picture/web-04-dashboard.png
+     Usage: ![WEB Commercial Edition · Dashboard](picture/web-04-dashboard.png) -->
+
+### Which edition should you choose?
+
+| Your scenario | Recommended edition |
+|----------|----------|
+| Personal learning / single-device trial / secondary development | **Community Edition** — Apache 2.0, free, download from Releases |
+| Single plant, single machine, deep desktop use, semantic layer + dashboards | **Enterprise Edition** — client downloadable from Releases; formal license issued by hardware ID |
+| Multi-user online collaboration, plant-wide governance, AI multi-agent, Xinchuang environments | **WEB Commercial Edition** — apply to the author (licensed by device/machine count) |
+
+### How to get it (important)
+
+- **Community Edition**: download from this repository's Releases, or clone the source and build it (Apache 2.0, free).
+- **Enterprise Edition**: the client is **freely downloadable from the Releases page** for evaluation; for a formal license, send your hardware ID by email.
+- **WEB Commercial Edition**: **no public download**. A license must be applied for directly from the author, priced by device/machine count.
+
+**To apply for a WEB Commercial Edition license, please state the following five items in your email or call:**
+
+1. **Use case** — which industry, which production line, and what problem you want to solve;
+2. **Applicant** — a company or an individual;
+3. **Intended purpose** — in-house production / project delivery / teaching & research / secondary development…;
+4. **License period** — the expected term and go-live date;
+5. **Number of devices** — how many devices or machines you need to manage.
+
+📮 Email: `751326339@qq.com`　📞 Phone: `18354356258` / `18854344113` (Zhang Chenglong, WeChat available)
+
+<!-- 📷 Screenshot slot 5: WEB Commercial Edition · licensing & contact (optional)
+     Suggested file: picture/web-05-contact.png -->
 
 ---
 
@@ -539,11 +620,11 @@ So no matter which city, which factory, or which school you come from — **this
 
 ## 📄 License
 
-The Community Edition is open-sourced under the [Apache License 2.0](LICENSE), **free for both commercial and non-commercial use**.
+**Community Edition**: open-sourced under the [Apache License 2.0](LICENSE), **free for both commercial and non-commercial use**.
 
-To get the Enterprise Edition client: send your requirements to `751326339@qq.com`, or call `18354356258` / `18854344113` (Zhang Chenglong).
+**Enterprise Edition (desktop client)**: requires a commercial license. The client can be downloaded for evaluation directly from this repository's Releases; to obtain a formal license, send your hardware ID to `751326339@qq.com`, or call `18354356258` / `18854344113` (Zhang Chenglong).
 
-The Enterprise Edition requires a commercial license. To obtain one: send your hardware ID to `751326339@qq.com`, or call `18354356258` / `18854344113` (Zhang Chenglong).
+**WEB Commercial Edition (web platform, closed source)**: **no public download**. A license must be applied for directly from the author and is priced by device/machine count. Please mark your request "WEB Commercial Edition license application" and include the following five items: **use case / company or individual / intended purpose / license period / number of devices**. Contact: `751326339@qq.com`, or call `18354356258` / `18854344113` (WeChat available).
 
 ---
 
