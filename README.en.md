@@ -15,7 +15,10 @@
 
 </div>
 
-> 📦 **This project ships in three editions**: **① Community Edition** (open source, free, download from Releases) · **② Enterprise Edition** (client downloadable from Releases for evaluation; formal license issued by hardware ID) · **③ WEB Commercial Edition** (browser platform, license by application). The table below explains all three; the Enterprise client is under "Get Started in 5 Minutes", and how to apply for the WEB edition is in the License section at the end.
+> 📦 **This project ships in three editions**:
+> **① Community Edition** (open source, free, download from Releases) ·
+> **② Enterprise Edition** (client downloadable from Releases for evaluation; formal license issued by hardware ID) ·
+> **③ WEB Commercial Edition** (browser platform, license by application). The table below explains all three; the Enterprise client is under "Get Started in 5 Minutes", and how to apply for the WEB edition is in the License section at the end.
 
 ---
 
