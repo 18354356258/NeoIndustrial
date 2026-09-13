@@ -235,22 +235,27 @@ IndustrialDataCollector 是一套**生产级工业数据采集引擎 ** — 已�
 
 > ⚠️ **关于需要授权的驱动（请务必先读）**
 >
-> 下面带 🔑 标记的协议，其规范、SDK 或运行库受**原厂或协议组织的商业授权**约束。**请购买正版授权后再用于生产环境**；本软件只提供协议对接实现，**不附带、不分发任何厂商 SDK、授权文件或授权信息**。
+> 下面带 🔑 标记的驱动，其规范、SDK 或运行库受**原厂或标准组织的商业授权 / 会员资格**约束。**用于生产、商用或对外交付前，请先联系对应厂家或授权机构，购买正版授权、取得正式许可后再使用**；未取得授权时，请仅用于学习、研究与测试评估。
 >
-> | 🔑 需授权驱动 | 授权来源（示例） |
-> |---|---|
-> | Fanuc FOCAS | 发那科（FANUC）原厂或其授权代理 |
-> | Heidenhain Remo Tools | 海德汉（HEIDENHAIN） |
-> | SECS/GEM | SEMI 规范 + 所用厂商 SDK 的授权方 |
-> | OPC DA | 所对接的第三方 OPC Server 厂商 |
-> | HART IP | FieldComm Group 会员规范 |
-> | PROFIBUS / PROFINET | PROFIBUS & PROFINET International（PI） |
-> | EtherNet/IP / DeviceNet | ODVA |
-> | CC-Link | CC-Link 协会（三菱） |
-> | KNX | KNX 协会 |
-> | LonWorks | Echelon / ADI 及其授权方 |
+> 本软件只实现协议对接，**不附带、不代购、不破解、不分发任何厂商 SDK、授权文件、授权码或功能选件**，也不代理任何厂商授权。
 >
-> **未标记的驱动**（Modbus、Siemens S7、三菱 MC、欧姆龙 FINS、BACnet、IEC 104/61850、DNP3、MQTT、OPC UA 等）为公开协议实现，通常无需额外授权；**是否需要授权最终以原厂与协议组织现行条款为准，本表仅作提示。**
+> | 🔑 需授权驱动 | 该联系谁 | 授权形态（示例） |
+> |---|---|---|
+> | Fanuc FOCAS | 发那科 FANUC 原厂 / 授权代理 | FOCAS 库授权（需签授权协议） |
+> | Heidenhain（Remo Tools / DNC） | 海德汉 HEIDENHAIN | 机床 DNC / Remo 付费选件 |
+> | Siemens 840D（OPC UA / Access MyMachine） | 西门子 SIEMENS | 数控系统付费运行时选件 |
+> | SECS/GEM | SEMI（标准文件需购买）+ 所用设备厂商 SDK 授权方 | 标准文件 + 厂商 SDK |
+> | OPC DA | 所对接的第三方 OPC Server 厂商 | OPC Server 商业授权 |
+> | HART IP | FieldComm Group | 会员资格 / 规范授权 |
+> | EtherNet/IP / DeviceNet | ODVA | 会员资格 + 规范订阅 |
+> | CC-Link | CC-Link 协会（CLPA） | 会员资格 / 规范授权 |
+> | KNX | KNX 协会 | 会员资格（规范仅对会员开放） |
+> | DLMS/COSEM | DLMS User Association | 会员资格（规范仅对会员开放） |
+> | LonWorks | LonMark International / 授权方 | 会员资格 / 规范授权 |
+>
+> **未标记的驱动**（Modbus、Siemens S7、三菱 MC/FX、基恩士 KV、松下 Mewtocol、欧姆龙 FINS/HostLink、倍福 ADS、CODESYS、Haas、Mazak、MTConnect、PROFIBUS、PROFINET、BACnet、OPC UA、IEC 104/61850、DNP3、DALI、M-Bus、MQTT、Sparkplug B、HTTP REST 等）为公开协议实现，通常无需向厂商购买授权即可实现：其中 **MTConnect 官方明确为开放免版税标准**、**PI 官方明确实现 PROFINET/PROFIBUS 不需要会员**、**Beckhoff 允许免版税再分发未修改的 ADS DLL**；另有部分协议的**规范文档本身需付费购买或仅对会员开放**（如 ASHRAE 135 / BACnet、IEC 62386 / DALI、EN 13757 / M-Bus、IEC 61850 / IEC 104、IEEE 1815 / DNP3），但**仅需购买规范文档即可自行实现**，不涉及向厂商付费授权。**是否需授权最终以原厂与标准组织现行条款为准，本表只作提示。**
+>
+> **合规与责任**：使用者须自行确认并取得所用设备与协议所需的全部授权和许可；本软件按「现状」提供，不对第三方协议授权情况作担保，因未取得授权而使用相关协议所产生的责任与纠纷由使用者自行承担。
 
 ### ⚙️ PLC / 控制器（11 种）
 | 驱动 | 支持的品牌/协议 |
@@ -258,7 +263,7 @@ IndustrialDataCollector 是一套**生产级工业数据采集引擎 ** — 已�
 | **Modbus TCP** | 施耐德、西门子、三菱、台达、汇川、信捷等所有支持 Modbus TCP 的设备 |
 | **Modbus RTU** | 串口 RS-232/485，同上 |
 | **Siemens S7** | S7-200/300/400/1200/1500，支持 DB/Input/Output/Merk |
-| **Siemens 840D** | Sinumerik 840D/840Di 数控系统直连 |
+| **Siemens 840D** 🔑 | Sinumerik 840D/840Di 数控系统直连 |
 | **Beckhoff ADS** | TwinCAT 2/3 全系列 |
 | **CODESYS** | CODESYS V3+ 兼容控制器（倍福、和利时、汇川等） |
 | **Mitsubishi FX** | FX1S/1N/2N/3U/5U 系列 |
@@ -276,10 +281,10 @@ IndustrialDataCollector 是一套**生产级工业数据采集引擎 ** — 已�
 | **Heidenhain** 🔑 | TNC 系列（HEIDENHAIN Remo Tools） |
 
 ### 🌐 工业以太网（3 种）
-**EtherNet/IP** 🔑 — Rockwell AB ControlLogix/CompactLogix · **Profinet** 🔑 — Siemens PROFINET IO · **OPC UA** — 跨平台数据建模
+**EtherNet/IP** 🔑 — Rockwell AB ControlLogix/CompactLogix · **Profinet** — Siemens PROFINET IO · **OPC UA** — 跨平台数据建模
 
 ### 🔗 现场总线（3 种）
-**PROFIBUS** 🔑 — Siemens PROFIBUS DP · **DeviceNet** 🔑 — Allen-Bradley · **CC-Link** 🔑 — Mitsubishi
+**PROFIBUS** — Siemens PROFIBUS DP · **DeviceNet** 🔑 — Allen-Bradley · **CC-Link** 🔑 — Mitsubishi
 
 ### ⚡ 电力/能源（3 种）
 **IEC 104** — 电力远动规约 · **IEC 61850** — 智能变电站 · **DNP3** — 北美电力 SCADA
@@ -293,7 +298,7 @@ IndustrialDataCollector 是一套**生产级工业数据采集引擎 ** — 已�
 | **MQTT Subscribe** | 订阅第三方 MQTT Broker 数据（反向采集） |
 | **Sparkplug B** | 工业物联网 MQTT 子协议 |
 | **HTTP REST** | RESTful JSON API 轮询采集 |
-| **DLMS/COSEM** | 智能电表国际标准 |
+| **DLMS/COSEM** 🔑 | 智能电表国际标准 |
 | **HART IP** 🔑 | HART 仪表 IP 版 |
 | **MTConnect** | 数控机床互联标准 |
 | **SECS/GEM** 🔑 | 半导体设备通信标准 |
@@ -301,7 +306,7 @@ IndustrialDataCollector 是一套**生产级工业数据采集引擎 ** — 已�
 | **OPC UA PubSub** | OPC UA 发布/订阅模式 |
 | **Simulator** | 内置 20+ 模拟变量（正弦波/方波/随机/递增） |
 
-> 🔑 **= 该驱动需先向原厂 / 协议组织购买正版授权后方可用于生产环境。** 本软件不提供、不代购、不附带任何厂商 SDK 与授权文件；无授权时请仅用于学习、研究与测试。
+> 🔑 **= 该驱动需先联系原厂 / 标准组织购买正版授权、取得正式许可后，方可用于生产与商用环境。** 本软件不提供、不代购、不破解、不附带任何厂商 SDK 与授权文件；无授权时请仅用于学习、研究与测试。
 
 
 
@@ -754,7 +759,7 @@ CSV 格式（UTF-8，Excel 可直接编辑）：
 
 **WEB 商业版（Web 平台，闭源）**：**不提供公开下载**，需联系作者申请授权，按机台数量计费。申请请注明「申请 WEB 商业版」，并提供以下五项：**使用场景 / 公司或个人 / 申请用途 / 授权时间 / 设备数量**。联系：`751326339@qq.com`，或致电 `18354356258` / `18854344113`（微信同号）。
 
-**驱动授权（重要）**：部分工业协议驱动（Fanuc FOCAS、HEIDENHAIN Remo Tools、SECS/GEM、OPC DA、HART IP、PROFIBUS / PROFINET、EtherNet/IP / DeviceNet、CC-Link、KNX、LonWorks 等）受原厂或协议组织商业授权约束，**请购买正版授权后再用于生产环境**；本软件仅实现协议对接，不附带、不分发任何厂商 SDK 或授权文件。详见「40 协议驱动全清单」中的 🔑 说明。
+**驱动授权（重要）**：部分工业协议驱动（Fanuc FOCAS、HEIDENHAIN Remo Tools、Siemens 840D、SECS/GEM、OPC DA、HART IP、EtherNet/IP、DeviceNet、CC-Link、KNX、DLMS/COSEM、LonWorks 等）受原厂或标准组织的商业授权（SDK、付费选件或会员资格）约束，**请先联系对应厂家或授权机构购买正版授权、取得正式许可后再用于生产与商用环境**；本软件只实现协议对接，不附带、不代购、不破解、不分发任何厂商 SDK、授权文件或功能选件。详见「40 协议驱动全清单」中的 🔑 说明。
 
 ---
 

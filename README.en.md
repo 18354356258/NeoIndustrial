@@ -235,22 +235,27 @@ Device configuration:
 
 > ⚠️ **Drivers that require a license — please read first**
 >
-> The protocols marked 🔑 below are governed by **commercial licenses from the original vendor or the standards body**. **Purchase a legitimate license before using them in production.** This software only implements protocol connectivity — it does **not** bundle or redistribute any vendor SDK, license file, or license key.
+> The drivers marked 🔑 below are governed by **commercial licenses or membership terms from the original vendor or the standards body**. **Before production, commercial or customer-facing use, contact the vendor or licensing body, purchase a legitimate license and obtain formal permission.** Without a license, use them for learning, research and evaluation only.
 >
-> | 🔑 Licensed drivers | License source (examples) |
-> |---|---|
-> | Fanuc FOCAS | FANUC (or an authorized distributor) |
-> | Heidenhain Remo Tools | HEIDENHAIN |
-> | SECS/GEM | SEMI standards plus the vendor SDK you use |
-> | OPC DA | The third-party OPC server vendor you connect to |
-> | HART IP | FieldComm Group specifications |
-> | PROFIBUS / PROFINET | PROFIBUS & PROFINET International (PI) |
-> | EtherNet/IP / DeviceNet | ODVA |
-> | CC-Link | CC-Link Partner Association |
-> | KNX | KNX Association |
-> | LonWorks | Echelon / ADI and their licensors |
+> This software only implements protocol connectivity. It does **not** bundle, resell, crack or redistribute any vendor SDK, license file, license key or licensed feature option, and does not act as an agent for any vendor licensing.
 >
-> **Unmarked drivers** (Modbus, Siemens S7, Mitsubishi MC, Omron FINS, BACnet, IEC 104/61850, DNP3, MQTT, OPC UA, etc.) are implemented from open specifications and normally need no extra license. **Whether a license is required is ultimately governed by the vendor's and standards body's current terms — this table is a heads-up only.**
+> | 🔑 Licensed drivers | Who to contact | Typical license form |
+> |---|---|---|
+> | Fanuc FOCAS | FANUC or an authorized distributor | FOCAS library license (agreement required) |
+> | Heidenhain (Remo Tools / DNC) | HEIDENHAIN | Paid machine DNC / Remo option |
+> | Siemens 840D (OPC UA / Access MyMachine) | SIEMENS | Paid CNC runtime option |
+> | SECS/GEM | SEMI (standards must be purchased) + the vendor SDK you use | Standards documents + vendor SDK |
+> | OPC DA | The third-party OPC server vendor you connect to | Commercial OPC server license |
+> | HART IP | FieldComm Group | Membership / specification license |
+> | EtherNet/IP / DeviceNet | ODVA | Membership + specification subscription |
+> | CC-Link | CC-Link Partner Association (CLPA) | Membership / specification license |
+> | KNX | KNX Association | Membership (specifications are member-only) |
+> | DLMS/COSEM | DLMS User Association | Membership (specifications are member-only) |
+> | LonWorks | LonMark International / licensors | Membership / specification license |
+>
+> **Unmarked drivers** (Modbus, Siemens S7, Mitsubishi MC/FX, Keyence KV, Panasonic Mewtocol, Omron FINS/HostLink, Beckhoff ADS, CODESYS, Haas, Mazak, MTConnect, PROFIBUS, PROFINET, BACnet, OPC UA, IEC 104/61850, DNP3, DALI, M-Bus, MQTT, Sparkplug B, HTTP REST, etc.) are implemented from open specifications and normally require no vendor license to implement: **MTConnect is documented by its owner as an open, royalty-free standard**, **PI states explicitly that PI membership is not required to implement PROFINET/PROFIBUS**, and **Beckhoff permits royalty-free redistribution of the unmodified ADS DLLs**. For some protocols the **standards documents themselves must be purchased or are member-only** (e.g. ASHRAE 135 / BACnet, IEC 62386 / DALI, EN 13757 / M-Bus, IEC 61850 / IEC 104, IEEE 1815 / DNP3) — but buying the specification is enough to implement; no vendor license fee is involved. **Whether a license is required is ultimately governed by the vendor's and standards body's current terms — this table is a heads-up only.**
+>
+> **Compliance & responsibility**: users must verify and obtain all licenses and permissions required for the devices and protocols they use. This software is provided "as is" with no warranty regarding third-party protocol licensing; any liability or dispute arising from the use of such protocols without a license rests with the user.
 
 ### ⚙️ PLC / Controllers (11)
 | Driver | Supported brands/protocols |
@@ -258,7 +263,7 @@ Device configuration:
 | **Modbus TCP** | Schneider, Siemens, Mitsubishi, Delta, Inovance, Xinje, and all devices supporting Modbus TCP |
 | **Modbus RTU** | Serial RS-232/485, same as above |
 | **Siemens S7** | S7-200/300/400/1200/1500, supporting DB/Input/Output/Merker areas |
-| **Siemens 840D** | Direct connection to Sinumerik 840D/840Di CNC systems |
+| **Siemens 840D** 🔑 | Direct connection to Sinumerik 840D/840Di CNC systems |
 | **Beckhoff ADS** | The full TwinCAT 2/3 range |
 | **CODESYS** | CODESYS V3+ compatible controllers (Beckhoff, Hollysys, Inovance, etc.) |
 | **Mitsubishi FX** | FX1S/1N/2N/3U/5U series |
@@ -276,10 +281,10 @@ Device configuration:
 | **Heidenhain** 🔑 | TNC series (HEIDENHAIN Remo Tools) |
 
 ### 🌐 Industrial Ethernet (3)
-**EtherNet/IP** 🔑 — Rockwell AB ControlLogix/CompactLogix · **Profinet** 🔑 — Siemens PROFINET IO · **OPC UA** — cross-platform data modeling
+**EtherNet/IP** 🔑 — Rockwell AB ControlLogix/CompactLogix · **Profinet** — Siemens PROFINET IO · **OPC UA** — cross-platform data modeling
 
 ### 🔗 Field Buses (3)
-**PROFIBUS** 🔑 — Siemens PROFIBUS DP · **DeviceNet** 🔑 — Allen-Bradley · **CC-Link** 🔑 — Mitsubishi
+**PROFIBUS** — Siemens PROFIBUS DP · **DeviceNet** 🔑 — Allen-Bradley · **CC-Link** 🔑 — Mitsubishi
 
 ### ⚡ Power / Energy (3)
 **IEC 104** — power telecontrol protocol · **IEC 61850** — smart substations · **DNP3** — North American power SCADA
@@ -293,7 +298,7 @@ Device configuration:
 | **MQTT Subscribe** | Subscribe to third-party MQTT brokers (reverse acquisition) |
 | **Sparkplug B** | Industrial IoT MQTT sub-protocol |
 | **HTTP REST** | Poll and collect from RESTful JSON APIs |
-| **DLMS/COSEM** | International standard for smart meters |
+| **DLMS/COSEM** 🔑 | International standard for smart meters |
 | **HART IP** 🔑 | IP variant of HART instruments |
 | **MTConnect** | CNC machine connectivity standard |
 | **SECS/GEM** 🔑 | Semiconductor equipment communication standard |
@@ -301,7 +306,7 @@ Device configuration:
 | **OPC UA PubSub** | OPC UA publish/subscribe mode |
 | **Simulator** | Built-in 20+ simulated variables (sine wave/square wave/random/increment) |
 
-> 🔑 **= this driver requires a legitimate license from the original vendor / standards body before production use.** This software does not provide, resell, or bundle any vendor SDK or license file; without a license, use it for learning, research and testing only.
+> 🔑 **= this driver requires a legitimate license from the original vendor / standards body, obtained in advance, before production or commercial use.** This software does not provide, resell, crack or bundle any vendor SDK or license file; without a license, use it for learning, research and testing only.
 
 
 
@@ -755,7 +760,7 @@ So no matter which city, which factory, or which school you come from — **this
 **Enterprise Edition (desktop client)**: requires a commercial license. The client can be downloaded for evaluation directly from this repository's Releases; to obtain a formal license, send your hardware ID to `751326339@qq.com`, or call `18354356258` / `18854344113` (Zhang Chenglong).
 
 **WEB Commercial Edition (web platform, closed source)**: **no public download**. A license must be applied for directly from the author and is priced by device/machine count. Please mark your request "WEB Commercial Edition license application" and include the following five items: **use case / company or individual / intended purpose / license period / number of devices**. Contact: `751326339@qq.com`, or call `18354356258` / `18854344113` (WeChat available).
-**Driver licensing (important)**: some industrial protocol drivers (Fanuc FOCAS, HEIDENHAIN Remo Tools, SECS/GEM, OPC DA, HART IP, PROFIBUS / PROFINET, EtherNet/IP / DeviceNet, CC-Link, KNX, LonWorks, etc.) are subject to commercial licenses from the vendor or standards body — **purchase a legitimate license before production use**. This software only implements protocol connectivity and does not bundle or redistribute any vendor SDK or license file. See the 🔑 marks in "The Complete List of 40 Protocol Drivers".
+**Driver licensing (important)**: some industrial protocol drivers (Fanuc FOCAS, HEIDENHAIN Remo Tools, Siemens 840D, SECS/GEM, OPC DA, HART IP, EtherNet/IP, DeviceNet, CC-Link, KNX, DLMS/COSEM, LonWorks, etc.) are subject to commercial licenses from the vendor or standards body (SDKs, paid feature options or membership) — **contact the vendor or licensing body, purchase a legitimate license and obtain formal permission before production or commercial use**. This software only implements protocol connectivity and does not bundle, resell, crack or redistribute any vendor SDK, license file or licensed feature option. See the 🔑 marks in "The Complete List of 40 Protocol Drivers".
 
 ---
 

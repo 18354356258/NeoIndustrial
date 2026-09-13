@@ -350,6 +350,14 @@ Both JSON shapes — "nested batch" (with a `values` array) and "flat single-var
 | **Other** | Profinet / LonWorks | Industrial Ethernet / building control |
 | | Simulator | Sine-wave simulated data (testing / demo / training) |
 
+> ⚠️ **Licensing notice (important)**: the drivers Fanuc FOCAS, Heidenhain (Remo Tools/DNC), Siemens 840D (OPC UA / Access MyMachine), SECS/GEM, OPC DA, HART IP, EtherNet/IP, DeviceNet, CC-Link, KNX, DLMS/COSEM and LonWorks involve **commercial licenses from the original vendor or the standards body (SDKs, paid feature options or membership)**. **Before production, commercial or customer-facing use, contact the vendor or licensing body, purchase a legitimate license and obtain formal permission**; this software only implements protocol connectivity and does **not** bundle, redistribute or crack any vendor SDK, license file or licensed feature option.
+>
+> All other drivers (Modbus, Siemens S7, Mitsubishi MC/FX, Keyence KV, Panasonic Mewtocol, Omron FINS/HostLink, Beckhoff ADS, CODESYS, Haas, Mazak, MTConnect, PROFIBUS, PROFINET, BACnet, OPC UA, IEC 104/61850, DNP3, DALI, M-Bus, MQTT, Sparkplug B, HTTP REST, etc.) are implemented from open specifications and normally need no separate license (for some protocols the **specification document** itself must be purchased or is member-only, e.g. ASHRAE 135, IEC 62386, EN 13757, IEC 61850, IEEE 1815). **Whether a license is required is ultimately governed by the vendor's and standards body's current terms.**
+>
+> **Compliance & responsibility**: users must verify and obtain all licenses and permissions required for the devices and protocols they use; any liability arising from the use of such protocols without a license rests with the user.
+>
+> The full marked list (🔑) and explanation are in the bundled README, "The Complete List of 40 Protocol Drivers".
+
 ### 6.3 Device creation flow
 
 1. **Pick the driver** — choose from the categorized dropdown (e.g. a Modbus TCP device needs IP + port 502 + station number);
