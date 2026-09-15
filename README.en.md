@@ -110,9 +110,39 @@
 
 ### 📸 See it in action (screenshot / GIF slots)
 
-<!-- 📷 Slot A: full-chain demo — collection → semantics → graph → AI collaboration
-     Suggested file: picture/web-00-fullchain.gif
-     Usage: ![Full-chain demo](picture/web-00-fullchain.gif) -->
+<div align="center">
+
+<img src="picture/web-gif-01-force-expand.gif" width="47%" alt="Force-directed layout — unfold animation">&nbsp;<img src="picture/web-gif-02-radial-to-force.gif" width="47%" alt="Layout switch: Radial → Force-directed">
+
+<img src="picture/web-gif-03-2d-to-3d.gif" width="47%" alt="2D → 3D demo switch">&nbsp;<img src="picture/web-gif-04-3d-rotation.gif" width="47%" alt="3D sphere rotation">
+
+<img src="picture/web-gif-05-star-orbit.gif" width="47%" alt="Star-orbit layout">&nbsp;<img src="picture/web-gif-06-3d-layouts.gif" width="47%" alt="3D layout switch">
+
+<img src="picture/web-gif-07-3d-suspend.gif" width="47%" alt="3D floating network">
+
+**▲ Semantic-graph highlights — layout switching · 2D / 3D** (looping GIFs)
+
+</div>
+
+### 🎬 WEB Commercial Edition — full demo video
+
+<div align="center">
+
+<a href="picture/web-demo.mp4"><img src="picture/web-demo-cover.jpg" width="90%" alt="▶ Click to watch the WEB Commercial Edition demo video"></a>
+
+**▶ Click the cover to watch the full demo** (1 min 53 s · 1080p)
+
+</div>
+
+This video is a complete walkthrough of the **WEB Commercial Edition** — from **data collection** to the **semantic knowledge graph (2D / 3D)** and the **Hermes Evolution Agent**:
+
+- **① Data collection**: device-tree management (workshop → process → device) with per-variable configuration and custom Python post-processing scripts (e.g., sliding-window filtering) that turn raw signals into clean, production-ready data;
+- **② Semantic graph 2D / 3D**: switch between force-directed, radial, tree, star, star-orbit, flow, chip and ring layouts in one click; in 3D sphere mode you can rotate and zoom to grasp the whole relationship network at a glance;
+- **③ Hermes Evolution Agent**: **self-evolution** (automatic skill distillation, evolution-proposal approval, feedback-driven skill refinement) · **scheduled tasks** (report / query-summary / alert / digest jobs with custom cron, generating daily briefs and HTML boards from natural-language instructions) · **push settings** (in-site messages + email + WeCom / DingTalk / Feishu bot webhooks).
+
+> 📺 Recorded on WEB Commercial Edition v3.22.0; best viewed at 1080p.
+
+
 
 <!-- 📷 Slot B: industrial semantic tree / semantic management UI
      Suggested file: picture/web-00-semantic-tree.png
