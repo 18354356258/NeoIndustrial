@@ -110,6 +110,20 @@
 
 ### 📸 先看效果（截图 / 动图位）
 
+<div align="center">
+
+<img src="picture/web-gif-01-force-expand.gif" width="47%" alt="力导布局·展开动画">&nbsp;<img src="picture/web-gif-02-radial-to-force.gif" width="47%" alt="布局切换：径向 → 力导">
+
+<img src="picture/web-gif-03-2d-to-3d.gif" width="47%" alt="2D → 3D 演示切换">&nbsp;<img src="picture/web-gif-04-3d-rotation.gif" width="47%" alt="3D 球面旋转">
+
+<img src="picture/web-gif-05-star-orbit.gif" width="47%" alt="星轨布局动效">&nbsp;<img src="picture/web-gif-06-3d-layouts.gif" width="47%" alt="3D 布局切换动效">
+
+<img src="picture/web-gif-07-3d-suspend.gif" width="47%" alt="3D 环绕展示动效">
+
+**▲ 语义知识图谱精选动态 —— 布局切换 · 2D / 3D 演示**（动图循环播放）
+
+</div>
+
 ### 🎬 WEB 商业版功能演示（视频）
 
 <div align="center">
