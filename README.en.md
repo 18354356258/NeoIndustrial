@@ -267,6 +267,10 @@ Device configuration:
 
 > ⚠️ **Drivers that require a license — please read first**
 >
+> **All 39 drivers built into the WEB Commercial Edition are open-source implementations**, and the runtime libraries shipped with the package are under open-source licences too. **The platform does not ship, bundle or pre-install any commercial-licensed driver that must be bought from a vendor.**
+>
+> If a device on site needs a commercially licensed driver, there are two routes: **① upload it yourself** — upload the driver you have purchased and licensed (`.dll` / `.zip`) in "Driver management", choosing its category; **② let the AI add it** — ask the built-in AI to search online for candidates; it states the source and licence and installs only after you agree. **The licence itself must still be obtained by the user — the platform only loads the driver, it never resells or cracks anything.**
+>
 > The drivers marked 🔑 below are governed by **commercial licenses or membership terms from the original vendor or the standards body**. **Before production, commercial or customer-facing use, contact the vendor or licensing body, purchase a legitimate license and obtain formal permission.** Without a license, use them for learning, research and evaluation only.
 >
 > This software only implements protocol connectivity. It does **not** bundle, resell, crack or redistribute any vendor SDK, license file, license key or licensed feature option, and does not act as an agent for any vendor licensing.
@@ -596,12 +600,13 @@ Analysis results land in the database alongside the raw data, and can be queried
 
 | Capability | Community Edition | Enterprise Edition | WEB Commercial Edition |
 |----------|:---:|:---:|:---:|
-| Industrial protocol drivers (PLC / CNC / power / building / semiconductor) | 40 | 40 | 39 (same core) |
+| Industrial protocol drivers (PLC / CNC / power / building / semiconductor) | 40 | 40 | 39 (same core, **all open-source implementations**) |
 | MQTT millisecond push | ✅ | ✅ | ✅ |
 | SQLite / MySQL / SQL Server / PostgreSQL | ✅ | ✅ | ✅ |
 | TDengine time-series database | ❌ | ✅ | ✅ |
 | Dameng DM8 (domestic database) | ❌ | ❌ | ✅ |
-| MCP AI tools | 50 | 50 | 83 |
+| MCP AI tools | 50 | 50 | **147** |
+| **Driver management (categories / upload / AI-added)** | ❌ | ❌ | ✅ |
 | REST API | ✅ | ✅ | ✅ |
 | CSV bulk import/export | ✅ | ✅ | ✅ |
 | UI languages | Chinese / English | Chinese / English | Chinese / English / Vietnamese (+ built-in manual) |
@@ -651,9 +656,11 @@ Analysis results land in the database alongside the raw data, and can be queried
 
 | Capability | Details |
 |------|------|
-| 🔌 Industrial protocol drivers | 39 production-ready drivers built in (PLC / CNC / power / building / semiconductor / meters), sharing the same core as the desktop edition; some protocols require a vendor license — see the 🔑 marks in the driver list |
+| 🔌 Industrial protocol drivers | **39** production-ready drivers built in, **all of them open-source implementations** (PLC / CNC / power / building / semiconductor / meters), sharing the same core as the desktop edition; organized into 7 driver categories — pick the category first, then the driver |
+| 🧩 Driver management | A single driver inventory: driver / category / source / provider / size / installed at / status, filterable by keyword, source and category. **Commercial-licensed drivers you have purchased, or open-source drivers, can be uploaded by you**; built-in drivers can be disabled and restored, plugin drivers can be deleted |
+| 🤖 AI adds drivers | For a protocol the platform does not have, just ask the built-in AI to search online: it explains the source and the license, and installs into the category you choose once you agree. The source URL and time are recorded server-side, and the inventory marks it "Added by AI" |
 | 🗄️ Parallel database writes | 6 kinds: SQLite / MySQL / SQL Server / PostgreSQL / TDengine / Dameng DM8 (domestic, Xinchuang-ready) |
-| 🤖 MCP atomic tools | 83 AI-callable tools covering devices, variables, collection, data sources, dashboards, semantics and team memory |
+| 🤖 MCP atomic tools | **147** AI-callable tools (137 visible to the built-in AI chat, 57 of them writable), covering device collection & control, collection drivers, data sources, offline cache, Fabric time-series analysis and industrial semantics |
 | 🧠 AI multi-agent | Built-in chat workspace; create your own agents, grant each one a capability boundary, and let them collaborate by dispatching tasks |
 | 🔬 Fabric time-series engine | 27 hot-pluggable operators: aggregate / correlation / anomaly / digital-twin benchmarking / rate / accumulate / threshold / prediction… |
 | 🕸️ Industrial semantics & knowledge graph | Semantic tree + 69 variable relation types + 71 event type catalog, with 2D/3D graph visualization |
@@ -662,6 +669,28 @@ Analysis results land in the database alongside the raw data, and can be queried
 | 🌍 Trilingual | Chinese / English / Vietnamese, switchable at runtime, with the built-in product manual in all three |
 | 🧩 Xinchuang-ready | A self-contained Linux x64 runtime package (no .NET install required), with Dameng DM8 usable out of the box |
 | 🚀 Deployment | Runs on a single machine; .NET 8 + Blazor, browser access, no client install on every PC |
+
+### 🔌 Driver categories & driver management (v3.22.5)
+
+Connecting a device is a two-level choice — **category first, then driver** — and the collection page and the driver management page share one category definition:
+
+| Category | Covers | Built-in drivers |
+|------|------|:---:|
+| Industrial common | General industrial protocols, simulator | 8 |
+| PLC / industrial control | Mainstream PLCs and controllers | 8 |
+| CNC | Machine tools and CNC systems | 6 |
+| Building automation | HVAC, lighting, meters | 4 |
+| Power / energy | Power protocols and metering | 5 |
+| Semiconductor | Semiconductor and fieldbuses | 3 |
+| General / other | HTTP, OPC, SNMP, etc. | 5 |
+
+What the driver management page does:
+
+- **One inventory** — driver / category / source / provider / size / installed at / status / actions, filterable by keyword, source and category;
+- **Upload assigns the category** — uploading a `.dll` or `.zip` (≤100 MB) requires choosing the category first, so the driver lands exactly where it belongs;
+- **Re-categorise in place** — a plugin driver's category can be switched right in the list;
+- **Built-in drivers can be disabled / restored, plugin drivers deleted** — built-in drivers ship with the program (their code cannot be deleted) and can be disabled and restored; uploaded plugins can be removed together with their folder;
+- **Added by AI** — for a protocol the platform lacks, ask the AI to search online, explain the source and licence, and install into the chosen category once you agree (marked "Added by AI"; source URL and timestamp are recorded server-side, not self-reported by the AI).
 
 <!-- 📷 Screenshot slot 3: WEB Commercial Edition · industrial knowledge graph (2D / 3D)
      Suggested file: picture/web-03-graph.png
@@ -746,6 +775,13 @@ This system is the work of one person. Compare it with similar offerings in the 
 
 ## 📋 Version History
 
+### v3.22.5 | 2026-09-19 — Driver management: driver categories + AI-added drivers (WEB Commercial Edition)
+
+- **Driver categories** — 7 categories (industrial common / PLC & industrial control / CNC / building automation / power & energy / semiconductor / general & other); pick the category first when connecting a device, uploads must declare a category, and the list can be filtered or re-categorised in place
+- **Driver management** — all 39 built-in drivers are open source; the inventory shows category / source / provider / size / installed at / status; built-in drivers can be disabled and restored, plugin drivers deleted; purchased commercial-licensed or open-source drivers can be uploaded directly
+- **AI-added drivers** — the AI searches online for candidates, states the source and licence, and installs into the chosen category after confirmation; the inventory marks it "Added by AI" and the source and timestamp are recorded server-side
+- **147 MCP tools** (137 visible to the built-in AI chat, 57 writable)
+
 ### v1.0.0 | 2026-07-16 — First Community Edition release
 
 - **40 industrial protocol drivers** — Modbus / Siemens S7 / OPC UA / BACnet / EtherNet/IP / Profinet / PROFIBUS / Beckhoff / CODESYS / Mitsubishi / Fanuc / IEC 104 61850 / DNP3 / KNX / DALI / SECS/GEM / MTConnect, and more
@@ -792,7 +828,12 @@ So no matter which city, which factory, or which school you come from — **this
 **Enterprise Edition (desktop client)**: requires a commercial license. The client can be downloaded for evaluation directly from this repository's Releases; to obtain a formal license, send your hardware ID to `751326339@qq.com`, or call `18354356258` / `18854344113` (Zhang Chenglong).
 
 **WEB Commercial Edition (web platform, closed source)**: **no public download**. A license must be applied for directly from the author and is priced by device/machine count. Please mark your request "WEB Commercial Edition license application" and include the following five items: **use case / company or individual / intended purpose / license period / number of devices**. Contact: `751326339@qq.com`, or call `18354356258` / `18854344113` (WeChat available).
-**Driver licensing (important)**: some industrial protocol drivers (Fanuc FOCAS, HEIDENHAIN Remo Tools, Siemens 840D, SECS/GEM, OPC DA, HART IP, EtherNet/IP, DeviceNet, CC-Link, KNX, DLMS/COSEM, LonWorks, etc.) are subject to commercial licenses from the vendor or standards body (SDKs, paid feature options or membership) — **contact the vendor or licensing body, purchase a legitimate license and obtain formal permission before production or commercial use**. This software only implements protocol connectivity and does not bundle, resell, crack or redistribute any vendor SDK, license file or licensed feature option. See the 🔑 marks in "The Complete List of 40 Protocol Drivers".
+**Driver licensing & compliance (important)**:
+
+- **All 39 drivers built into the WEB Commercial Edition are open-source implementations**, and their runtime libraries are open-source licensed; the platform **does not ship, bundle or redistribute any commercial-licensed driver that has to be purchased from a vendor**.
+- If a protocol on site needs a commercially licensed driver, the user can **upload it after obtaining the licence** (a `.dll` / `.zip`, with its category chosen in "Driver management"), or **have the built-in AI find one online and add it** (the AI states the source and licence and installs only after your confirmation). **The licence is always obtained by the user; the platform only loads the driver and never resells, cracks or acts as a licensing agent.**
+- If the desktop / community editions enable the following protocol integrations, their specifications, SDKs or runtime libraries are subject to **commercial licences or membership requirements from the vendor or standards body** (Fanuc FOCAS, HEIDENHAIN Remo Tools, Siemens 840D, SECS/GEM, OPC DA, HART IP, EtherNet/IP, DeviceNet, CC-Link, KNX, DLMS/COSEM, LonWorks, etc.): **before production, commercial or customer-facing use, contact the vendor or licensing body, purchase a legitimate licence and obtain formal permission**. The platform only implements protocol connectivity and does not bundle, resell, crack or redistribute any vendor SDK, licence file or licensed feature option. See the 🔑 marks in "The Complete List of 40 Protocol Drivers".
+- **Compliance & liability**: users must confirm and obtain all licences and permissions required by the devices and protocols they use. This software is provided "as is", makes no warranty about third-party protocol licensing, and any liability or dispute arising from using a protocol without a licence rests with the user.
 
 ---
 
