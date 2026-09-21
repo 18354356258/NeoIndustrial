@@ -782,6 +782,14 @@ This system is the work of one person. Compare it with similar offerings in the 
 - **AI-added drivers** — the AI searches online for candidates, states the source and licence, and installs into the chosen category after confirmation; the inventory marks it "Added by AI" and the source and timestamp are recorded server-side
 - **147 MCP tools** (137 visible to the built-in AI chat, 57 writable)
 
+### v1.0.2-community
+2026-09-21 — Modbus 4-zone address parsing fix
+
+- **Fix**: the driver used to pass variable addresses verbatim to the holding-register (fc03) read — address 30001 (input register zone) actually read holding register at protocol address 30001, showing "connection OK but all values are 0".
+- **Address rule**: variable addresses now support `0/1/3/4xxxx` zone prefixes (1-based): `0xxxx`=coils, `1xxxx`=discrete inputs, `3xxxx`=input registers, `4xxxx`=holding registers; plain numbers keep legacy 0-based holding-register behavior.
+- **Read-failure visibility**: read errors now show `ERR` in the live view and are logged (previously silently reported as 0); applied to both Modbus TCP and RTU drivers.
+- **Verified**: 20/20 automated tests against a local Modbus TCP slave simulator (9 parsing + 11 read cases).
+
 ### v1.0.0 | 2026-07-16 — First Community Edition release
 
 - **40 industrial protocol drivers** — Modbus / Siemens S7 / OPC UA / BACnet / EtherNet/IP / Profinet / PROFIBUS / Beckhoff / CODESYS / Mitsubishi / Fanuc / IEC 104 61850 / DNP3 / KNX / DALI / SECS/GEM / MTConnect, and more

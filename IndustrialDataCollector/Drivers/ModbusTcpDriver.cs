@@ -114,7 +114,7 @@ namespace IndustrialDataCollection.Drivers
                         }
                         catch (Exception ex)
                         {
-                            Logger.Debug(string.Format("Modbus TCP 读取失败 [{0}.{1}]: {2}", _config.Name, point.Name, ex.Message));
+                            Logger.Warn(string.Format("Modbus TCP 读取失败 [{0}.{1}@地址{2}]: {3}", _config.Name, point.Name, point.Address, ex.Message));
                         }
 
                         // 边缘计算处理
@@ -131,7 +131,7 @@ namespace IndustrialDataCollection.Drivers
                             DeviceName = _config.Name,
                             VariableName = point.Name,
                             DataType = point.DataType,
-                            Value = processedValue.ToString("F6").TrimEnd('0').TrimEnd('.'),
+                            Value = rawValue == null ? "ERR" : processedValue.ToString("F6").TrimEnd('0').TrimEnd('.'),
                             Unit = point.Unit,
                             Tag = point.OutputTag ? point.Tag : null,
                             TagCn = point.OutputTagCn ? point.TagCn : null,
@@ -175,27 +175,48 @@ namespace IndustrialDataCollection.Drivers
 
         public Task<object> ReadAsync(DataPoint point)
         {
+            ModbusHelper.ModbusAddress addr;
+            string addrErr;
+            if (!ModbusHelper.TryResolveAddress(point.Address, out addr, out addrErr))
+                throw new ArgumentException(string.Format("变量[{0}]地址无效: {1}", point.Name, addrErr));
+
             object result = 0;
 
             switch (point.DataType.ToLower())
             {
                 case "bool":
                 case "coil":
+                case "bit":
+                case "boolean":
                     {
-                        bool[] coils = _master.ReadCoils(_stationId, ushort.Parse(point.Address), 1);
-                        result = coils[0];
+                        if (addr.FunctionCode == 1)
+                        {
+                            bool[] coils = _master.ReadCoils(_stationId, addr.Address, 1);
+                            result = coils[0];
+                        }
+                        else if (addr.FunctionCode == 2)
+                        {
+                            bool[] inputs = _master.ReadInputs(_stationId, addr.Address, 1);
+                            result = inputs[0];
+                        }
+                        else
+                        {
+                            // 寄存器区 + bool：读 1 个寄存器取 bit0
+                            ushort[] reg = ReadRegisters(point, addr, 1);
+                            result = (reg[0] & 1) == 1;
+                        }
                         break;
                     }
                 case "byte":
                     {
-                        ushort[] reg = _master.ReadHoldingRegisters(_stationId, ushort.Parse(point.Address), 1);
+                        ushort[] reg = ReadRegisters(point, addr, 1);
                         result = (byte)(reg[0] & 0xFF);
                         break;
                     }
                 case "int16":
                 case "short":
                     {
-                        ushort[] reg = _master.ReadHoldingRegisters(_stationId, ushort.Parse(point.Address), 1);
+                        ushort[] reg = ReadRegisters(point, addr, 1);
                         result = (short)reg[0];
                         break;
                     }
@@ -203,45 +224,50 @@ namespace IndustrialDataCollection.Drivers
                 case "ushort":
                 case "word":
                     {
-                        ushort[] reg = _master.ReadHoldingRegisters(_stationId, ushort.Parse(point.Address), 1);
+                        ushort[] reg = ReadRegisters(point, addr, 1);
                         result = reg[0];
                         break;
                     }
                 case "int32":
                 case "int":
                     {
-                        ushort[] reg = _master.ReadHoldingRegisters(_stationId, ushort.Parse(point.Address), 2);
-                        byte[] bytes = ModbusHelper.RegistersToBytes(reg, point.ByteOrder);
+                        ushort[] reg = ReadRegisters(point, addr, 2);
+                        byte[] bytes = ModbusHelper.RegistersToNumericBytes(reg, point.ByteOrder);
                         result = BitConverter.ToInt32(bytes, 0);
                         break;
                     }
                 case "uint32":
                 case "dword":
+                case "uint":
                     {
-                        ushort[] reg = _master.ReadHoldingRegisters(_stationId, ushort.Parse(point.Address), 2);
-                        byte[] bytes = ModbusHelper.RegistersToBytes(reg, point.ByteOrder);
+                        ushort[] reg = ReadRegisters(point, addr, 2);
+                        byte[] bytes = ModbusHelper.RegistersToNumericBytes(reg, point.ByteOrder);
                         result = BitConverter.ToUInt32(bytes, 0);
                         break;
                     }
                 case "int64":
+                case "long":
                     {
-                        ushort[] reg = _master.ReadHoldingRegisters(_stationId, ushort.Parse(point.Address), 4);
-                        byte[] bytes = ModbusHelper.RegistersToBytes(reg, point.ByteOrder);
+                        ushort[] reg = ReadRegisters(point, addr, 4);
+                        byte[] bytes = ModbusHelper.RegistersToNumericBytes(reg, point.ByteOrder);
                         result = BitConverter.ToInt64(bytes, 0);
                         break;
                     }
                 case "uint64":
+                case "ulong":
                     {
-                        ushort[] reg = _master.ReadHoldingRegisters(_stationId, ushort.Parse(point.Address), 4);
-                        byte[] bytes = ModbusHelper.RegistersToBytes(reg, point.ByteOrder);
+                        ushort[] reg = ReadRegisters(point, addr, 4);
+                        byte[] bytes = ModbusHelper.RegistersToNumericBytes(reg, point.ByteOrder);
                         result = BitConverter.ToUInt64(bytes, 0);
                         break;
                     }
                 case "float":
                 case "real":
+                case "float32":
+                case "single":
                     {
-                        ushort[] reg = _master.ReadHoldingRegisters(_stationId, ushort.Parse(point.Address), 2);
-                        byte[] bytes = ModbusHelper.RegistersToBytes(reg, point.ByteOrder);
+                        ushort[] reg = ReadRegisters(point, addr, 2);
+                        byte[] bytes = ModbusHelper.RegistersToNumericBytes(reg, point.ByteOrder);
                         result = BitConverter.ToSingle(bytes, 0);
                         break;
                     }
@@ -249,28 +275,45 @@ namespace IndustrialDataCollection.Drivers
                     {
                         int strLen = point.Length > 0 ? point.Length : 1;
                         int regCount = (strLen + 1) / 2;
-                        ushort[] reg = _master.ReadHoldingRegisters(_stationId, ushort.Parse(point.Address), (ushort)regCount);
+                        ushort[] reg = ReadRegisters(point, addr, (ushort)regCount);
                         byte[] strBytes = ModbusHelper.RegistersToBytes(reg, point.ByteOrder);
                         string str = System.Text.Encoding.ASCII.GetString(strBytes).TrimEnd('\0', ' ');
                         return Task.FromResult<object>(str);
                     }
                 case "double":
+                case "float64":
                     {
-                        ushort[] reg = _master.ReadHoldingRegisters(_stationId, ushort.Parse(point.Address), 4);
-                        byte[] bytes = ModbusHelper.RegistersToBytes(reg, point.ByteOrder);
+                        ushort[] reg = ReadRegisters(point, addr, 4);
+                        byte[] bytes = ModbusHelper.RegistersToNumericBytes(reg, point.ByteOrder);
                         result = BitConverter.ToDouble(bytes, 0);
                         break;
                     }
                 default:
                     {
-                        ushort[] reg = _master.ReadHoldingRegisters(_stationId, ushort.Parse(point.Address), 1);
-                        result = reg[0];break;
+                        ushort[] reg = ReadRegisters(point, addr, 1);
+                        result = reg[0];
+                        break;
                     }
             }
-
             double doubleVal = Convert.ToDouble(result);
             result = point.ConvertValue(doubleVal);
             return Task.FromResult(result);
+        }
+
+        /// <summary>
+        /// 按 ModbusAddress 读取寄存器区（fc03 保持寄存器 / fc04 输入寄存器）。
+        /// 修复 2026-09-21：此前所有类型一律 ReadHoldingRegisters 且地址原样直传，
+        /// 30001（输入寄存器）会读到协议地址 30001 的保持寄存器，读回全 0。
+        /// </summary>
+        private ushort[] ReadRegisters(DataPoint point, ModbusHelper.ModbusAddress addr, ushort count)
+        {
+            if (addr.FunctionCode == 4)
+                return _master.ReadInputRegisters(_stationId, addr.Address, count);
+            if (addr.FunctionCode == 3)
+                return _master.ReadHoldingRegisters(_stationId, addr.Address, count);
+            throw new NotSupportedException(string.Format(
+                "变量[{0}]地址 {1} 是位区地址（线圈/离散输入），不能按 {2} 类型读取；请改用 3xxxx/4xxxx 寄存器地址或纯数字地址",
+                point.Name, point.Address, point.DataType));
         }
 
         private void NotifyStatus(bool connected, string message)

@@ -147,7 +147,7 @@ namespace IndustrialDataCollection.Forms
             // 版本
             lblVersion = new Label
             {
-                Text = "v1.2.0",
+                Text = "v1.2.1",
                 Font = new Font("Segoe UI", 9F, FontStyle.Regular),
                 ForeColor = Color.FromArgb(71, 85, 105),
                 BackColor = Color.Transparent,
