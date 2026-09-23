@@ -77,8 +77,8 @@ namespace IndustrialDataCollection.Forms
             // 品牌标题
             lblBrandTitle = new Label
             {
-                Text = "MatriX",
-                Font = new Font("Microsoft YaHei UI", 28F, FontStyle.Bold),
+                Text = "NeoIndustrial",
+                Font = new Font("Microsoft YaHei UI", 22F, FontStyle.Bold),
                 ForeColor = CAccent,
                 BackColor = Color.Transparent,
                 AutoSize = true,

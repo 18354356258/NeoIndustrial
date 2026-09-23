@@ -128,7 +128,7 @@ namespace IndustrialDataCollection.Forms
         {
             BackColor = Color.White;
             Font = UiFont;
-            Text = "语义管理 — MatriX 工业语义层";
+            Text = "语义管理 — NeoIndustrial 工业语义层";
             var wa = Screen.PrimaryScreen.WorkingArea;
             Size = new Size((int)(wa.Width * 0.88), (int)(wa.Height * 0.92));
             MinimumSize = new Size(1024, 720);

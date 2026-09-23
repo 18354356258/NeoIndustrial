@@ -595,6 +595,7 @@ What the driver management page does:
 
 - **Enterprise Edition (this repository)**: the client is **freely downloadable from this repository's Releases page** for evaluation; the source is Apache 2.0, so you can clone and build it yourself. For a formal license, send your machine ID by email.
 - **WEB Commercial Edition**: **no public download**. A license must be applied for directly from the author, priced by device/machine count.
+- **In-app shortcut**: in the desktop client, **Help → Contact Me** opens both repositories and lets you copy the licensing e-mail; the login screen also carries a “Contact Me · Get Commercial Edition” link.
 
 **To apply for a WEB Commercial Edition license, please state the following five items in your email or call:**
 

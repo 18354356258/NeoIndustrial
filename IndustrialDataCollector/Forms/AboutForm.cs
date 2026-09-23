@@ -95,19 +95,19 @@ namespace IndustrialDataCollection.Forms
             // 品牌大标题 "NEO"
             lblBrand = new Label
             {
-                Text = "MatriX",
-                Font = new Font("Segoe UI", 46F, FontStyle.Bold),
+                Text = "NeoIndustrial",
+                Font = new Font("Segoe UI", 30F, FontStyle.Bold),
                 ForeColor = CWhite,
                 BackColor = Color.Transparent,
-                Location = new Point(40, 48),
-                Size = new Size(220, 76),
+                Location = new Point(40, 52),
+                Size = new Size(220, 56),
                 TextAlign = ContentAlignment.MiddleLeft
             };
 
             // 品牌副标题
             lblBrandSub = new Label
             {
-                Text = "INDUSTRIAL",
+                Text = "企业版 · ENTERPRISE",
                 Font = new Font("Segoe UI", 11F, FontStyle.Regular),
                 ForeColor = Color.FromArgb(148, 163, 184),
                 BackColor = Color.Transparent,
@@ -147,7 +147,7 @@ namespace IndustrialDataCollection.Forms
             // 版本
             lblVersion = new Label
             {
-                Text = "v1.2.1",
+                Text = AppVersion("v"),
                 Font = new Font("Segoe UI", 9F, FontStyle.Regular),
                 ForeColor = Color.FromArgb(71, 85, 105),
                 BackColor = Color.Transparent,
@@ -179,7 +179,7 @@ namespace IndustrialDataCollection.Forms
             // 标题
             lblTitle = new Label
             {
-                Text = "工业数据采集大师",
+                Text = "NeoIndustrial 企业版",
                 Font = new Font("Microsoft YaHei UI", 20F, FontStyle.Bold),
                 ForeColor = CText,
                 Location = new Point(40, 40),
@@ -190,7 +190,7 @@ namespace IndustrialDataCollection.Forms
             // 描述
             lblDesc = new Label
             {
-                Text = "插件式工业数据采集平台，7 大协议驱动\n助力工业物联网数据上云",
+                Text = "工业数采平台 · 内置 39 种协议驱动\n覆盖 PLC / CNC / 工业以太网 / 现场总线 / 电力 / 楼宇 / IoT",
                 Font = new Font("Microsoft YaHei UI", 10F),
                 ForeColor = CTextSub,
                 Location = new Point(40, 84),
@@ -291,6 +291,17 @@ namespace IndustrialDataCollection.Forms
             this.Controls.Add(panelLeft);
         }
 
+        /// <summary>版本号取自程序集版本</summary>
+        private static string AppVersion(string prefix)
+        {
+            try
+            {
+                var v = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+                return prefix + (v == null ? "" : v.ToString(3));
+            }
+            catch { return prefix; }
+        }
+
         private void PanelLeft_Paint(object sender, PaintEventArgs e)
         {
             using (var brush = new LinearGradientBrush(
@@ -306,8 +317,8 @@ namespace IndustrialDataCollection.Forms
             var L = LanguageManager.Instance;
             this.Text = L.GetString("About_Title");
             lblSlogan.Text = L.GetString("Login_Slogan");
-            lblTitle.Text = "工业数据采集大师";
-            lblDesc.Text = "插件式工业数据采集平台，7 大协议驱动\n助力工业物联网数据上云";
+            lblTitle.Text = "NeoIndustrial 企业版";
+            lblDesc.Text = "工业数采平台 · 内置 39 种协议驱动\n覆盖 PLC / CNC / 工业以太网 / 现场总线 / 电力 / 楼宇 / IoT";
             btnOk.Text = L.GetString("PointEdit_Ok");
         }
 

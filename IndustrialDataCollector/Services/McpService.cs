@@ -192,7 +192,7 @@ namespace IndustrialDataCollection.Services
         public static McpService ActiveInstance { get; set; }
 
         /// <summary>服务名称，用于 MCP initialize 响应</summary>
-        public string ServerName { get; set; } = "MatriX Industrial Data Platform";
+        public string ServerName { get; set; } = "NeoIndustrial Enterprise Data Platform";
 
         /// <summary>服务版本</summary>
         public string ServerVersion { get; set; } = "1.6.0";

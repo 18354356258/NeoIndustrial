@@ -64,11 +64,11 @@ namespace IndustrialDataCollection.Forms
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(26, 173);
+            this.label1.Location = new System.Drawing.Point(26, 104);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(200, 28);
             this.label1.TabIndex = 9;
-            this.label1.Text = "AI数据采集处理大师";
+            this.label1.Text = "企业版 · ENTERPRISE";
             this.label1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // panelDecor
@@ -84,13 +84,13 @@ namespace IndustrialDataCollection.Forms
             // 
             this.lblAppName.AutoSize = true;
             this.lblAppName.BackColor = System.Drawing.Color.Transparent;
-            this.lblAppName.Font = new System.Drawing.Font("Segoe UI", 48F, System.Drawing.FontStyle.Bold);
+            this.lblAppName.Font = new System.Drawing.Font("Segoe UI", 30F, System.Drawing.FontStyle.Bold);
             this.lblAppName.ForeColor = System.Drawing.Color.White;
-            this.lblAppName.Location = new System.Drawing.Point(27, 47);
+            this.lblAppName.Location = new System.Drawing.Point(27, 50);
             this.lblAppName.Name = "lblAppName";
-            this.lblAppName.Size = new System.Drawing.Size(242, 86);
+            this.lblAppName.Size = new System.Drawing.Size(210, 54);
             this.lblAppName.TabIndex = 2;
-            this.lblAppName.Text = "MatriX";
+            this.lblAppName.Text = "NeoIndustrial";
             // 
             // lblSlogan
             // 
@@ -158,7 +158,7 @@ namespace IndustrialDataCollection.Forms
             this.lblCopyright.Name = "lblCopyright";
             this.lblCopyright.Size = new System.Drawing.Size(138, 16);
             this.lblCopyright.TabIndex = 8;
-            this.lblCopyright.Text = "© 2026 zhangchenglong";
+            this.lblCopyright.Text = "© 2026 张成龙";
             // 
             // panelRight
             // 
@@ -298,7 +298,7 @@ namespace IndustrialDataCollection.Forms
             this.MinimizeBox = false;
             this.Name = "LoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "MatriX_工业网络数采平台";
+            this.Text = "NeoIndustrial 企业版 - 工业网络数采平台";
             this.panelLeft.ResumeLayout(false);
             this.panelLeft.PerformLayout();
             this.panelRight.ResumeLayout(false);

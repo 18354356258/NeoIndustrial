@@ -208,7 +208,7 @@ namespace IndustrialDataCollection.Services
                 else if (path.StartsWith("/api/device/") && path.EndsWith("/realtime"))
                     HandleGetRealtimeByPath(path, resp);
                 else if (path == "/" || path == "/api")
-                    WriteJson(resp, 200, new { service = "MatriX Industrial Data Collector API", version = "1.0", swagger = "/swagger/index.html" });
+                    WriteJson(resp, 200, new { service = "NeoIndustrial Enterprise API", version = "1.0", swagger = "/swagger/index.html" });
                 else
                     WriteJson(resp, 404, new { error = "Not Found", path = req.Url.AbsolutePath });
             }
@@ -324,7 +324,7 @@ namespace IndustrialDataCollection.Services
                 openapi = "3.0.0",
                 info = new
                 {
-                    title = "MatriX 工业数采平台 API",
+                    title = "NeoIndustrial 企业版 API",
                     version = "1.0.0",
                     description = "实时工业设备数据查询接口。点击右上角 🔒 Authorize 按钮输入 Token（如 admin123），或通过 ?token=xxx 参数传递。"
                 },
@@ -429,7 +429,7 @@ namespace IndustrialDataCollection.Services
 <head>
   <meta charset=""UTF-8"">
   <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
-  <title>MatriX API Docs</title>
+  <title>NeoIndustrial API Docs</title>
   <link rel=""stylesheet"" href=""https://unpkg.com/swagger-ui-dist@5/swagger-ui.css"">
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }

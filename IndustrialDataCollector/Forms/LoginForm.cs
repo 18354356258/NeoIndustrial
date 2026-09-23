@@ -41,6 +41,9 @@ namespace IndustrialDataCollection.Forms
 
             // 托盘图标
             InitTray();
+
+            // 品牌信息 +「联系我」入口（代码创建，不动 Designer）
+            InitBrandAndContact();
             FormClosing += (s, e) =>
             {
                 if (_trayIcon != null)
@@ -190,13 +193,49 @@ namespace IndustrialDataCollection.Forms
             _chkRemember.Text = L.GetString("Login_RememberPwd");
         }
 
+        /// <summary>品牌信息绑定 + 登录页「联系我」入口</summary>
+        private void InitBrandAndContact()
+        {
+            lblVersion.Text = AppVersionText("V");
+
+            var link = new LinkLabel
+            {
+                Text = "联系我 · 获取商业版 / 查看开源仓库",
+                Font = new Font("Microsoft YaHei UI", 9.5F),
+                LinkColor = Color.FromArgb(56, 145, 220),
+                ActiveLinkColor = Color.FromArgb(37, 99, 235),
+                VisitedLinkColor = Color.FromArgb(56, 145, 220),
+                LinkBehavior = LinkBehavior.HoverUnderline,
+                AutoSize = true,
+                Location = new Point(50, 296)
+            };
+            link.LinkClicked += (s, e) =>
+            {
+                using (var form = new ContactForm())
+                    form.ShowDialog(this);
+            };
+            panelRight.Controls.Add(link);
+            link.BringToFront();
+        }
+
+        /// <summary>版本号取自程序集版本，避免手写字面量过期</summary>
+        internal static string AppVersionText(string prefix)
+        {
+            try
+            {
+                var v = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+                return prefix + (v == null ? "" : v.ToString(3));
+            }
+            catch { return prefix; }
+        }
+
         private NotifyIcon _trayIcon;
         private void InitTray()
         {
             _trayIcon = new NotifyIcon
             {
                 Icon = this.Icon,
-                Text = "Neo_工业网络数采平台",
+                Text = "NeoIndustrial 企业版 - 工业网络数采平台",
                 Visible = true
             };
 

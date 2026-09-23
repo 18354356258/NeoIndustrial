@@ -40,6 +40,7 @@
             this.清空数据ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.导出CSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.联系我ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toolBtnAddDevice = new System.Windows.Forms.ToolStripButton();
@@ -293,10 +294,18 @@
             // 帮助ToolStripMenuItem
             //
             this.帮助ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.关于ToolStripMenuItem});
+            this.关于ToolStripMenuItem,
+            this.联系我ToolStripMenuItem});
             this.帮助ToolStripMenuItem.Name = "帮助ToolStripMenuItem";
             this.帮助ToolStripMenuItem.Size = new System.Drawing.Size(61, 21);
             this.帮助ToolStripMenuItem.Text = "帮助(&H)";
+            // 
+            // 联系我ToolStripMenuItem
+            // 
+            this.联系我ToolStripMenuItem.Name = "联系我ToolStripMenuItem";
+            this.联系我ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.联系我ToolStripMenuItem.Text = "联系我(&C)";
+            this.联系我ToolStripMenuItem.Click += new System.EventHandler(this.联系我ToolStripMenuItem_Click);
             //
             // 关于ToolStripMenuItem
             //
@@ -761,7 +770,7 @@
             this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "MatriX_工业网络数采大师";
+            this.Text = "NeoIndustrial 企业版 - 工业网络数采平台";
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.toolStrip.ResumeLayout(false);
@@ -810,6 +819,7 @@
         private System.Windows.Forms.ToolStripMenuItem API服务配置ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 帮助ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 关于ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 联系我ToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuDevice;
         private System.Windows.Forms.ToolStripMenuItem ctxStart;
         private System.Windows.Forms.ToolStripMenuItem ctxStop;

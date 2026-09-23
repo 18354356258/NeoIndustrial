@@ -179,7 +179,7 @@ namespace IndustrialDataCollection.Forms
         // ======================== CONSTRUCTOR ========================
         public DashboardForm()
         {
-            this.Text = "MatriX Industrial Data Collector - Dashboard";
+            this.Text = "NeoIndustrial 企业版 - 数据看板";
             var workingArea = Screen.PrimaryScreen.WorkingArea;
             this.StartPosition = FormStartPosition.CenterScreen;
             this.Size = new Size((int)(workingArea.Width * 0.92), (int)(workingArea.Height * 0.90));
@@ -530,7 +530,7 @@ namespace IndustrialDataCollection.Forms
 
             // Title
             _lblHeaderTitle = new Label();
-            _lblHeaderTitle.Text = "MatriX Industrial Data Collector";
+            _lblHeaderTitle.Text = "NeoIndustrial 企业版";
             _lblHeaderTitle.ForeColor = ClrText;
             _lblHeaderTitle.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             _lblHeaderTitle.AutoSize = true;

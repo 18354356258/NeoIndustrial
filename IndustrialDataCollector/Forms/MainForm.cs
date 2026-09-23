@@ -361,7 +361,7 @@ namespace IndustrialDataCollection.Forms
             _trayIcon = new NotifyIcon
             {
                 Icon = this.Icon,
-                Text = "Neo_工业网络数采平台",
+                Text = "NeoIndustrial 企业版 - 工业网络数采平台",
                 Visible = false
             };
 
@@ -1528,6 +1528,13 @@ namespace IndustrialDataCollection.Forms
             toolBtnAbout_Click(sender, e);
         }
 
+        /// <summary>帮助 → 联系我：获取 WEB 商业版 / 查看两个开源仓库</summary>
+        private void 联系我ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var form = new ContactForm())
+                form.ShowDialog(this);
+        }
+
         // ========== 底部按钮事件 ==========
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -1729,6 +1736,7 @@ namespace IndustrialDataCollection.Forms
             if (_dashboardMenuItem != null) _dashboardMenuItem.Text = L.GetString("Menu_Dashboard");
             帮助ToolStripMenuItem.Text = L.GetString("Menu_Help");
             关于ToolStripMenuItem.Text = L.GetString("Menu_Help_About");
+            联系我ToolStripMenuItem.Text = L.GetString("Menu_Help_Contact");
 
             // ===== 工具栏 =====
             toolBtnAddDevice.Text = L.GetString("Toolbar_AddDevice");
@@ -2601,7 +2609,7 @@ namespace IndustrialDataCollection.Forms
                 bool minimizeToTray = true;
                 using (var dlg = new Form())
                 {
-                    dlg.Text = "Neo_工业网络数采平台";
+                    dlg.Text = "NeoIndustrial 企业版 - 工业网络数采平台";
                     dlg.FormBorderStyle = FormBorderStyle.FixedDialog;
                     dlg.MaximizeBox = false;
                     dlg.MinimizeBox = false;
@@ -2662,7 +2670,7 @@ namespace IndustrialDataCollection.Forms
                     e.Cancel = true;
                     this.Hide();
                     _trayIcon.Visible = true;
-                    _trayIcon.ShowBalloonTip(2000, "Neo_工业网络数采平台",
+                    _trayIcon.ShowBalloonTip(2000, "NeoIndustrial 企业版 - 工业网络数采平台",
                         LanguageManager.Instance.GetString("Status_TrayMinimized"), ToolTipIcon.Info);
                     Logger.Info("最小化到系统托盘");
                     return;
