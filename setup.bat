@@ -1,7 +1,7 @@
 @echo off
 chcp 65001 >nul
 echo ============================================
-echo   IndustrialDataCollector 社区版 - 环境准备
+echo   IndustrialDataCollector 企业版 - 环境准备
 echo ============================================
 echo.
 

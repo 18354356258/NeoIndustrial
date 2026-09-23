@@ -1,808 +1,522 @@
-# NeoIndustrial Community Edition
+# NeoIndustrial · Industrial Data Collector
 
 [中文](README.md) | **English**
 
 <div align="center">
 
-**NeoIndustrial Data Acquisition Platform · Community Edition**
-
-[![.NET Framework 4.8](https://img.shields.io/badge/.NET-4.8-blue)](https://dotnet.microsoft.com/)
-[![License](https://img.shields.io/badge/License-Apache%202.0-green)](LICENSE)
-[![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey)]()
-[![Gitee](https://img.shields.io/badge/Gitee-JEDI_MASTER-red)](https://gitee.com/JEDI_MASTER/neoIndustrial)
-
 ![logo](picture/elephant_logo_512.png)
 
-**MCP + Industrial Data Acquisition = World's First** · 40 protocols completely free · Millisecond MQTT to cloud · AI-native control · Industry 4.0 ready
+**An open-source, enterprise-grade industrial data acquisition desktop client for Windows**
+
+[![.NET Framework 4.8](https://img.shields.io/badge/.NET-4.8-blue)](https://dotnet.microsoft.com/download/dotnet-framework/net48)
+[![License](https://img.shields.io/badge/License-Apache%202.0-green)](LICENSE)
+[![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey)]()
+[![GitHub](https://img.shields.io/badge/GitHub-NeoIndustrial-black)](https://github.com/18354356258/NeoIndustrial)
+[![Gitee](https://img.shields.io/badge/Gitee-JEDI_MASTER-red)](https://gitee.com/JEDI_MASTER/neoIndustrial)
+
+**39 protocol drivers · millisecond MQTT uplink · 7 database targets · AI-native via MCP · Apache 2.0**
 
 </div>
 
-> 📦 **This project ships in three editions**:
-> **① Community Edition** (open source, free, download from Releases) ·
-> **② Enterprise Edition** (client downloadable from Releases for evaluation; formal license issued by hardware ID) ·
-> **③ WEB Commercial Edition** (browser platform, license by application). The table below explains all three; the Enterprise client is under "Get Started in 5 Minutes", and how to apply for the WEB edition is in the License section at the end.
-
 ---
 
-## 🧭 Two Minutes In: Three Editions, Explained
+## What is this?
 
-> **One core, three forms: desktop single-machine → desktop factory-grade → browser-based platform.**
-> From "get the data off the machine" to "let AI turn that data into decisions", the three editions cover three stages of plant digitalization.
+Industrial Data Collector is a production-grade industrial data acquisition workstation that runs on a single Windows PC. Downward, it speaks to PLCs, CNC machines, power equipment, meters and building-automation devices through **39 built-in protocol drivers**. Upward, it writes collected data into **seven kinds of databases** and publishes it over **MQTT** with millisecond latency. In between, it cleans data at the edge, models a factory-wide semantic layer, raises four-level alarms, renders a live dashboard, and hands control to AI assistants over **MCP** and third-party systems over a **REST API**.
 
-| | ① Community Edition | ② Enterprise Edition | ③ WEB Commercial Edition |
-|:--|:--|:--|:--|
-| **Form** | Windows desktop, single machine | Windows desktop, factory-grade | **B/S server + browser** |
-| **Price** | Open source, free (Apache 2.0) | Commercial license | Commercial license (priced by machine count) |
-| **How to get it** | Download from Releases / build from source | Client downloadable from Releases | **Apply to the author — no public download** |
-| **In one line** | The free foundation that gets industrial data off your machines | A factory-grade data OS on the desktop | **Collection → semantics → graph → AI collaboration, one unbroken chain** |
-| **Its strongest card** | 40 protocol drivers · millisecond MQTT · 50 MCP AI tools | Semantic digital-twin layer · Fabric engine · dashboards · templates & cloning | All of the above + 2D/3D knowledge graph · AI multi-agent · multi-user collaboration · Xinchuang-ready |
-| **Its honest weak spot** | Desktop single-machine only; no dashboards, no semantic layer, no commercial support | Still a single-machine desktop app; multi-user collaboration and web access remain unsolved | Needs a server to host it, and it is not publicly downloadable |
+It is a WinForms desktop application written in C# on .NET Framework 4.8 — one executable, no server, no container, no database server required to get started. Connect a device, start collection, and watch the data land.
 
-### ① Community Edition — the free way in
+> This repository contains the **complete source code** of the enterprise desktop client, released under the Apache License 2.0 — download it, build it, deploy it, adapt it.
 
-**Best for**: personal learning, single-device trials, secondary development, teaching.
-
-**Strengths**
-
-- **Genuinely open source under Apache 2.0** — free for commercial and non-commercial use, no feature crippling, no time bomb;
-- **40 industrial protocol drivers** out of the box (PLC / CNC / power / building / semiconductor), with millisecond MQTT uplink;
-- **50 MCP AI tools** + REST API, so AI can read your device data directly;
-- Parallel writes to 4 databases (SQLite / MySQL / SQL Server / PostgreSQL).
-
-**Weak spots (stated plainly)**
-
-- **Windows desktop, single machine only** — no browser access, no multi-user concurrency;
-- **No semantic layer, no dashboards, no Fabric engine** — those live in the Enterprise Edition;
-- **No commercial SLA** — maintained by one person; issues go through the repo and community.
-
-### ② Enterprise Edition — factory-grade firepower on the desktop
-
-**Best for**: a single plant running deep on one machine, needing semantic modeling and production dashboards.
-
-**Strengths**
-
-- Adds the **semantic-layer digital-twin engine** on top of the Community Edition, turning "40001 = 245.6" into a variable with business meaning;
-- **Fabric time-series engine (8 operators)** + **dashboard monitoring wall** + **event rule engine**;
-- **Config templates · device cloning** — configure one production line, clone it to the other ten;
-- **Industrial-grade reliability**: offline caching with re-send, heartbeat monitoring, exponential-backoff reconnect, multi-generation rolling config backups.
-
-**Weak spots (stated plainly)**
-
-- **Still a single-machine desktop app** — one operator, one PC; multi-user collaboration and remote access are not solved;
-- **Requires a Windows industrial PC** — not suitable for Xinchuang Linux environments;
-- **Still no knowledge graph and no AI multi-agent** — AI stops at the tool-calling level.
-
-### ③ WEB Commercial Edition — the most advanced generation: collection → semantics → graph → AI collaboration ⭐
-
-> If the Community and Enterprise editions solve **getting the data up**, the WEB Commercial Edition solves the **whole chain of "data → judgment → action"**.
-> Very few industrial software products have this chain **fully connected end to end** — most stop after one or two links.
-
-**Why it is ahead: one chain, all inside a single platform**
-
-| Stage | The usual approach (buy each piece, glue them yourself) | This platform (one platform does it all) |
-|:--|:--|:--|
-| ① Collection | Buy Kepware / SCADA to collect data | 39 drivers on the same core, millisecond MQTT, parallel writes to 6 databases |
-| ② Semantics | Keep a spreadsheet noting "what 40001 means" | Built-in industrial semantic tree + 69 variable relation types + 71 event type catalog |
-| ③ Graph | Nothing (or a separate 3D visualization project) | **2D / 3D knowledge-graph visualization** with digital-twin modeling and relation tracing |
-| ④ Analysis | Buy a BI tool / a time-series database | **Fabric engine with 27 hot-pluggable operators** (aggregate / correlation / anomaly / rate of change / accumulate / threshold / prediction…) |
-| ⑤ Prediction | None | Trend and threshold prediction operators over historical time series |
-| ⑥ Summarization | Someone writes the daily report by hand | **AI summarizes and draws conclusions automatically**, with user-defined agents by role |
-| ⑦ Collaboration | Chat groups plus spreadsheets | **AI multi-agent task dispatch** + team memory / knowledge distillation / self-evolving skills |
-
-**One platform replaces the 4–5 systems you would otherwise buy separately and glue together yourself.**
-
-**Strengths**
-
-- All seven stages above are **built in**;
-- **Browser (B/S) access** — no per-PC client; upgrade once and the whole plant is current;
-- **Three-tier permissions (organization / role / user) + audit trail** — who changed a config, who exported which data, all traceable;
-- **AI-native**: 83 MCP tools + multi-agent orchestration; AI can add devices, configure variables, query history and build dashboards directly;
-- **It grows with you**: AI memory, team knowledge distillation, and skills that are captured automatically and self-improve — the longer you use it, the better it knows your plant;
-- **Xinchuang-ready**: a self-contained Linux x64 runtime package (no .NET install) with Dameng DM8 usable out of the box;
-- **Trilingual**: Chinese / English / Vietnamese switchable at runtime, with the built-in manual in all three.
-
-**Weak spots (stated plainly)**
-
-- **Needs a server to host it** (or an always-on industrial PC) — it is not a double-click desktop app;
-- **Not publicly downloadable** — a license must be applied for from the author, priced by machine count;
-- **39 drivers** (the same core as the desktop edition, which ships 40);
-- The fuller the platform, the **more first-time setup it needs** — semantics, graphs and agents all need to be fed your data.
-
-### 📸 See it in action (screenshot / GIF slots)
+### 📸 See it in action
 
 <div align="center">
 
-<img src="picture/web-gif-01-force-expand.gif" width="47%" alt="Force-directed layout — unfold animation">&nbsp;<img src="picture/web-gif-02-radial-to-force.gif" width="47%" alt="Layout switch: Radial → Force-directed">
+![Login](picture/登录页.png)
 
-<img src="picture/web-gif-03-2d-to-3d.gif" width="47%" alt="2D → 3D demo switch">&nbsp;<img src="picture/web-gif-04-3d-rotation.gif" width="47%" alt="3D sphere rotation">
+**Login** — a default administrator account is created automatically on first start
 
-<img src="picture/web-gif-05-star-orbit.gif" width="47%" alt="Star-orbit layout">&nbsp;<img src="picture/web-gif-06-3d-layouts.gif" width="47%" alt="3D layout switch">
+![Device Management](picture/设备管理.png)
 
-<img src="picture/web-gif-07-3d-suspend.gif" width="47%" alt="3D floating network">
+**Device management** — four-level hierarchy, groups, drag & drop, live status lights
 
-**▲ Semantic-graph highlights — layout switching · 2D / 3D** (looping GIFs)
+![Dashboard](picture/看板.png)
 
-</div>
+**Dashboard** — device status, live alarms, realtime values, trend curves and data-flow rates on one screen
 
-### 🎬 WEB Commercial Edition — full demo video
+![AI Conversation](picture/AI对话.png)
 
-<div align="center">
-
-<a href="picture/web-demo.mp4"><img src="picture/web-demo-cover.jpg" width="90%" alt="▶ Click to watch the WEB Commercial Edition demo video"></a>
-
-**▶ Click the cover to watch the full demo** (1 min 53 s · 1080p)
+**AI assistant (MCP)** — add devices, configure variables and query data in natural language
 
 </div>
 
-This video is a complete walkthrough of the **WEB Commercial Edition** — from **data collection** to the **semantic knowledge graph (2D / 3D)** and the **Hermes Evolution Agent**:
-
-- **① Data collection**: device-tree management (workshop → process → device) with per-variable configuration and custom Python post-processing scripts (e.g., sliding-window filtering) that turn raw signals into clean, production-ready data;
-- **② Semantic graph 2D / 3D**: switch between force-directed, radial, tree, star, star-orbit, flow, chip and ring layouts in one click; in 3D sphere mode you can rotate and zoom to grasp the whole relationship network at a glance;
-- **③ Hermes Evolution Agent**: **self-evolution** (automatic skill distillation, evolution-proposal approval, feedback-driven skill refinement) · **scheduled tasks** (report / query-summary / alert / digest jobs with custom cron, generating daily briefs and HTML boards from natural-language instructions) · **push settings** (in-site messages + email + WeCom / DingTalk / Feishu bot webhooks).
-
-> 📺 Recorded on WEB Commercial Edition v3.22.0; best viewed at 1080p.
-
-
-
-<!-- 📷 Slot B: industrial semantic tree / semantic management UI
-     Suggested file: picture/web-00-semantic-tree.png
-     Usage: ![Industrial semantic tree](picture/web-00-semantic-tree.png) -->
-
-<!-- 📷 Slot C: knowledge graph 2D / 3D visualization (rotate, drill down)
-     Suggested file: picture/web-00-graph-3d.gif
-     Usage: ![Knowledge graph 3D](picture/web-00-graph-3d.gif) -->
-
-<!-- 📷 Slot D: AI analysis / prediction / summarization / multi-agent collaboration
-     Suggested file: picture/web-00-ai-agents.gif
-     Usage: ![AI multi-agent collaboration](picture/web-00-ai-agents.gif) -->
-
 ---
-
-## 🎨 The Story Behind This Software
-
-In the spring of 2026, I was developing the UI prototypes and driver logic for a digital twin system at home.
-
-I'm not a computer science major. I'm an **art student** — color, light, and composition are my native language. But in the digital twin world, pretty pictures alone get you nowhere: without real data flowing in, even the most gorgeous 3D model is just an exquisite empty shell.
-
-My aluminum extrusion digital twin project is already live and iterating like crazy — trilingual (Chinese/English/Vietnamese), with AI analysis, temperature trend dashboards, extrusion cycle data automatically written to the database, data export, second-level data sync, and millimeter-level model displacement, all mirroring the live equipment on the shop floor (it may be open-sourced in the future too — stay tuned).
-
-While building that digital twin system, I needed something that could connect to every device in the factory. PLCs, CNCs, sensors, meters, power cabinets, building controllers... they all speak completely different languages: Modbus, S7, FOCAS, BACnet, IEC 61850... The options out there were either absurdly expensive (one Kepware license costs as much as a machine tool), too heavy for an industrial PC to run (installing Ignition takes longer than building the production line), or so old they had never even heard of AI.
-
-**I couldn't find anything usable. So I put down the brush and opened Visual Studio.**
-
-(Some background: I joined a steel plant right after graduation, and have now spent 3 years in the aluminum extrusion industry — 12 years in IT in total.)
-
-In under three months, one person — one art student — built from scratch: 40 industrial protocol drivers, parallel writes to 4 kinds of databases, MQTT two-layer millisecond push, 50 MCP AI atomic tools, a REST API, and a dashboard monitoring wall. Not to prove anything — I simply needed a set of nerve endings that could connect to every industrial device, to bring the digital twin to life.
-
-**This is not "yet another piece of industrial software". This is the data foundation an art student built for the digital twin world.**
-
-Now, I'm open-sourcing the Community Edition in full — Apache 2.0, permanently and genuinely free.
-
-Because I know how hard it is to do open-source industrial software in China. When you're walking alone through the workshop at midnight, with nothing but the PLC indicator lights blinking, what you need is not more paywalls and gatekeeping — it's a tool that works, that's sincere, and that asks for nothing in return.
-
-I hope you like it. I hope it's useful. And to friends hoping to transition from art/design/frontend into IT: I sincerely hope this software helps you get there.
-
----
-![Login Page](picture/%E7%99%BB%E5%BD%95%E9%A1%B5.png)
-
-
-## 📖 Why Choose It
-
-This is not another Modbus debugging tool.
-
-IndustrialDataCollector is a **production-grade industrial data acquisition engine** — rock-solid, and already running on real production floors.
-
-From PLCs in stamping workshops to IEC 61850 substations at offshore wind farms, from Fanuc controllers on 5-axis CNC machining centers to semiconductor SECS/GEM tools — **one codebase covers them all.**
-
-40 drivers, 4 databases, MQTT two-layer topic push, 50 MCP AI atomic tools — zero barriers to getting started. No encryption, no authentication, no license.
-
-**The Community Edition is open source under Apache 2.0, free forever.**
-
-You should spend your time on process optimization and business-scenario analysis — not on the nonsense of "who can connect to whom".
-
----
-
- **Conversational AI for real-time data, adding devices and variables, and historical data analysis** 
-
-![AI Conversation](picture/AI%E5%AF%B9%E8%AF%9D.png)
-
-
-![AI Conversation 1](picture/AI%E5%AF%B9%E8%AF%9D1.png)
-
-
-![AI Conversation 2](picture/AI%E5%AF%B9%E8%AF%9D2.png)
-
-
-
-## 🧠 Architecture at a Glance
-
-```
-┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│  PLC / CNC  │    │  Sensors &  │    │  Power &    │
-│ 40 protocols│    │  Meters     │    │  Building   │
-│             │    │ Modbus RTU  │    │ BACnet/DLT  │
-└──────┬──────┘    └──────┬──────┘    └──────┬──────┘
-       │                  │                  │
-       └──────────────────┼──────────────────┘
-                          ▼
-              ┌───────────────────────┐
-              │  DataCollectionEngine │
-              │ millisecond polling · │
-              │ adaptive byte order   │
-              └───────────┬───────────┘
-                          │
-          ┌───────────────┼───────────────┐
-          ▼               ▼               ▼
-   ┌──────────┐   ┌──────────┐   ┌──────────────┐
-   │   MQTT   │   │  4 DBs   │   │  MCP / REST  │
-   │  ms push │   │ parallel │   │ AI data plane│
-   └──────────┘   └──────────┘   └──────────────┘
-```
-
 
 ## ✨ Core Capabilities
 
-| Module | Community Edition |
-|------|:---:|
-| 🔌 **40 industrial protocol drivers** — PLC / CNC / meters / building / power / semiconductor | ✅ |
-| 📡 **MQTT two-layer topics** — bulk JSON + per-variable subtopics, Sparkplug B compatible | ✅ |
-| 🗄️ **Parallel writes to 4 databases** — SQLite / MySQL / SQL Server / PostgreSQL | ✅ |
-| 🤖 **50 tools over MCP** — AI manages devices, queries data, and starts/stops collection in natural language | ✅ |
-| 🔄 **REST API** — HTTP real-time data queries with Bearer Token authentication | ✅ |
-| 📊 **Bulk CSV management** — Excel-compatible UTF-8, one-click import/export of data points | ✅ |
-| 🌍 **Bilingual UI (Chinese/English)** — switch at runtime without restart | ✅ |
-| 🧪 **Simulator driver** — 20+ simulated variables, run the full pipeline with no hardware | ✅ |
-| 🚀 **Zero barriers** — no encryption, no authentication, no license, no hardware lock; unzip and run | ✅ |
+| Capability | What you get |
+|------|------|
+| 🔌 **39 protocol drivers in 7 categories** | PLC & controllers, CNC, industrial Ethernet, fieldbus, power & energy, building automation, IoT / semiconductor / others — all real implementations, no stubs |
+| 🌲 **Four-level device hierarchy** | Company → workshop → process → device, with groups, drag & drop, "move to", live search and 🟢🔴🟡 status lights |
+| 🎛️ **Per-variable configuration** | Address, data type, byte order, linear scaling (`y = kx + b`), rounding, units, HH/H/L/LL alarms, custom scripts, edge calculation and formula application — every variable individually |
+| 🧹 **Edge computing** | 9 data-cleansing strategies (dead-zone, spike suppression, rate limiting, 3σ outlier removal, freeze detection …) executed in pipeline order before storage |
+| 📡 **MQTT publishing** | Two-tier topics (batch packet + per-variable sub-topics), configurable publish mode per device, offline caching with automatic replay |
+| 🗄️ **7 database targets in parallel** | SQLite, MySQL, SQL Server, PostgreSQL, TDengine, Oracle, ODBC — each with an independent on/off switch and automatic table creation |
+| 🧬 **Semantic layer (digital-twin modeling)** | Device tree auto-syncs into a factory semantic tree; 17 variable relation types; datasource field bindings; Chinese/English tag namespace |
+| ⚡ **Fabric time-series engine** | 8 hot-pluggable operators — aggregation, trend, threshold, anomaly, correlation, root-cause, prediction, daily report |
+| 🎛️ **Dashboard** | Device status matrix, live alarm panel, realtime metrics, trend curves, data-flow monitoring; coexists with the collection page |
+| 📋 **Event rules** | Rules attached to semantic-tree nodes with 12 handling methods — alarm, message, email, SMS, HTTP callback, work order, AI analysis … |
+| 📦 **Templates · cloning · batch deployment** | Export a device's full configuration as a template, apply it to many devices, or clone an identical device and just change the IP |
+| 🕳️ **Network tunnels** | VPN / NAT tunnel management with IP mapping for devices behind cross-segment networks — no need to re-address devices |
+| 🤖 **AI assistant over MCP** | Built-in MCP server with 50 tools — any MCP-capable client (Claude Desktop, etc.) manages devices, variables and queries in natural language |
+| 🔄 **REST API** | Standalone HTTP service with Bearer-token authentication and optional Swagger docs for third-party integration |
+| 📊 **CSV bulk import/export** | Excel-compatible UTF-8 files for creating hundreds of variables in one go |
+| 🌍 **Bilingual UI** | Chinese / English switchable at runtime — about 650 UI strings flip instantly, no restart |
+| 🧪 **Simulator driver** | Realistic simulated process values — run the entire pipeline with zero hardware |
+| 🔐 **Accounts, tokens & activation** | SHA256 + salt password storage, token authentication for MCP/REST, software activation bound to the machine |
 
-Device management:
+---
 
-![Device Management](picture/%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86.png)
+## 🔌 The 39 Built-in Drivers
 
+Drivers are organized in **7 categories** — pick the category, then the driver, in the new-device dialog.
 
-Device configuration:
+### ⚙️ PLC & Controllers (11)
 
-![Configuration](picture/%E8%AE%BE%E5%A4%87%E6%A8%A1%E6%9D%BF%E7%94%9F%E6%88%90-%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86.png)
-
-## 🔌 The Complete List of 40 Protocol Drivers
-
-> ⚠️ **Drivers that require a license — please read first**
->
-> **All 39 drivers built into the WEB Commercial Edition are open-source implementations**, and the runtime libraries shipped with the package are under open-source licences too. **The platform does not ship, bundle or pre-install any commercial-licensed driver that must be bought from a vendor.**
->
-> If a device on site needs a commercially licensed driver, there are two routes: **① upload it yourself** — upload the driver you have purchased and licensed (`.dll` / `.zip`) in "Driver management", choosing its category; **② let the AI add it** — ask the built-in AI to search online for candidates; it states the source and licence and installs only after you agree. **The licence itself must still be obtained by the user — the platform only loads the driver, it never resells or cracks anything.**
->
-> The drivers marked 🔑 below are governed by **commercial licenses or membership terms from the original vendor or the standards body**. **Before production, commercial or customer-facing use, contact the vendor or licensing body, purchase a legitimate license and obtain formal permission.** Without a license, use them for learning, research and evaluation only.
->
-> This software only implements protocol connectivity. It does **not** bundle, resell, crack or redistribute any vendor SDK, license file, license key or licensed feature option, and does not act as an agent for any vendor licensing.
->
-> | 🔑 Licensed drivers | Who to contact | Typical license form |
-> |---|---|---|
-> | Fanuc FOCAS | FANUC or an authorized distributor | FOCAS library license (agreement required) |
-> | Heidenhain (Remo Tools / DNC) | HEIDENHAIN | Paid machine DNC / Remo option |
-> | Siemens 840D (OPC UA / Access MyMachine) | SIEMENS | Paid CNC runtime option |
-> | SECS/GEM | SEMI (standards must be purchased) + the vendor SDK you use | Standards documents + vendor SDK |
-> | OPC DA | The third-party OPC server vendor you connect to | Commercial OPC server license |
-> | HART IP | FieldComm Group | Membership / specification license |
-> | EtherNet/IP / DeviceNet | ODVA | Membership + specification subscription |
-> | CC-Link | CC-Link Partner Association (CLPA) | Membership / specification license |
-> | KNX | KNX Association | Membership (specifications are member-only) |
-> | DLMS/COSEM | DLMS User Association | Membership (specifications are member-only) |
-> | LonWorks | LonMark International / licensors | Membership / specification license |
->
-> **Unmarked drivers** (Modbus, Siemens S7, Mitsubishi MC/FX, Keyence KV, Panasonic Mewtocol, Omron FINS/HostLink, Beckhoff ADS, CODESYS, Haas, Mazak, MTConnect, PROFIBUS, PROFINET, BACnet, OPC UA, IEC 104/61850, DNP3, DALI, M-Bus, MQTT, Sparkplug B, HTTP REST, etc.) are implemented from open specifications and normally require no vendor license to implement: **MTConnect is documented by its owner as an open, royalty-free standard**, **PI states explicitly that PI membership is not required to implement PROFINET/PROFIBUS**, and **Beckhoff permits royalty-free redistribution of the unmodified ADS DLLs**. For some protocols the **standards documents themselves must be purchased or are member-only** (e.g. ASHRAE 135 / BACnet, IEC 62386 / DALI, EN 13757 / M-Bus, IEC 61850 / IEC 104, IEEE 1815 / DNP3) — but buying the specification is enough to implement; no vendor license fee is involved. **Whether a license is required is ultimately governed by the vendor's and standards body's current terms — this table is a heads-up only.**
->
-> **Compliance & responsibility**: users must verify and obtain all licenses and permissions required for the devices and protocols they use. This software is provided "as is" with no warranty regarding third-party protocol licensing; any liability or dispute arising from the use of such protocols without a license rests with the user.
-
-### ⚙️ PLC / Controllers (11)
-| Driver | Supported brands/protocols |
-|------|---------------|
-| **Modbus TCP** | Schneider, Siemens, Mitsubishi, Delta, Inovance, Xinje, and all devices supporting Modbus TCP |
-| **Modbus RTU** | Serial RS-232/485, same as above |
-| **Siemens S7** | S7-200/300/400/1200/1500, supporting DB/Input/Output/Merker areas |
-| **Siemens 840D** 🔑 | Direct connection to Sinumerik 840D/840Di CNC systems |
+| Driver | Covers |
+|------|------|
+| **Modbus TCP** | Schneider, Siemens, Mitsubishi, Delta, Inovance, Xinje and every Modbus TCP device; zone-prefixed addressing (`0/1/3/4xxxx`) |
+| **Modbus RTU** | RS-232/485 serial devices, same register model |
+| **Siemens S7** | S7-200/300/400/1200/1500 — DB, input, output and Merker areas |
 | **Beckhoff ADS** | The full TwinCAT 2/3 range |
-| **CODESYS** | CODESYS V3+ compatible controllers (Beckhoff, Hollysys, Inovance, etc.) |
-| **Mitsubishi FX** | FX1S/1N/2N/3U/5U series |
-| **Mitsubishi MELSEC** | iQ-R/iQ-F/Q/L series (MC protocol) |
+| **CODESYS** | CODESYS V3+ compatible controllers (Beckhoff, Hollysys, Inovance, …) |
+| **Mitsubishi FX** | FX1S/1N/2N/3U/5U programming port |
+| **Mitsubishi MELSEC** | iQ-R / iQ-F / Q / L series via the MC protocol |
 | **Keyence KV** | KV-5000/7000/8000 series |
 | **Panasonic Mewtocol** | The full FP series |
-| **Omron FINS / HostLink** | The full CJ/CS/CP range |
+| **Omron FINS** | Omron CJ/CS/CP series over FINS |
+| **Omron HostLink** | Omron HostLink, serial and Ethernet |
 
-### 🔧 CNC Machine Tools (4)
-| Driver | Description |
+### 🔧 CNC Machine Tools (5)
+
+| Driver | Covers |
 |------|------|
-| **Fanuc FOCAS** 🔑 | 0i/16i/18i/21i/30i/31i/32i — read/write macro variables + spindle load + alarm numbers |
-| **Haas CNC** | The full NGC controller range |
+| **Fanuc FOCAS** 🔑 | 0i/16i/18i/21i/30i/31i/32i — macro variables, spindle load, alarm numbers |
+| **Siemens 840D** 🔑 | Sinumerik 840D/840Di CNC systems |
+| **Haas CNC** | The full NGC controller range (serial) |
 | **Mazak** | Mazatrol controllers (Smooth series) |
-| **Heidenhain** 🔑 | TNC series (HEIDENHAIN Remo Tools) |
+| **Heidenhain** 🔑 | TNC series via Remo Tools / DNC |
 
 ### 🌐 Industrial Ethernet (3)
-**EtherNet/IP** 🔑 — Rockwell AB ControlLogix/CompactLogix · **Profinet** — Siemens PROFINET IO · **OPC UA** — cross-platform data modeling
 
-### 🔗 Field Buses (3)
-**PROFIBUS** — Siemens PROFIBUS DP · **DeviceNet** 🔑 — Allen-Bradley · **CC-Link** 🔑 — Mitsubishi
+**EtherNet/IP** 🔑 — Rockwell / Allen-Bradley ControlLogix & CompactLogix · **PROFINET** — Siemens PROFINET IO · **OPC UA** — built on the official OPC Foundation stack
 
-### ⚡ Power / Energy (3)
-**IEC 104** — power telecontrol protocol · **IEC 61850** — smart substations · **DNP3** — North American power SCADA
+### 🔗 Fieldbus (3)
+
+**PROFIBUS** — Siemens PROFIBUS DP (via gateway) · **DeviceNet** 🔑 — Allen-Bradley CIP · **CC-Link** 🔑 — Mitsubishi
+
+### ⚡ Power & Energy (2)
+
+**IEC 104** — power telecontrol · **DNP3** — North American power SCADA
 
 ### 🏢 Building Automation (5)
-**BACnet** — Honeywell/Johnson Controls/Siemens building control · **KNX** 🔑 — smart building bus · **DALI** — digital addressable lighting · **LonWorks** 🔑 — building control networks · **MBus** — heat/water/electricity meters
 
-### ☁️ IoT / Semiconductor / Others (11)
-| Driver | Description |
+**BACnet** — Honeywell / Johnson Controls / Siemens building control · **KNX** 🔑 — smart-building bus · **DALI** — digital addressable lighting · **LonWorks** 🔑 — building control networks · **M-Bus** — heat / water / electricity meters
+
+### ☁️ IoT / Semiconductor / Others (10)
+
+| Driver | Covers |
 |------|------|
-| **MQTT Subscribe** | Subscribe to third-party MQTT brokers (reverse acquisition) |
+| **MQTT Subscribe** | Reverse acquisition — devices or gateways that publish to a broker themselves |
 | **Sparkplug B** | Industrial IoT MQTT sub-protocol |
 | **HTTP REST** | Poll and collect from RESTful JSON APIs |
-| **DLMS/COSEM** 🔑 | International standard for smart meters |
+| **DLMS/COSEM** 🔑 | Smart electricity meters |
 | **HART IP** 🔑 | IP variant of HART instruments |
 | **MTConnect** | CNC machine connectivity standard |
 | **SECS/GEM** 🔑 | Semiconductor equipment communication standard |
-| **OPC DA** 🔑 | Classic OPC Data Access |
+| **OPC DA** 🔑 | Classic OPC Data Access servers |
 | **OPC UA PubSub** | OPC UA publish/subscribe mode |
-| **Simulator** | Built-in 20+ simulated variables (sine wave/square wave/random/increment) |
+| **Simulator** | Built-in simulated variables for testing, demos and training |
 
-> 🔑 **= this driver requires a legitimate license from the original vendor / standards body, obtained in advance, before production or commercial use.** This software does not provide, resell, crack or bundle any vendor SDK or license file; without a license, use it for learning, research and testing only.
-
-
+> ⚖️ **Driver licensing notice.** All drivers listed above are implemented in this repository. Drivers marked 🔑 are governed by **commercial licenses or membership terms** from the original vendor or the standards body (FANUC for FOCAS, HEIDENHAIN, Siemens for 840D options, SEMI + your SDK vendor for SECS/GEM, OPC Foundation/server vendors for OPC DA, FieldComm Group for HART IP, ODVA for EtherNet/IP and DeviceNet, CLPA for CC-Link, KNX Association, DLMS User Association, LonMark International). **Before production, commercial or customer-facing use, obtain a legitimate license from the vendor or licensing body.** The unmarked drivers (Modbus, S7, MC/FX, KV, Mewtocol, FINS/HostLink, ADS, CODESYS, Haas, Mazak, MTConnect, PROFIBUS, PROFINET, BACnet, OPC UA, IEC 104, DNP3, DALI, M-Bus, MQTT, Sparkplug B, HTTP REST, …) are implemented from open specifications; for a few of those the specification document itself must be purchased (e.g. ASHRAE 135 / BACnet, IEC 62386 / DALI, EN 13757 / M-Bus, IEC 60870-5-104, IEEE 1815 / DNP3) — buying the specification is enough to implement, with no vendor license fee involved. This software implements protocol connectivity only — it never bundles, resells or cracks any vendor SDK, license file or licensed feature option. Whether a license is required is ultimately governed by the vendor's and standards body's current terms; this notice is a heads-up, not legal advice.
 
 ---
 
-## 🚀 Get Started in 5 Minutes
+## 🚀 Quick Start
 
 ### Requirements
-- Windows 7 SP1+ / Windows Server 2008 R2+
-- .NET Framework 4.8 ([official Microsoft download](https://dotnet.microsoft.com/download/dotnet-framework/net48))
-- 4 GB+ RAM
 
-### Installation
+| Item | Minimum | Recommended |
+|------|----------|----------|
+| OS | Windows 7 SP1 / Windows Server 2008 R2 | Windows 10 / Windows Server 2019+ |
+| Runtime | .NET Framework 4.8 | .NET Framework 4.8 ([download](https://dotnet.microsoft.com/download/dotnet-framework/net48)) |
+| Memory | 4 GB | 8 GB+ |
+| Disk | 500 MB (excluding stored data) | SSD |
 
-> ⚠️ **If you downloaded the zip, read this first!** Windows marks downloaded files as unsafe, which breaks the VS build.
+### Build from source
 
-**⬇️ Download the Enterprise Edition client (no install, unzip and run)**
+**Toolchain:** Windows + **Visual Studio 2019 or newer** with the **.NET Framework 4.8 developer pack** installed, or a standalone MSBuild from the same toolset. NuGet packages are **not** committed — `packages/`, `bin/` and `obj/` are all ignored — so restore them first.
 
-The Enterprise Edition client is available for direct download — License (obtain via email at bottom), no build required:
+**Option 1 — one-click preparation (recommended):**
 
-> 📦 Enterprise Client (latest, unzip & run) download:
-> [GitHub Releases](https://github.com/18354356258/NeoIndustrial/releases)　|　[Gitee Releases](https://gitee.com/JEDI_MASTER/neoIndustrial/releases)
->
-> Community edition source & client packages are available on the same Releases page.
-
-- Unzip and run `IndustrialDataCollection.exe` to start (pre-built — no installation, no Visual Studio needed)
-- Bilingual language pack (Chinese/English) built in; if Windows SmartScreen blocks the first launch, click "Run anyway"
-
-**Option 1: Download the Release package (recommended, no build needed)**
-
-Go to [Releases](https://gitee.com/JEDI_MASTER/neoIndustrial/releases), download the latest zip, unzip it, and **double-click `setup.bat`** (removes the web mark + restores NuGet packages), then open the `.sln` in Visual Studio and build.
-
-Or run `Release/IndustrialDataCollector.exe` directly (pre-built, no VS needed).
-
-**Option 2: Git clone**
-
-```bash
-git clone https://gitee.com/JEDI_MASTER/neoIndustrial.git
-cd IndustrialDataCollector
-setup.bat          # One-click NuGet restore
+```bat
+git clone https://github.com/18354356258/NeoIndustrial.git
+cd NeoIndustrial
+setup.bat
 ```
 
-Then open `IndustrialDataCollector.sln` in Visual Studio 2019+ → Build → Run.
+`setup.bat` at the repository root does three things: clears stale build output (`bin/`, `obj/`), unblocks files that Windows flagged as downloaded (a zip download breaks builds otherwise), and runs `nuget restore` on the solution — downloading `nuget.exe` automatically if it is missing.
 
-> If `setup.bat` won't run, do these two steps manually:
-> 1. Run PowerShell as administrator: `Get-ChildItem -Recurse | Unblock-File`
-> 2. In Visual Studio: right-click the solution → Restore NuGet Packages
+**Option 2 — manual:**
 
-### Your First Collection Task (Simulator mode, no hardware needed)
+```bat
+nuget restore IndustrialDataCollector.sln
+msbuild IndustrialDataCollector.sln /p:Configuration=Release
+```
 
-1. Launch `IndustrialDataCollector.exe`
-2. In the device tree on the left, right-click → **Add Device** → choose the `Simulator` driver
-3. Click **CSV Import** → use the simulator's default variables → Save
-4. Click **▶ Start Collection**
-5. Watch the data start rolling in
+Or open `IndustrialDataCollector.sln` in Visual Studio and build from the IDE (right-click the solution → Restore NuGet Packages, then Build).
 
-### Connecting Real Devices
+**Output:** `IndustrialDataCollector/bin/Release/IndustrialDataCollection.exe` — no installation needed, keep the exe together with its resource folders and run.
+
+### First launch
+
+1. Double-click `IndustrialDataCollection.exe` (a global mutex prevents a second instance; if Windows SmartScreen asks, click "Run anyway");
+2. Log in with the default account **admin / admin** — created automatically on first start with administrator rights. **Change this password before production use.**
+3. Complete **software activation**: enter your license key — activation is **online** (automatic when connected) or **offline** (export a request file, obtain a license file, import it back). The license is bound to the machine's MAC address (virtual adapters are filtered automatically) and stored as `license.dat` in the config directory.
+4. The program opens the **Dashboard**; click **Collection Management** to enter the collection window. First start creates the local database, account store, semantic database and config directory automatically — nothing to pre-configure.
+
+### Your first collection task (no hardware needed)
+
+1. In the device tree, right-click → **Add Device** → pick the **Simulator** driver;
+2. Double-click the device → **Add Variable** (or use **CSV Import** for a batch) → **Apply** — changes take effect on the next cycle without stopping;
+3. Right-click the device → **Start Collection** — the status light turns green;
+4. Open the Dashboard: realtime values, trend curves and the data-flow meters are already rolling.
+
+### Connecting real devices
 
 | Device type | Key configuration |
 |----------|---------|
-| Modbus TCP PLC | IP + port 502 + register address + data type |
-| Siemens S7-1200 | IP + Rack=0 Slot=1 + DB address (e.g. DB1.0.0) |
-| Fanuc CNC | IP + port 8193 + macro variable number |
-| MQTT Broker | Broker address + port + topic prefix |
+| Modbus TCP PLC | IP + port 502 + station number + register address (zone prefixes `0/1/3/4xxxx` supported) |
+| Siemens S7-1200 | IP + Rack 0 / Slot 1 + DB address (e.g. `DB1.DBD0`) |
+| Fanuc CNC | IP + port 8193 + macro variable number (FOCAS) |
+| MQTT-publishing device | Driver **MQTT Subscribe** + broker address + `TopicFilter` (`#` for everything, `/VariableName` for a single variable) |
+
+**Recommended configuration order:** database first (where data goes) → MQTT (if publishing) → groups & devices → variables → start & verify → semantic tree and event rules last. The semantic tree never blocks collection — it can be added at any time.
 
 ---
 
-## 📖 User Manual
+## 📖 Usage Highlights
 
-### Device Management (4-Level Hierarchy)
+### Device management
 
-The platform organizes devices in a **Company → Workshop → Process → Device** tree:
+The device tree organizes everything as **company → workshop → process → device**. Right-click any node to add, rename or delete; drag & drop to move devices or whole folders; use **Move to…** for precise relocation via a path picker; the search box filters live by name or IP. Each device runs in its own collection thread and shows a status light — 🟢 collecting, 🔴 stopped, 🟡 fault. Device group paths drive the automatic Chinese tag namespace (`Workshop1/Extruder/Extruder-28/BarrelTemp`).
 
-- **Right-click any tree node** → add/rename/delete folders or devices
-- **Drag & drop** → move devices to another process/workshop, or migrate whole folders
-- **Search box** → live filtering by device name or IP
-- **Right-click "Move to..."** → precise relocation via a path-picker dialog
+### Variable configuration
 
-### Data Point Configuration (every single variable can be individually cleaned, configured, semantically tagged, alarmed... if a business scenario needs it, it should be here... and if something's missing, speak up and we'll figure it out together)
-
-
-Basic info:
-
-![Data Point - Basic Info](picture/%E5%8F%98%E9%87%8F%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF.png)
-
-Data point alarms:
-
-![Data Point - Alarms](picture/%E5%8F%98%E9%87%8F%E6%8A%A5%E8%AD%A6.png)
-
-Custom scripts:
-
-![Data Point - Custom Script](picture/%E5%8F%98%E9%87%8F%E8%87%AA%E5%AE%9A%E4%B9%89%E8%84%9A%E6%9C%AC.png)
-
-Edge computing:
-
-![Data Point - Edge Computing](picture/%E5%8F%98%E9%87%8F%E8%BE%B9%E7%BC%98%E8%AE%A1%E7%AE%97.png)
-
-Advanced calculation:
-
-![Data Point - Advanced Calculation](picture/%E5%8F%98%E9%87%8F%E9%AB%98%E7%BA%A7%E8%AE%A1%E7%AE%97-%E5%85%AC%E5%BC%8F%E5%A5%97%E7%94%A8%E8%BD%AC%E6%8D%A2.png)
-
-
-
-Each device hosts data points that define what to collect and how to process it:
+Double-click a device to open its configuration. Every variable carries:
 
 | Field | Description |
 |------|------|
-| Variable name | Chinese/English label (e.g. `Temperature Sensor`) |
-| Address | Protocol-specific address (e.g. Modbus `40001`, S7 `DB1.0.0`) |
-| Data type | int16 / uint16 / int32 / float32 / double / string... |
+| Variable name | Chinese/English label |
+| Address / register | Protocol address (Modbus `40001`, S7 `DB1.DBD0`, …) |
+| Data type | Int16 / Int32 / Float / Double / Bool / String |
 | Byte order | ABCD (big-endian) / DCBA (little-endian) / BADC / CDAB |
-| Linear scaling | `y = kx + b`: raw value × k + b = engineering value |
-| Rounding | Keep N decimal places |
-| Alarm thresholds | HH / H / L / LL four-level settings |
-| Unit | Engineering unit (℃, MPa, rpm, mm...) |
+| Collection interval | Milliseconds, per variable |
+| Linear scaling | `y = kx + b` — raw value to engineering value |
+| Rounding & unit | Decimal places, engineering unit (℃, MPa, rpm …) |
+| Alarms | HH / H / L / LL four-level thresholds |
 
-### MQTT Data Format
+**Apply takes effect immediately** — the configuration is written to disk and running devices pick it up on the next collection cycle, no stop required.
 
-Each collection cycle sends one JSON packet to `{TopicPrefix}/{DeviceName}`:
+![Variable - basic info](picture/变量基本信息.png)
+
+![Variable - alarms](picture/变量报警.png)
+
+### Data quality at the edge
+
+Enable edge computing per variable (`PointEditForm_Edge`). Nine cleansing strategies run in pipeline order, plus rounding, first/second-order filtering, calculation formulas (e.g. `{Temp} * 1.8 + 32`) and the four alarm levels:
+
+| Category | Strategy | Effect |
+|------|------|------|
+| Value correction | Null filter | Detects NaN / Inf / negatives; replaces with last valid or fixed value |
+| | Dead-zone suppression | Small fluctuations are not recorded until the change exceeds a threshold |
+| | Spike suppression | MAD-based single-point jump detection; replaced by the median |
+| | Rate limiting | Clamps the maximum change between consecutive samples |
+| | Clamping | Truncates to max/min limits |
+| | Outlier removal | 3σ statistical removal of outliers |
+| Quality checks (log only) | Freeze detection | Flags N consecutive identical values (possibly a stuck sensor) |
+| | IQR | Inter-quartile-range outlier flagging |
+| | Range sanity | Flags values beyond the sensor's physical range |
+
+![Variable - edge computing](picture/变量边缘计算.png)
+
+![Variable - custom script](picture/变量自定义脚本.png)
+
+![Variable - advanced calculation](picture/变量高级计算-公式套用转换.png)
+
+### MQTT publishing
+
+One global broker configuration (address, port 1883/8883, client ID, credentials, topic prefix, QoS, auto-reconnect) referenced by every device. Each device selects a publish mode:
+
+| Mode | Topics | Behavior |
+|------|------|------|
+| **Original (batch only)** | `{prefix}/{DeviceName}` | One complete JSON packet per collection cycle |
+| **Resolved (batch + sub-topics)** | `{prefix}/{DeviceName}` + `{prefix}/{DeviceName}/{VariableName}` | Batch packet plus a per-variable sub-topic push |
+
+Batch message example:
 
 ```json
 {
-  "timestamp": "2026-07-16T14:30:00.123",
-  "driver": "Simulator",
-  "device": "Extruder #28",
+  "timestamp": 1783176200000,
+  "driver": "SiemensS7",
+  "device": "Extruder-28",
   "values": [
-    {"id": "temperature", "dt": "float32", "v": 245.6, "u": "℃"},
-    {"id": "pressure", "dt": "float32", "v": 32.1, "u": "MPa"}
+    {
+      "id": "Extruder-28|BarrelTemp",
+      "dt": "float",
+      "v": "72.3",
+      "u": "°C",
+      "variable_id": "a1b2c3d4-...",
+      "tag_cn": "Workshop1/Extruder/Extruder-28/BarrelTemp"
+    }
   ]
 }
 ```
 
-Meanwhile, each variable also gets its own subtopic `{TopicPrefix}/{DeviceName}/temperature` pushing the single value.
+While the link is down, unpublished messages accumulate in an independent offline cache and are replayed automatically on recovery — no data loss regardless of outage length.
 
-### Database Configuration
+### Database storage
 
+Seven database types, each with an **independent enable switch** — write to one, or to all of them in parallel:
 
-![Database Write Configuration](picture/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%86%99%E5%85%A5%E9%85%8D%E7%BD%AE.png)
+| Database | Notes | Auto table creation |
+|--------|------|:---:|
+| **SQLite** | File-based, zero config — the default | ✅ |
+| **MySQL** | Server / port / user / password / database | ✅ |
+| **SQL Server** | Instance name, auth mode, database | ✅ |
+| **PostgreSQL** | Host / port / user / password / database | ✅ |
+| **TDengine** | REST interface (port 6041), one super table per device | ✅ |
+| **Oracle** | Via the dedicated adapter | ✅ |
+| **ODBC** | Any ODBC-accessible source | ✅ |
 
+All targets share the same row schema — one row per collected value: `device`, `variable`, `data_type`, `value`, `unit`, `tag` (English tag), `tag_zh` (Chinese tag path), `timestamp`. A **retention-days** setting (default 7, `0` = keep forever) drives a batched cleanup job every 6 hours; for TDengine, manage retention with the database's own `KEEP` parameter and set the platform retention to 0.
 
-| Database | Connection string example | Auto table creation |
-|--------|-----------|:---:|
-| SQLite | Defaults to `Data/industrial.db` | ✅ |
-| MySQL | `Server=192.168.1.100;Database=idc;User=root;Password=***` | ✅ |
-| SQL Server | `Server=.;Database=idc;Integrated Security=True;` | ✅ |
-| PostgreSQL | `Host=192.168.1.100;Database=idc;Username=postgres;Password=***` | ✅ |
+![Database write configuration](picture/数据库写入配置.png)
 
-All four databases share the same table schema: `industrial_data(id, db_type, device, variable, data_type, value, unit, timestamp)`
+### MCP AI integration
 
-### MCP AI Integration
-
-The platform ships with a built-in MCP Server exposing 50 AI-callable tools. Any MCP-capable AI client (Claude Desktop, etc.) can connect and then control devices in natural language:
+The built-in **MCP server** exposes **50 AI-callable tools**. Any MCP-capable client — Claude Desktop and friends — connects over Streamable HTTP and then operates the collector in plain language:
 
 ```
-User: Add a Mitsubishi FX5U PLC at IP 192.168.1.50, collecting D100 (temperature) and D101 (pressure)
-AI:   calls add_device → add_variables → reload_config → device online
+User: Add a Siemens S7-1200 PLC at IP 192.168.1.100
+AI  : Device created (protocol S7). Now let's configure variables — provide the register addresses.
+
+User: Temperature DB1.DBD0 (float), pressure DB1.DBD4 (float), status M0.0 (bool)
+AI  : Added 3 variables (°C / MPa / bool). Configure alarms?
+
+User: Alarm above 85 for temperature, below 0.3 for pressure
+AI  : Alarm rules configured. Start collection now?
+
+User: Start, and give me a report in 30 minutes
+AI  : Collection started. (30 minutes later) Report generated: avg outlet temp 72.3 °C … 0 alarms.
 ```
 
-Tool coverage: device CRUD · variable management · collection start/stop · real-time queries · database queries · data source management
+To enable it: **Tools → MCP Service Config** → set the port (default **5101**, auto-increments if busy — the effective port is logged) → generate a token → enable. Endpoint: `http://<machine-ip>:5101/mcp?token=***`.
 
-### CSV Bulk Import Template
+Tool coverage: device CRUD & collection control · variable management · datasource analytics (discover sources → inspect schema → sample → time-range queries, no SQL needed) · realtime & history queries · semantic tree queries and writes · Fabric analytics · platform self-description · plus one dynamic tool registered per configured datasource.
 
-CSV format (UTF-8, editable directly in Excel):
+**Safety by design:** destructive operations (deleting devices or relations) are deliberately excluded from MCP — they happen only in the UI, behind a double-confirmation gate.
 
-| Variable | Address | Data type | Unit | Rounding | Scale K | Scale B | HH | H | L | LL |
-|--------|------|----------|------|------|-------|-------|----|---|---|----|
-| Main Motor Current | 40001 | float32 | A | 2 | 0.1 | 0 | 500 | 450 | 50 | 10 |
-| Temperature Sensor | 40003 | int16 | ℃ | 1 | 1 | 0 | 300 | 250 | -10 | -20 |
+![MCP service](picture/MCP服务.png)
 
-A template file ships with the desktop app: `变量点模板_ModbusTCP.csv` (Data Point Template - Modbus TCP)
+![AI conversation 1](picture/AI对话1.png)
 
-### Logging & Troubleshooting
+![AI conversation 2](picture/AI对话2.png)
 
-- Log directory: `Logs/log_YYYYMMDD.txt`
-- Default level is **Info** (start/stop/errors/API requests) — no log spam
-- To troubleshoot collection details, set `LogLevel.Debug` in `Logger.cs` to restore full logging
-- Logs older than 30 days are cleaned up automatically
+### REST API
+
+**Tools → API Service Config**: standalone HTTP service, default port **5000**, Bearer-token authentication, optional Swagger documentation.
+
+```
+Authorization: Bearer <your-token>
+
+GET /api/devices                              # device list
+GET /api/devices/{id}/realtime                # realtime data
+GET /api/variables/{id}/history?from=&to=     # history
+GET /api/status                               # system status
+```
+
+![API service](picture/API服务.png)
+
+### CSV bulk import
+
+For large point lists: **Export Template** on the device configuration page → fill the UTF-8 CSV in Excel → **Import CSV** to create every variable in one shot, alarms and scaling included.
+
+### Network tunnels
+
+Devices behind VPN/NAT don't need re-addressing. Create a tunnel (VPN: OpenVPN / L2TP / IPsec, TUN or TAP; NAT: generic or vendor-specific), maintain the IP mapping table (`original IP:port → mapped IP:port`), then select the tunnel on the device — collection flows through the mapped address.
+
+### Logs & troubleshooting
+
+| Location | Content |
+|------|------|
+| `Logs/` (next to the exe) | Daily runtime logs; older than 30 days are purged automatically |
+| `%LOCALAPPDATA%\IndustrialDataCollection\` | `devices.json` (all device/variable config), `groups.json`, `mqtt.json`, `dbConfig.json`, `datasources.json`, `auth.db` (accounts), `semantic_v2.db`, `tunnels.json`, `license.dat`, `crash.log` |
+| `Data/offline_cache.db` | MQTT / database offline caches + device heartbeats |
+
+Default log level is Info (start/stop, errors, API requests). When the app crashes, check `crash.log` first. Exiting from the tray runs a reverse-order shutdown so MQTT, databases and collection threads are released cleanly.
 
 ---
 
-## 🆚 Enterprise Edition — Full Firepower for the Whole Factory
+## 🏭 Enterprise-Grade Capabilities
 
-> **Don't measure the Enterprise Edition with the Community Edition's ruler — these are two entirely different weapon systems.**
->
-> The Community Edition helps you **connect to devices**. The Enterprise Edition helps you **run the entire factory**. Every item below is a heavy-duty capability designed from the ground up for large industrial scenarios — none of them exist in the Community Edition:
+### Semantic layer · digital-twin modeling
 
-### 🧬 Semantic Layer · Digital Twin Engine
+The device tree auto-syncs into a factory semantic tree (workshop / line / equipment / variable) — no manual rebuild. Drag-to-reorganize changes are remembered (`parent_override`) and survive later syncs. On top of the hierarchy:
 
+- **Tag system** — one unified variable namespace across devices and protocols (`Workshop1/Extruder/Extruder-28/BarrelTemp`);
+- **Variable relations** — 17 relation types plus bindings of variables to datasource fields, constants or expressions; trace any datum from source device → driver → database → topic;
+- **Node events** — event rules attach to semantic nodes: pick a trigger (threshold / state change / device offline) and one or more of **12 handling methods** (log, alarm, message, email, SMS, HTTP callback, workflow / work order, MCP task / AI analysis …);
+- **Node status** — synced nodes follow their devices; manual nodes are freely editable.
 
-![Dashboard](picture/%E7%9C%8B%E6%9D%BF.png)
+Alarm output is machine-parsable and source-pinned: `[ALARM HH] [Extruder-28] BarrelTemp = 92.5 °C`.
 
+### ⚡ Fabric time-series engine
 
-![Semantic Management](picture/%E8%AF%AD%E4%B9%89%E7%AE%A1%E7%90%86.png)
+Eight hot-pluggable operators for analysis that would otherwise need hand-written SQL or scripts:
 
+| Operator | Function | Typical use |
+|------|------|------|
+| **window_aggregate** | Windowed aggregation (avg / max / min / sum / count / stddev) | Hourly averages, daily peaks |
+| **trend_detect** | Trend detection over historical series | Rising temperature trends |
+| **threshold_alarm** | Threshold checks | Process-window violations |
+| **anomaly_detect** | Statistical outlier detection | Sudden spikes, sensor drift |
+| **correlation** | Multi-variable correlation | Vibration vs. temperature |
+| **root_cause** | Trace contributing upstream variables | Fault diagnosis |
+| **predict** | Short-term linear-regression forecasting | Predictive maintenance |
+| **daily_report** | Automated report generation | Shift-handover summaries |
 
-
-> Turn "40001 = 245.6" into "Extrusion Workshop #3 ▶ Line 1 ▶ Main Machine ▶ barrel temperature running high — recommend checking cooling pump #3"
-
-- **Automatic modeling** — the device tree and data source tree mirror each other; drag-to-reorganize instantly updates the digital twin topology
-- **Tag system** — a unified variable namespace across devices and protocols; one TAG standard across the entire plant
-- **Relationship graph** — device→variable→data source, three-way linkage; AI can trace any datum from "source device → collection driver → database table → MQTT topic"
-- **State tracking** — online/offline/disabled/deleted four-state markers; AI knows what's alive, what's dead, and when it died
-- **Variable events** — derived metrics such as rate, accumulation, and duration are computed automatically
-
-### ⚡ Fabric Time-Series Analysis Engine
-
-> 8 hot-pluggable operators — 10× faster than SQL, 100× less effort than writing Python scripts
-
-| Operator | Function | Industrial use case |
-|------|------|---------|
-| **Aggregate** | Windowed aggregation (avg/max/min/sum/count/stddev) | Hourly average temperature, daily peak power |
-| **Correlation** | Multi-variable Pearson correlation | Correlation diagnosis between vibration and temperature |
-| **Anomaly** | 3-sigma / IQR outlier detection | Sudden spikes, sensor drift |
-| **Digital Twin** | Deviation between theoretical and measured values | Energy benchmarking, efficiency decay |
-| **Rate** | Rate of change d/dt | Temperature rise rate, pressure change rate |
-| **Accumulate** | Cumulative totals (integration) | Total output, total energy, total runtime |
-| **Threshold** | Dynamic upper/lower limit checks | Adaptive process-window alarms |
-| **Prediction** | Linear regression trend forecasting | Predictive maintenance, spare-parts early warning |
-
-Analysis results land in the database alongside the raw data, and can be queried in real time by the MCP AI tools.
+Fabric reads history from any enabled database (tick **Fabric history** in the database configuration) and executes through MCP (`fabric_list_operators` / `fabric_execute`), so the AI can run analytics as part of a conversation.
 
 ### 🎛️ Dashboard
 
-- Factory-level real-time monitoring wall, with device/production line/workshop three-level drill-down
-- Trend curves + alarm panel + device status matrix
-- Four-color alarm grading (HH red / H orange / L blue / LL purple) + 20-minute time window + incremental row updates with no screen flicker
-- Supports independent multi-monitor wall display
+The default main window, coexisting with the collection page (monitor and adjust configuration at the same time): per-device collection / MQTT / REST status, a live alarm panel with a 20-minute window and duplicate merging, realtime metrics, trend curves and data-flow monitoring (collection rate, write rate, throughput). Four alarm levels — HH / H / L / LL — keep severity obvious at a glance.
 
-### 📦 Templates · Cloning · Bulk Deployment
+### 📦 Templates · cloning · batch deployment
 
-- **Configuration templates** — export a device's complete configuration (driver + variables + alarm parameters + MQTT topics) as a template
-- **One-click cloning** — pick a template → enter the IP → 10 identical devices, configured
-- **Differentiated overrides** — after applying a template in bulk, each device can still be tuned individually, with no interference
-- Deploying a hundred devices: from 2 hours down to 2 minutes
+- **Config templates** — export a device's complete configuration (driver + variables + alarms + MQTT mode + semantic relations, Fabric, events and cleansing) as a reusable template; manage, search and delete templates in Template Management;
+- **Apply template** — match by variable name onto a different device model, with per-device overrides afterwards;
+- **Device cloning** — full config inheritance for identical devices: clone, change the IP and register addresses, apply, start.
 
-### 🗄️ TDengine Time-Series Database
+Deploying ten identical devices becomes a two-minute job instead of an afternoon.
 
-- Columnar storage optimized for industrial time series, 100K points/second writes
-- Auto-partitioned super tables; 10 years of data queryable in seconds
-- Compression ratio 10:1–20:1 — GBs of data shrink to MBs on disk
-- 4 hard-won lessons are baked into MCP `introduce_platform("tdengine")`, so AI automatically avoids the pitfalls
+![Template management](picture/设备模板生成-配置管理.png)
 
-### 🛡️ Industrial-Grade Reliability
+![Template apply / clone](picture/设备模板生成-套用-覆盖-快速复制配置.png)
 
-| Capability | Description |
+### 🗄️ TDengine
+
+High-frequency time-series workloads land in TDengine through its REST interface: one super table per device, reserved words mapped automatically (`value → val`, `tag → tag_id`, `timestamp → ts`), suited to tens of millions of points per day.
+
+![TDengine data](picture/TD数据.png)
+
+### 🛡️ Reliability & configuration safety net
+
+| Mechanism | Behavior |
 |------|------|
-| **Offline caching** | When the network drops, data is written to local SQLite; after recovery, MQTT is re-sent and the database backfilled automatically |
-| **Heartbeat monitoring** | Independent heartbeat per device; records state transitions only, no disk spam |
-| **Exponential backoff reconnect** | Consecutive failures back off 1→2→4→8→16→32→60s, auto-reset on success |
-| **Multi-generation config backups** | `config.json.bak.1~50` — up to 50 generations to roll back to |
-| **Event rule engine** | Condition→action (MQTT/DB/alarm): IF `temperature>300` THEN `send MQTT + write DB + raise alarm` |
-| **Authentication & security** | SHA256+SALT passwords + MAC hardware binding + Token authentication |
-
-### 📊 Full Comparison
-
-| Capability | Community Edition | Enterprise Edition | WEB Commercial Edition |
-|----------|:---:|:---:|:---:|
-| Industrial protocol drivers (PLC / CNC / power / building / semiconductor) | 40 | 40 | 39 (same core, **all open-source implementations**) |
-| MQTT millisecond push | ✅ | ✅ | ✅ |
-| SQLite / MySQL / SQL Server / PostgreSQL | ✅ | ✅ | ✅ |
-| TDengine time-series database | ❌ | ✅ | ✅ |
-| Dameng DM8 (domestic database) | ❌ | ❌ | ✅ |
-| MCP AI tools | 50 | 50 | **147** |
-| **Driver management (categories / upload / AI-added)** | ❌ | ❌ | ✅ |
-| REST API | ✅ | ✅ | ✅ |
-| CSV bulk import/export | ✅ | ✅ | ✅ |
-| UI languages | Chinese / English | Chinese / English | Chinese / English / Vietnamese (+ built-in manual) |
-| **Semantic-layer digital twin modeling** | ❌ | ✅ | ✅ |
-| **2D / 3D knowledge-graph visualization** | ❌ | ❌ | ✅ |
-| **Fabric time-series engine** | ❌ | ✅ (8 operators) | ✅ (27 operators) |
-| **Dashboard monitoring wall** | ❌ | ✅ | ✅ |
-| **Config templates · device cloning** | ❌ | ✅ | ✅ |
-| **Offline caching · re-send** | ❌ | ✅ | ✅ |
-| **Event rule engine** | ❌ | ✅ | ✅ |
-| **Auth · hardware binding · Token** | ❌ | ✅ | ✅ |
-| **Multi-user online collaboration · audit trail** | ❌ | ❌ | ✅ |
-| **AI multi-agent · memory & self-evolving skills** | ❌ | ❌ | ✅ |
-| **Browser (B/S) access — no per-PC install** | ❌ | ❌ | ✅ |
-| **Xinchuang Linux support (self-contained package)** | ❌ | ❌ | ✅ |
-| **Multi-generation rolling config backups** | ❌ | ✅ | ✅ |
-| **Commercial license · technical support** | ❌ | ✅ | ✅ |
-
-> 🔥 **The Enterprise Edition is not the Community Edition "with extras" — it is a redesigned, factory-grade data operating system.**
-> 🌐 **The WEB Commercial Edition goes further: it moves that operating system into the browser, then grows multi-user collaboration, AI multi-agent orchestration and a 2D/3D knowledge graph on top — see the next section.**
+| **Dual offline caches** | MQTT and database writes fail independently; each keeps its own cache (`offline_mqtt_cache` / `offline_db_cache`), checked every 10 seconds and replayed on recovery — cached data is never deleted by age |
+| **Device heartbeats** | Per-device heartbeat records in the offline cache database |
+| **Auto-reconnect** | MQTT reconnects automatically after disconnects |
+| **Auto-recovery** | A corrupted `devices.json` is restored from backups automatically; the corrupt file is kept as `.corrupted` and the incident is logged |
+| **Rolling config backups** | Every save rotates `devices.json.bak.1 ~ .bak.50`; roll back from **Tools → Config History**, or press **Ctrl+Z** outside text fields |
+| **Single instance** | A global mutex blocks double launch |
+| **Clean shutdown** | Reverse-order shutdown of every subsystem, 5-second timeout per step |
 
 ---
 
-## 🌐 WEB Commercial Edition — The Whole Factory in a Browser
+## 📁 Repository Layout
 
-> The Community and Enterprise editions are software installed on an industrial PC. The WEB Commercial Edition is an industrial data operating system that lives on a server.
->
-> The same protocol driver core, plus B/S multi-user collaboration, AI multi-agent orchestration and 2D/3D industrial semantics. It is not a port of the desktop edition — it is a redesigned, web-native platform.
+```
+NeoIndustrial/
+├── IndustrialDataCollector.sln      # the solution
+├── setup.bat                        # one-click environment prep (clean + unblock + nuget restore)
+├── LICENSE                          # Apache License 2.0
+├── docs/                            # user manuals (EN/CN) and release notes
+├── picture/                         # screenshots used by this README
+└── IndustrialDataCollector/         # the application source
+    ├── Controls/                    # shared UI controls
+    ├── Drivers/                     # 39 protocol drivers + IDriver interface + DriverManager
+    ├── Forms/                       # WinForms UI (34 forms: device, MQTT, database, semantic, MCP, dashboard …)
+    ├── Models/                      # data models
+    ├── Properties/                  # assembly info
+    ├── Resources/                   # language packs and resources
+    ├── Services/                    # collection engine, database adapters, MQTT publishing, MCP,
+    │                                # REST API, semantic service, Fabric engine, templates, licensing …
+    └── Utils/                       # helpers
+```
 
-<!-- 📷 Screenshot slot 1: WEB Commercial Edition · login page / home overview
-     Suggested file: picture/web-01-login.png
-     Usage: ![WEB Commercial Edition · Home](picture/web-01-login.png) -->
-
-### What it solves that the desktop edition cannot
-
-- **One industrial PC → one network**: open a browser and go. No per-machine installs; upgrade once and the whole plant is on the new version.
-- **One operator → a whole team online**: three-tier permissions (organization / role / user) with concurrent access; who changed a config, who exported which data — everything is logged and auditable.
-- **AI as an add-on → AI-native**: a built-in AI chat workspace with multi-agent orchestration. AI operates the platform directly — add devices, configure variables, query historical data, build dashboards — and agents can dispatch tasks to one another.
-- **Forgets you → learns you**: AI memory, team knowledge distillation, and skills that are captured automatically and self-improve. The longer you use it, the better it understands your plant and your process.
-- **Flat tables → 2D/3D knowledge graph**: an industrial semantic tree plus relationship-graph visualization turns "40001 = 245.6" into a digital twin you can see, click into, and trace.
-
-<!-- 📷 Screenshot slot 2: WEB Commercial Edition · AI chat / multi-agent collaboration
-     Suggested file: picture/web-02-ai-agents.png
-     Usage: ![WEB Commercial Edition · Multi-agent](picture/web-02-ai-agents.png) -->
-
-### Core capabilities
-
-| Capability | Details |
-|------|------|
-| 🔌 Industrial protocol drivers | **39** production-ready drivers built in, **all of them open-source implementations** (PLC / CNC / power / building / semiconductor / meters), sharing the same core as the desktop edition; organized into 7 driver categories — pick the category first, then the driver |
-| 🧩 Driver management | A single driver inventory: driver / category / source / provider / size / installed at / status, filterable by keyword, source and category. **Commercial-licensed drivers you have purchased, or open-source drivers, can be uploaded by you**; built-in drivers can be disabled and restored, plugin drivers can be deleted |
-| 🤖 AI adds drivers | For a protocol the platform does not have, just ask the built-in AI to search online: it explains the source and the license, and installs into the category you choose once you agree. The source URL and time are recorded server-side, and the inventory marks it "Added by AI" |
-| 🗄️ Parallel database writes | 6 kinds: SQLite / MySQL / SQL Server / PostgreSQL / TDengine / Dameng DM8 (domestic, Xinchuang-ready) |
-| 🤖 MCP atomic tools | **147** AI-callable tools (137 visible to the built-in AI chat, 57 of them writable), covering device collection & control, collection drivers, data sources, offline cache, Fabric time-series analysis and industrial semantics |
-| 🧠 AI multi-agent | Built-in chat workspace; create your own agents, grant each one a capability boundary, and let them collaborate by dispatching tasks |
-| 🔬 Fabric time-series engine | 27 hot-pluggable operators: aggregate / correlation / anomaly / digital-twin benchmarking / rate / accumulate / threshold / prediction… |
-| 🕸️ Industrial semantics & knowledge graph | Semantic tree + 69 variable relation types + 71 event type catalog, with 2D/3D graph visualization |
-| 📊 Dashboards · alarms · scheduled jobs | Real-time monitoring wall, 4-level alarms, scheduled reports, in-app messages and a document workspace |
-| 👥 Permissions & audit | Three-tier permissions (organization / role / user), user activity tracing, system logs, hardware management |
-| 🌍 Trilingual | Chinese / English / Vietnamese, switchable at runtime, with the built-in product manual in all three |
-| 🧩 Xinchuang-ready | A self-contained Linux x64 runtime package (no .NET install required), with Dameng DM8 usable out of the box |
-| 🚀 Deployment | Runs on a single machine; .NET 8 + Blazor, browser access, no client install on every PC |
-
-### 🔌 Driver categories & driver management (v3.22.5)
-
-Connecting a device is a two-level choice — **category first, then driver** — and the collection page and the driver management page share one category definition:
-
-| Category | Covers | Built-in drivers |
-|------|------|:---:|
-| Industrial common | General industrial protocols, simulator | 8 |
-| PLC / industrial control | Mainstream PLCs and controllers | 8 |
-| CNC | Machine tools and CNC systems | 6 |
-| Building automation | HVAC, lighting, meters | 4 |
-| Power / energy | Power protocols and metering | 5 |
-| Semiconductor | Semiconductor and fieldbuses | 3 |
-| General / other | HTTP, OPC, SNMP, etc. | 5 |
-
-What the driver management page does:
-
-- **One inventory** — driver / category / source / provider / size / installed at / status / actions, filterable by keyword, source and category;
-- **Upload assigns the category** — uploading a `.dll` or `.zip` (≤100 MB) requires choosing the category first, so the driver lands exactly where it belongs;
-- **Re-categorise in place** — a plugin driver's category can be switched right in the list;
-- **Built-in drivers can be disabled / restored, plugin drivers deleted** — built-in drivers ship with the program (their code cannot be deleted) and can be disabled and restored; uploaded plugins can be removed together with their folder;
-- **Added by AI** — for a protocol the platform lacks, ask the AI to search online, explain the source and licence, and install into the chosen category once you agree (marked "Added by AI"; source URL and timestamp are recorded server-side, not self-reported by the AI).
-
-<!-- 📷 Screenshot slot 3: WEB Commercial Edition · industrial knowledge graph (2D / 3D)
-     Suggested file: picture/web-03-graph.png
-     Usage: ![WEB Commercial Edition · Knowledge Graph](picture/web-03-graph.png) -->
-
-<!-- 📷 Screenshot slot 4: WEB Commercial Edition · dashboards / semantic management
-     Suggested file: picture/web-04-dashboard.png
-     Usage: ![WEB Commercial Edition · Dashboard](picture/web-04-dashboard.png) -->
-
-### Which edition should you choose?
-
-| Your scenario | Recommended edition |
-|----------|----------|
-| Personal learning / single-device trial / secondary development | **Community Edition** — Apache 2.0, free, download from Releases |
-| Single plant, single machine, deep desktop use, semantic layer + dashboards | **Enterprise Edition** — client downloadable from Releases; formal license issued by hardware ID |
-| Multi-user online collaboration, plant-wide governance, AI multi-agent, Xinchuang environments | **WEB Commercial Edition** — apply to the author (licensed by device/machine count) |
-
-### How to get it (important)
-
-- **Community Edition**: download from this repository's Releases, or clone the source and build it (Apache 2.0, free).
-- **Enterprise Edition**: the client is **freely downloadable from the Releases page** for evaluation; for a formal license, send your hardware ID by email.
-- **WEB Commercial Edition**: **no public download**. A license must be applied for directly from the author, priced by device/machine count.
-
-**To apply for a WEB Commercial Edition license, please state the following five items in your email or call:**
-
-1. **Use case** — which industry, which production line, and what problem you want to solve;
-2. **Applicant** — a company or an individual;
-3. **Intended purpose** — in-house production / project delivery / teaching & research / secondary development…;
-4. **License period** — the expected term and go-live date;
-5. **Number of devices** — how many devices or machines you need to manage.
-
-📮 Email: `751326339@qq.com`　📞 Phone: `18354356258` / `18854344113` (Zhang Chenglong, WeChat available)
-
-<!-- 📷 Screenshot slot 5: WEB Commercial Edition · licensing & contact (optional)
-     Suggested file: picture/web-05-contact.png -->
+**Third-party dependencies** are managed with NuGet via `packages.config` (31 packages), including MQTTnet, NModbus (+ NModbus.Serial), S7netplus, the official OPC Foundation UA stack, MySqlConnector (MIT), Npgsql, System.Data.SQLite, Newtonsoft.Json and log4net. Each keeps its own license.
 
 ---
 
-## 🧑‍💻 About the Author
+## 📜 Version History
 
-**Zhang Chenglong** — art student turned full-stack developer, digital twin system architect.
+### v1.2.3 (current)
 
-A one-man army. From UI prototypes to low-level protocol stacks, from frontend dashboards to backend time-series engines, from database schema design to integrating 40 industrial protocols — all of it done alone.
+The open-source snapshot of the desktop client: complete source for all 39 drivers, the full service layer (collection, storage, MQTT, MCP, REST, semantic, Fabric, templates, licensing) and the entire UI.
 
-Why open source? Because I know how hard it is, in China, for an engineer to install a usable data acquisition program on their own industrial PC for free. You either get scared off by resellers' sky-high license fees, hold your nose and use pirated software, or spend two months wrestling with a patchwork of open-source components that still can't connect to your devices.
+### v1.0.2 | 2026-09-21 — Modbus address-zone fix
 
-**It shouldn't be this way.** Industrial data acquisition is the most fundamental bedrock of digital twins and smart manufacturing — bedrock shouldn't cost money, shouldn't be encrypted, and shouldn't be locked away. So I'm putting it out there, open-sourced, clean and simple. You don't pay a cent, you don't need to contact me for a license, you don't need anyone's approval — download, build, connect your devices. That's it.
-
-This is the Neo Industrial Data Acquisition Platform. **The data foundation of the digital twin.**
-
----
-
-## 🧠 Why It Kicks Ass
-
-Others sell "protocol converters". We built an **industrial data operating system** — and the gap between those two phrases fits in one sentence:
-
-> Others connect you to your devices. We let AI run your entire factory for you.
-
-### Where It's Ahead of the Curve
-
-| Dimension | Industry status quo (2026) | Neo Industrial Data Platform |
-|------|-----------------|-----------------|
-| **AI integration** | Still "discussing" AI + industry | **50 MCP atomic tools, AI-native control** — Claude directly adds devices, edits configuration, queries data, and diagnoses faults for you |
-| **Protocol coverage** | Single category (PLC-only / CNC-only) | **40 protocols across all categories** — PLC + CNC + power + building + semiconductor + meters, one package |
-| **Digital twin** | Buy an extra platform + model manually | **Semantic-layer automatic modeling** — drag the device tree and the twin updates; the tag system is AI-reasonable |
-| **Time-series analysis** | Write Python scripts / SQL | **Fabric: 8 hot-pluggable operators** — anomaly detection, correlation analysis, trend prediction; configure and it works |
-| **Data egress** | Locked into the vendor's own platform | **Everything open** — MQTT + REST API + MCP; your data goes wherever you want |
-| **Deployment barrier** | Servers / clusters / K8s | **Single exe, unzip and run** — one industrial PC handles 100 devices, no ops team required |
-
-### One Person vs. the Industry Giants
-
-This system is the work of one person. Compare it with similar offerings in the industry:
-
-- **Kepware** (PTC, $5000+/year) — comparable driver count, but no database writes, no MQTT two-layer topics, no AI integration, no dashboard
-- **Ignition** (Inductive Automation, $20,000+ to start) — powerful but heavy as an elephant; needs Java + a database + a web server; not built for industrial PCs
-- **KingView / ForceControl / ZijinBridge** (组态王 / 力控 / 紫金桥) — steep learning curves, aging protocol libraries, no MCP/AI; basically stuck in 2010
-- **Node-RED / ThingsBoard** — a cobbled-together feel; industrial protocol support relies on community plugins left to fend for themselves; offline reconnection logic is essentially absent
-
-**Neo isn't trying to be anyone's competitor. It fills the piece the digital twin world is missing — the data foundation for industrial devices.**
-
----
-
-## 📋 Version History
-
-### v3.22.5 | 2026-09-19 — Driver management: driver categories + AI-added drivers (WEB Commercial Edition)
-
-- **Driver categories** — 7 categories (industrial common / PLC & industrial control / CNC / building automation / power & energy / semiconductor / general & other); pick the category first when connecting a device, uploads must declare a category, and the list can be filtered or re-categorised in place
-- **Driver management** — all 39 built-in drivers are open source; the inventory shows category / source / provider / size / installed at / status; built-in drivers can be disabled and restored, plugin drivers deleted; purchased commercial-licensed or open-source drivers can be uploaded directly
-- **AI-added drivers** — the AI searches online for candidates, states the source and licence, and installs into the chosen category after confirmation; the inventory marks it "Added by AI" and the source and timestamp are recorded server-side
-- **147 MCP tools** (137 visible to the built-in AI chat, 57 writable)
-
-### v1.0.2-community
-2026-09-21 — Modbus 4-zone address parsing fix
-
-- **Fix**: the driver used to pass variable addresses verbatim to the holding-register (fc03) read — address 30001 (input register zone) actually read holding register at protocol address 30001, showing "connection OK but all values are 0".
-- **Address rule**: variable addresses now support `0/1/3/4xxxx` zone prefixes (1-based): `0xxxx`=coils, `1xxxx`=discrete inputs, `3xxxx`=input registers, `4xxxx`=holding registers; plain numbers keep legacy 0-based holding-register behavior.
-- **Read-failure visibility**: read errors now show `ERR` in the live view and are logged (previously silently reported as 0); applied to both Modbus TCP and RTU drivers.
+- **Zone-prefixed addressing**: variable addresses now accept `0/1/3/4xxxx` zone prefixes (1-based) — `0xxxx` coils, `1xxxx` discrete inputs, `3xxxx` input registers, `4xxxx` holding registers; plain numbers keep the legacy 0-based holding-register behavior;
+- **Read-failure visibility**: read errors now show `ERR` in the live view and are logged (previously silently reported as 0) — applies to both Modbus TCP and RTU;
 - **Verified**: 20/20 automated tests against a local Modbus TCP slave simulator (9 parsing + 11 read cases).
 
-### v1.0.0 | 2026-07-16 — First Community Edition release
+### v1.0.0 | 2026-07-16 — first release
 
-- **40 industrial protocol drivers** — Modbus / Siemens S7 / OPC UA / BACnet / EtherNet/IP / Profinet / PROFIBUS / Beckhoff / CODESYS / Mitsubishi / Fanuc / IEC 104 61850 / DNP3 / KNX / DALI / SECS/GEM / MTConnect, and more
-- **Parallel writes to 4 databases** — SQLite / MySQL / SQL Server / PostgreSQL
-- **MQTT two-layer topics** — bulk JSON + per-variable subtopic push
-- **50 tools over the MCP protocol** — AI can directly manage devices, query data, and control start/stop
-- **REST API** — HTTP real-time data query interface
-- **CSV bulk import/export** — Excel-compatible UTF-8
-- **Bilingual Chinese/English** — runtime switching, no restart required
-- **Simulator driver** — 20+ simulated variables, walk through the entire flow with zero hardware
-- **Zero-barrier startup** — no authentication, no encryption, no license; unzip and run
+- 39 industrial protocol drivers across PLC, CNC, power, building automation and IoT;
+- MQTT two-tier topic publishing;
+- MCP AI tools + REST API;
+- CSV bulk import/export; bilingual Chinese/English UI; simulator driver;
+- SQLite / MySQL / SQL Server / PostgreSQL parallel writes.
 
-> For Enterprise Edition version history (v1.0 – v2.6.1), see `docs/工业数采平台_版本记录.md` (Industrial Data Acquisition Platform Release Notes)
+Later releases added the TDengine / Oracle / ODBC targets, the semantic layer, the Fabric engine, templates & cloning, tunnels and more. The full (Chinese) release notes live at `docs/工业数采平台_版本记录.md`.
+
+---
+
+## ❓ FAQ
+
+**Q1: The device shows offline but it is actually online?**
+Check connectivity first (ping / telnet to the device port), open the port in the firewall (Modbus 502, S7 102, …), verify station number / baud rate against the device, and for cross-segment devices confirm a tunnel is selected. Then check `Logs/` for the actual error.
+
+**Q2: Data is not written to the database?**
+Click **Test Connection** in the database config; make sure that database's **enable switch** is ticked; the database user needs CREATE TABLE / INSERT rights; check the device is included in that database's device list (empty = all devices). While the link is down, rows accumulate in the offline cache and replay on recovery.
+
+**Q3: Data older than 7 days disappears — I want permanent retention?**
+Retention days defaults to 7 with cleanup every 6 hours. **Set it to 0 for permanent retention.** For TDengine, manage retention with the database-side `KEEP` parameter instead and set the platform retention to 0.
+
+**Q4: Will an MQTT outage lose data?**
+No. MQTT and database writes maintain independent offline caches replayed every 10 seconds — no data loss no matter how long the outage.
+
+**Q5: The AI assistant cannot connect?**
+Make sure the MCP service is enabled, use the effective port from the log (default 5101, auto-increments when busy), match the token, and use the Streamable HTTP transport. If the port shows "access denied", run as administrator or authorize once: `netsh http add urlacl url=http://+:5101/ user=Everyone` (REST uses 5000).
+
+**Q6: I broke the configuration — how do I roll back?**
+Tools → Config History → pick a version → roll back; or press **Ctrl+Z** outside text fields. Auto-recovery from backups is the last safety net.
+
+**Q7: Deploying 10 identical devices one by one is slow?**
+Configure one → right-click **Clone Device** → change the new device's IP and register addresses → apply → start. Use **config templates** for different device models.
+
+**Q8: Which column identifies a variable in `industrial_data`?**
+`tag_zh` — the Chinese tag path (e.g. `Workshop1/Extruder/Extruder-28/BarrelTemp`); `device` and `variable` carry the plain names; on TDengine the mapped names are `tag_id / val / ts`.
+
+**Q9: Can the dashboard and the collection page be open at the same time?**
+Yes — they coexist. Closing the dashboard returns to the collection page without exiting the process.
+
+**Q10: Forgot the admin password?**
+The account store is `auth.db` in the config directory. Contact technical support for a reset — do not delete `auth.db`, other settings depend on it.
+
+**Q11: Anything to watch out for when migrating machines?**
+Back up the whole config directory (especially `devices.json`, `groups.json`, `mqtt.json`, `dbConfig.json`, `semantic_v2.db`, `license.dat`). The license is bound to the MAC address — arrange re-activation before changing hardware.
 
 ---
 
@@ -810,45 +524,48 @@ This system is the work of one person. Compare it with similar offerings in the 
 
 One person can go fast, but a group of people can go far.
 
-This project was written by one art student in under three months — it is definitely not perfect, definitely has bugs, and there are definitely industrial device protocols out there you've seen and I've never even heard of. **And that's fine.** The point of open source was never "hand over a flawless finished product" — it's "put something useful here so the people who need it can use it, improve it, and make it better together".
+This project was written by one person — it is definitely not perfect, it definitely has bugs, and there are definitely industrial protocols out there you've seen and the author has never heard of. **And that's fine.** The point of open source was never "hand over a flawless finished product" — it's "put something useful here so the people who need it can use it, improve it, and make it better together".
 
-If you used it in your plant to connect to a PLC and solve a real problem — **come leave a comment and tell me**. That would make me happier than ten thousand stars.
+- 🐛 **Report bugs** → [GitHub Issues](https://github.com/18354356258/NeoIndustrial/issues) — attach today's log from `Logs/`, `crash.log` if any, the driver type and a sanitized screenshot of the connection parameters;
+- 💻 **Contribute code** → Fork → branch → PR (make sure it builds);
+- 🔌 **Request a driver** → open an issue with the tag `driver-request` — describe the device, the protocol and where its documentation lives;
+- 📖 **Improve docs** → the manuals in `docs/` and this README all accept PRs;
+- 💬 **Just want to chat** → open an issue anytime, no bug required.
 
-If you found a bug in some protocol, or it's missing a feature you need — **open an Issue, submit a PR**, even if it's just fixing a typo. Open-source communities aren't great because one person is amazing; they're great because everyone is willing to share the small problems they fixed.
+If this project helped you connect a PLC and solve a real problem, **give it a Star ⭐** — it costs nothing and it keeps the project alive.
 
-If you have industrial device protocols I haven't covered — **let's talk**. China's factories hide the most complex industrial device ecosystem in the world, and one person could never see it all in a lifetime. You contribute one driver, and it might help hundreds of other folks using the same device.
-
-**Support each other. Treat each other with sincerity.** Open source isn't easy — late at night it's just you and the glowing screen, you have to climb out of pits no one has ever stepped in before all by yourself, and it can wear you down when people use your project without even dropping a star. But I believe: sincere work will, sooner or later, meet sincere people.
-
-So no matter which city, which factory, or which school you come from — **this is your project, and everyone's.**
-
-- 🐛 Report bugs → [Issues](https://gitee.com/JEDI_MASTER/neoIndustrial/issues)
-- 💻 Contribute code → Fork → PR (make sure it builds)
-- 🔌 Request a new driver → Issue tag `driver-request`
-- 💬 Just want to chat → [Issues](https://gitee.com/JEDI_MASTER/neoIndustrial/issues) — open one anytime, no bug required
-
-> If this project has helped you, **give it a Star ⭐**. It won't cost you a cent — that little star is the biggest encouragement you can give me.
+---
 
 ## 📄 License
 
-**Community Edition**: open-sourced under the [Apache License 2.0](LICENSE), **free for both commercial and non-commercial use**.
+The source code in this repository is released under the [Apache License 2.0](LICENSE) — free for commercial and non-commercial use, redistributable under the license terms.
 
-**Enterprise Edition (desktop client)**: requires a commercial license. The client can be downloaded for evaluation directly from this repository's Releases; to obtain a formal license, send your hardware ID to `751326339@qq.com`, or call `18354356258` / `18854344113` (Zhang Chenglong).
+**Software activation:** the application includes an activation module — a license key bound to the machine's MAC address, activated online or offline, verified at every start. To obtain a license key for a deployed instance, contact the author:
 
-**WEB Commercial Edition (web platform, closed source)**: **no public download**. A license must be applied for directly from the author and is priced by device/machine count. Please mark your request "WEB Commercial Edition license application" and include the following five items: **use case / company or individual / intended purpose / license period / number of devices**. Contact: `751326339@qq.com`, or call `18354356258` / `18854344113` (WeChat available).
-**Driver licensing & compliance (important)**:
+> 📮 Email: `751326339@qq.com`　📞 Phone: `18354356258` / `18854344113` (Zhang Chenglong, WeChat available)
 
-- **All 39 drivers built into the WEB Commercial Edition are open-source implementations**, and their runtime libraries are open-source licensed; the platform **does not ship, bundle or redistribute any commercial-licensed driver that has to be purchased from a vendor**.
-- If a protocol on site needs a commercially licensed driver, the user can **upload it after obtaining the licence** (a `.dll` / `.zip`, with its category chosen in "Driver management"), or **have the built-in AI find one online and add it** (the AI states the source and licence and installs only after your confirmation). **The licence is always obtained by the user; the platform only loads the driver and never resells, cracks or acts as a licensing agent.**
-- If the desktop / community editions enable the following protocol integrations, their specifications, SDKs or runtime libraries are subject to **commercial licences or membership requirements from the vendor or standards body** (Fanuc FOCAS, HEIDENHAIN Remo Tools, Siemens 840D, SECS/GEM, OPC DA, HART IP, EtherNet/IP, DeviceNet, CC-Link, KNX, DLMS/COSEM, LonWorks, etc.): **before production, commercial or customer-facing use, contact the vendor or licensing body, purchase a legitimate licence and obtain formal permission**. The platform only implements protocol connectivity and does not bundle, resell, crack or redistribute any vendor SDK, licence file or licensed feature option. See the 🔑 marks in "The Complete List of 40 Protocol Drivers".
-- **Compliance & liability**: users must confirm and obtain all licences and permissions required by the devices and protocols they use. This software is provided "as is", makes no warranty about third-party protocol licensing, and any liability or dispute arising from using a protocol without a licence rests with the user.
+**Third-party components** (NuGet packages and protocol runtime libraries) remain under their own licenses; see the notice in the driver section regarding vendor-licensed protocols.
+
+---
+
+## 👤 About the Author
+
+**Zhang Chenglong** — art student turned full-stack developer, digital-twin system architect.
+
+In the spring of 2026, while building the UI prototypes and driver logic for an aluminum-extrusion digital-twin system, one thing was missing: something that could actually connect to every device on the shop floor. PLCs, CNCs, sensors, meters, power cabinets, building controllers — they all speak different languages. The options out there were either absurdly expensive, too heavy for an industrial PC, or so old they had never heard of AI.
+
+**So the brush went down and Visual Studio opened.** (Background: joined a steel plant right after graduation; 3 years in the aluminum-extrusion industry; 12 years in IT in total.) In under three months, one person built from scratch: 39 industrial protocol drivers, multi-database parallel writes, millisecond MQTT publishing, 50 MCP AI tools, a REST API and a live dashboard — the set of nerve endings that brings a digital twin to life.
+
+Why open source? Because getting a usable data-acquisition program onto your own industrial PC, for free, shouldn't require sky-high license fees, pirated installers, or two months wrestling with a patchwork of components that still can't talk to your devices. Industrial data acquisition is the bedrock of digital twins and smart manufacturing — and now it's here, source and all: download, build, connect your devices.
+
+**This is not "yet another piece of industrial software". This is the data foundation of the digital-twin world — opened up.**
 
 ---
 
 <div align="center">
 
-**IndustrialDataCollector — The Data Foundation of the Digital Twin**
+**Industrial Data Collector — the data foundation of the digital twin**
 
-© 2026 Zhang Chenglong · Community Edition Apache 2.0 · Enterprise Edition requires a commercial license, please contact the developer
+© 2026 Zhang Chenglong · Apache License 2.0
 
 </div>

@@ -1,0 +1,18 @@
+# 文本文件：仓库内统一 LF，检出时按平台转换
+* text=auto eol=lf
+
+# Windows 脚本保持 CRLF（双击运行更稳）
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# 二进制资源
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.mp4 binary
+*.psd binary
+*.zip binary
+*.7z binary

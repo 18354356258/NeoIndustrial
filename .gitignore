@@ -1,23 +1,40 @@
-# NuGet packages — 通过 nuget restore 恢复
+# ── NuGet 依赖（不入库，用 nuget restore 还原）──
 packages/
+*.nupkg
+nuget.exe
 
-# Build output
+# ── 构建产物 ──
 bin/
 obj/
 Release/
+Debug/
+*.dll
+*.pdb
+*.exe
+
+# ── IDE / 工具 ──
+.vs/
 *.suo
 *.user
-*.vs/
+*.csproj.user
+*.DotSettings.user
 
-# Logs
+# ── 运行期数据与配置（可能含口令，禁止入库）──
+Data/
 Logs/
 *.log
-
-# Data
-Data/
 *.db
 *.db-journal
+*.db-wal
+dbConfig.json
 
-# IDE
-.vs/
-*.csproj.user
+# ── 备份 / 临时文件 ──
+*bak*
+*.bak
+*.bak-*
+temp_*
+*.tmp
+
+# ── 系统 ──
+Thumbs.db
+Desktop.ini
