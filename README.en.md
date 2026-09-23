@@ -530,7 +530,7 @@ What it solves that the desktop edition cannot:
 
 <div align="center">
 
-<a href="picture/web-demo.mp4"><img src="picture/web-demo-cover.jpg" width="90%" alt="▶ Click to watch the WEB Commercial Edition demo video"></a>
+<a href="https://github.com/18354356258/NeoIndustrial/raw/main/picture/web-demo.mp4"><img src="picture/web-demo-cover.jpg" width="90%" alt="▶ Click to watch the WEB Commercial Edition demo video"></a>
 
 **▶ Click the cover to watch the full demo** (1 min 53 s · 1080p)
 

@@ -556,7 +556,7 @@ GET /api/status                               # 系统状态
 
 <div align="center">
 
-<a href="picture/web-demo.mp4"><img src="picture/web-demo-cover.jpg" width="90%" alt="▶ 点击观看 WEB 商业版功能演示视频"></a>
+<a href="https://github.com/18354356258/NeoIndustrial/raw/main/picture/web-demo.mp4"><img src="picture/web-demo-cover.jpg" width="90%" alt="▶ 点击观看 WEB 商业版功能演示视频"></a>
 
 **▶ 点击封面即可观看完整演示视频**（约 1 分 53 秒 · 1080p）
 
