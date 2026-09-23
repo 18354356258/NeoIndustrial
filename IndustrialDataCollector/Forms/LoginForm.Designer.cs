@@ -84,7 +84,7 @@ namespace IndustrialDataCollection.Forms
             // 
             this.lblAppName.AutoSize = true;
             this.lblAppName.BackColor = System.Drawing.Color.Transparent;
-            this.lblAppName.Font = new System.Drawing.Font("Segoe UI", 30F, System.Drawing.FontStyle.Bold);
+            this.lblAppName.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
             this.lblAppName.ForeColor = System.Drawing.Color.White;
             this.lblAppName.Location = new System.Drawing.Point(27, 50);
             this.lblAppName.Name = "lblAppName";

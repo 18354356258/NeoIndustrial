@@ -597,6 +597,8 @@ What the driver management page does:
 - **WEB Commercial Edition**: **no public download**. A license must be applied for directly from the author, priced by device/machine count.
 - **In-app shortcut**: in the desktop client, **Help → Contact Me** opens both repositories and lets you copy the licensing e-mail; the login screen also carries a “Contact Me · Get Commercial Edition” link.
 
+<img src="picture/联系我.png" width="70%" alt="Contact Me (repositories + licensing)">
+
 **To apply for a WEB Commercial Edition license, please state the following five items in your email or call:**
 
 1. **Use case** — which industry, which production line, and what problem you want to solve;

@@ -39,7 +39,6 @@ namespace IndustrialDataCollection.Forms
         private Panel panelRight;
         private Panel panelDecor;
         private Panel sepLine;
-        private Label lblBrand;
         private Label lblBrandSub;
         private Label lblSlogan;
         private Label lblVersion;
@@ -96,7 +95,7 @@ namespace IndustrialDataCollection.Forms
             panelLeft = new Panel
             {
                 Location = new Point(1, 1),
-                Size = new Size(280, 418),
+                Size = new Size(300, 418),
                 BackColor = Color.Transparent
             };
             panelLeft.GetType().GetMethod("SetStyle",
@@ -105,17 +104,6 @@ namespace IndustrialDataCollection.Forms
                     ControlStyles.SupportsTransparentBackColor | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint,
                     true });
             panelLeft.Paint += PanelLeft_Paint;
-
-            lblBrand = new Label
-            {
-                Text = "NeoIndustrial",
-                Font = new Font("Segoe UI", 30F, FontStyle.Bold),
-                ForeColor = CWhite,
-                BackColor = Color.Transparent,
-                Location = new Point(40, 52),
-                Size = new Size(220, 56),
-                TextAlign = ContentAlignment.MiddleLeft
-            };
 
             lblBrandSub = new Label
             {
@@ -178,8 +166,8 @@ namespace IndustrialDataCollection.Forms
             // === 右侧内容面板 ===
             panelRight = new Panel
             {
-                Location = new Point(281, 1),
-                Size = new Size(438, 418),
+                Location = new Point(301, 1),
+                Size = new Size(418, 418),
                 BackColor = CWhite
             };
 
@@ -189,7 +177,7 @@ namespace IndustrialDataCollection.Forms
                 Font = new Font("Segoe UI", 11F),
                 ForeColor = CCloseFore,
                 BackColor = Color.Transparent,
-                Location = new Point(403, 6),
+                Location = new Point(383, 6),
                 Size = new Size(28, 26),
                 TextAlign = ContentAlignment.MiddleCenter,
                 Cursor = Cursors.Hand
@@ -327,7 +315,6 @@ namespace IndustrialDataCollection.Forms
             btnOk.MouseLeave += (s, e) => btnOk.BackColor = CAccent;
 
             // === 组装 ===
-            panelLeft.Controls.Add(lblBrand);
             panelLeft.Controls.Add(lblBrandSub);
             panelLeft.Controls.Add(panelDecor);
             panelLeft.Controls.Add(sepLine);
@@ -385,6 +372,13 @@ namespace IndustrialDataCollection.Forms
             {
                 e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
                 e.Graphics.FillRectangle(brush, panelLeft.ClientRectangle);
+
+                // 品牌名直接用 GDI+ 绘制（避免 Label 宽度不足裁掉末位字母）
+                e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
+                using (var bf = new Font("Segoe UI", 28F, FontStyle.Bold))
+                {
+                    e.Graphics.DrawString("NeoIndustrial", bf, Brushes.White, 40F, 51F);
+                }
             }
         }
 
