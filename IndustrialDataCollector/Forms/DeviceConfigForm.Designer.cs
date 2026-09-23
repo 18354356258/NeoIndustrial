@@ -263,43 +263,43 @@ namespace IndustrialDataCollection.Forms
             // 
             this.btnAddPoint.Location = new System.Drawing.Point(10, 20);
             this.btnAddPoint.Name = "btnAddPoint";
-            this.btnAddPoint.Size = new System.Drawing.Size(90, 28);
+            this.btnAddPoint.Size = new System.Drawing.Size(80, 22);
             this.btnAddPoint.TabIndex = 0;
             this.btnAddPoint.Text = "添加变量";
             this.btnAddPoint.Click += new System.EventHandler(this.btnAddPoint_Click);
             // 
             // btnEditPoint
             // 
-            this.btnEditPoint.Location = new System.Drawing.Point(106, 20);
+            this.btnEditPoint.Location = new System.Drawing.Point(96, 20);
             this.btnEditPoint.Name = "btnEditPoint";
-            this.btnEditPoint.Size = new System.Drawing.Size(90, 28);
+            this.btnEditPoint.Size = new System.Drawing.Size(80, 22);
             this.btnEditPoint.TabIndex = 1;
             this.btnEditPoint.Text = "编辑变量";
             this.btnEditPoint.Click += new System.EventHandler(this.btnEditPoint_Click);
             // 
             // btnDeletePoint
             // 
-            this.btnDeletePoint.Location = new System.Drawing.Point(202, 20);
+            this.btnDeletePoint.Location = new System.Drawing.Point(182, 20);
             this.btnDeletePoint.Name = "btnDeletePoint";
-            this.btnDeletePoint.Size = new System.Drawing.Size(90, 28);
+            this.btnDeletePoint.Size = new System.Drawing.Size(80, 22);
             this.btnDeletePoint.TabIndex = 2;
             this.btnDeletePoint.Text = "删除变量";
             this.btnDeletePoint.Click += new System.EventHandler(this.btnDeletePoint_Click);
             // 
             // btnImportPoints
             // 
-            this.btnImportPoints.Location = new System.Drawing.Point(556, 20);
+            this.btnImportPoints.Location = new System.Drawing.Point(526, 20);
             this.btnImportPoints.Name = "btnImportPoints";
-            this.btnImportPoints.Size = new System.Drawing.Size(90, 28);
+            this.btnImportPoints.Size = new System.Drawing.Size(80, 22);
             this.btnImportPoints.TabIndex = 3;
             this.btnImportPoints.Text = "批量导入";
             this.btnImportPoints.Click += new System.EventHandler(this.btnImportPoints_Click);
             // 
             // btnExportPoints
             // 
-            this.btnExportPoints.Location = new System.Drawing.Point(652, 20);
+            this.btnExportPoints.Location = new System.Drawing.Point(612, 20);
             this.btnExportPoints.Name = "btnExportPoints";
-            this.btnExportPoints.Size = new System.Drawing.Size(90, 28);
+            this.btnExportPoints.Size = new System.Drawing.Size(80, 22);
             this.btnExportPoints.TabIndex = 4;
             this.btnExportPoints.Text = "批量导出";
             this.btnExportPoints.Click += new System.EventHandler(this.btnExportPoints_Click);
@@ -342,14 +342,14 @@ namespace IndustrialDataCollection.Forms
             this.dataGridViewPoints.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewPoints.EnableHeadersVisualStyles = false;
             this.dataGridViewPoints.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(232)))), ((int)(((byte)(240)))));
-            this.dataGridViewPoints.Location = new System.Drawing.Point(10, 55);
+            this.dataGridViewPoints.Location = new System.Drawing.Point(10, 48);
             this.dataGridViewPoints.MultiSelect = false;
             this.dataGridViewPoints.Name = "dataGridViewPoints";
             this.dataGridViewPoints.ReadOnly = true;
             this.dataGridViewPoints.RowHeadersVisible = false;
             this.dataGridViewPoints.RowTemplate.Height = 24;
             this.dataGridViewPoints.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewPoints.Size = new System.Drawing.Size(796, 306);
+            this.dataGridViewPoints.Size = new System.Drawing.Size(796, 313);
             this.dataGridViewPoints.TabIndex = 0;
             // 
             // colPointName

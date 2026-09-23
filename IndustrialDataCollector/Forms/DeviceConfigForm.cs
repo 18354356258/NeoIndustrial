@@ -289,7 +289,7 @@ namespace IndustrialDataCollection.Forms
                 case 1: all = new List<string> { "MELSECMc","Fins","HostLink","KeyenceKV","CODESYS","BeckhoffADS","MitsubishiFX","PanasonicMewtocol" }; break;
                 case 2: all = new List<string> { "FanucFocas","Heidenhain","MTConnect","HaasCNC","Siemens840D","Mazak" }; break;
                 case 3: all = new List<string> { "BACnet","KNX","LonWorks","DALI","MBus" }; break;
-                case 4: all = new List<string> { "IEC61850","IEC104","DNP3","DLMS","HARTIP" }; break;
+                case 4: all = new List<string> { "IEC104","DNP3","DLMS","HARTIP" }; break;
                 case 5: all = new List<string> { "PROFIBUS","DeviceNet","CCLink","Profinet" }; break;
                 case 6: all = new List<string> { "HttpRest","OPCDA","SparkplugB","SecsGem" }; break;
                 default: all = new List<string>(); break;
@@ -660,23 +660,73 @@ namespace IndustrialDataCollection.Forms
 
             switch (_originalConfig.DriverType)
             {
+                // v3.22.40: 串口类驱动统一回填（PortName/BaudRate/Parity/DataBits/StopBits/Station）
                 case "ModbusRtu":
-                    if (_comboPortName != null)
-                        _comboPortName.Text = _originalConfig.GetParam("PortName", "COM1");
-                    if (_comboBaudRate != null)
-                        _comboBaudRate.Text = _originalConfig.GetParam("BaudRate", "9600");
-                    if (_comboParity != null)
-                        _comboParity.Text = _originalConfig.GetParam("Parity", "None");
-                    if (_comboDataBits != null)
-                        _comboDataBits.Text = _originalConfig.GetParam("DataBits", "8");
-                    if (_comboStopBits != null)
-                        _comboStopBits.Text = _originalConfig.GetParam("StopBits", "1");
-                    // Station TextBox
+                case "DALI":
+                case "DLMS":
+                case "HaasCNC":
+                case "Mazak":
+                case "MitsubishiFX":
+                case "PanasonicMewtocol":
+                case "MBus":
+                    RestoreSerialParams();
+                    break;
+
+                // v3.22.40: 非标准参数键回填（原实现只按 IP/Port/Station/Rack/Slot 通用键回填，
+                // 导致这些驱动保存后重开显示默认值——OPC DA 的 ProgID 被回填成 127.0.0.1 即此类）
+                case "OPCDA":
+                    txtIP.Text = _originalConfig.GetParam("ProgID", "OPC.SimaticNET.1");
+                    break;
+                case "MTConnect":
+                    if (_txtBaseUrl != null) _txtBaseUrl.Text = _originalConfig.GetParam("URL", "http://127.0.0.1:5000");
+                    break;
+                case "OpcUaPubSub":
+                    if (_txtBrokerHost != null) _txtBrokerHost.Text = _originalConfig.GetParam("BrokerHost", "127.0.0.1");
+                    if (_txtBrokerPort != null) _txtBrokerPort.Text = _originalConfig.GetParam("BrokerPort", "1883");
+                    if (_txtTopicFilter != null) _txtTopicFilter.Text = _originalConfig.GetParam("Topic", "opcua/pubsub");
+                    break;
+                case "SparkplugB":
+                    if (_txtBrokerHost != null) _txtBrokerHost.Text = _originalConfig.GetParam("BrokerHost", "127.0.0.1");
+                    if (_txtBrokerPort != null) _txtBrokerPort.Text = _originalConfig.GetParam("BrokerPort", "1883");
+                    if (_txtTopicFilter != null) _txtTopicFilter.Text = _originalConfig.GetParam("GroupID", "SparkplugB");
                     foreach (var c in _dynamicControls)
                     {
-                        if (c is TextBox tb && (string)tb.Tag == "Station")
-                            tb.Text = _originalConfig.GetParam("Station", "1");
+                        if (c is TextBox tbNode && (string)tbNode.Tag == "NodeID")
+                            tbNode.Text = _originalConfig.GetParam("NodeID", "Node1");
                     }
+                    break;
+                case "BACnet":
+                    txtStation.Text = _originalConfig.GetParam("DeviceID", "1");
+                    break;
+                case "DNP3":
+                    txtStation.Text = _originalConfig.GetParam("SourceAddress", "1");
+                    txtRack.Text = _originalConfig.GetParam("DestAddress", "2");
+                    break;
+                case "IEC104":
+                    txtStation.Text = _originalConfig.GetParam("CommonAddress", "1");
+                    break;
+                case "KNX":
+                    txtStation.Text = _originalConfig.GetParam("IndividualAddress", "1.1.1");
+                    break;
+                case "LonWorks":
+                    txtStation.Text = _originalConfig.GetParam("NetworkID", "1");
+                    break;
+                case "SecsGem":
+                    txtStation.Text = _originalConfig.GetParam("DeviceID", "0");
+                    txtRack.Text = _originalConfig.GetParam("SessionID", "1");
+                    break;
+                case "FanucFocas":
+                case "Heidenhain":
+                    txtStation.Text = _originalConfig.GetParam("CNCType", "");
+                    break;
+                case "Siemens840D":
+                    txtStation.Text = _originalConfig.GetParam("NCU", "1");
+                    break;
+                case "BeckhoffADS":
+                    txtStation.Text = _originalConfig.GetParam("AmsNetId", "");
+                    break;
+                case "Profinet":
+                    txtStation.Text = _originalConfig.GetParam("SubSlot", "1");
                     break;
                 case "MqttSubscribe":
                     if (_txtBrokerHost != null)
@@ -821,6 +871,25 @@ namespace IndustrialDataCollection.Forms
             txtIP.Visible = true;
             txtIP.MaxLength = 256;
             if (string.IsNullOrEmpty(txtIP.Text)) txtIP.Text = "OPC.SimaticNET.1";
+        }
+
+        /// <summary>
+        /// v3.22.40: 串口类驱动参数回填（ModbusRtu / DALI / DLMS / HaasCNC / Mazak / MitsubishiFX / PanasonicMewtocol / MBus）
+        /// 这些驱动只消费 PortName/BaudRate/Parity/DataBits/StopBits/Station，不再回填 IP/Port
+        /// </summary>
+        private void RestoreSerialParams()
+        {
+            if (_originalConfig == null) return;
+            if (_comboPortName != null) _comboPortName.Text = _originalConfig.GetParam("PortName", "COM1");
+            if (_comboBaudRate != null) _comboBaudRate.Text = _originalConfig.GetParam("BaudRate", "9600");
+            if (_comboParity != null) _comboParity.Text = _originalConfig.GetParam("Parity", "None");
+            if (_comboDataBits != null) _comboDataBits.Text = _originalConfig.GetParam("DataBits", "8");
+            if (_comboStopBits != null) _comboStopBits.Text = _originalConfig.GetParam("StopBits", "1");
+            foreach (var c in _dynamicControls)
+            {
+                if (c is TextBox tb && (string)tb.Tag == "Station")
+                    tb.Text = _originalConfig.GetParam("Station", "1");
+            }
         }
 
         /// <summary>
@@ -1065,20 +1134,6 @@ namespace IndustrialDataCollection.Forms
                     groupConnection.Text = L.GetString("Driver_KeyenceKV_Params");
                     break;
 
-                case "IEC61850":
-                    lblIP.Text = L.GetString("DeviceConfig_IP");
-                    lblIP.Visible = true; txtIP.Visible = true;
-                    lblPort.Text = L.GetString("DeviceConfig_Port");
-                    lblPort.Visible = true; txtPort.Visible = true;
-                    lblStation.Text = L.GetString("DeviceConfig_Domain");
-                    lblStation.Location = new Point(10, 55);
-                    txtStation.Location = new Point(85, 52);
-                    lblStation.Visible = true; txtStation.Visible = true;
-                    btnTestConnect.Location = new Point(646, 72);
-                    btnTestConnect.Visible = true;
-                    groupConnection.Text = L.GetString("Driver_IEC61850_Params");
-                    break;
-
                 case "DNP3":
                     lblIP.Text = L.GetString("DeviceConfig_IP");
                     lblIP.Visible = true; txtIP.Visible = true;
@@ -1269,33 +1324,27 @@ namespace IndustrialDataCollection.Forms
                     break;
 
                 case "MitsubishiFX":
-                    lblIP.Text = L.GetString("DeviceConfig_IP");
-                    lblIP.Visible = true; txtIP.Visible = true;
-                    lblPort.Text = L.GetString("DeviceConfig_Port");
-                    lblPort.Visible = true; txtPort.Visible = true;
-                    btnTestConnect.Location = new Point(646, 72);
-                    btnTestConnect.Visible = true;
+                    // v3.22.40: 该驱动为串口驱动（只消费 PortName/BaudRate/Parity/DataBits/StopBits），改用串口参数区
                     groupConnection.Text = L.GetString("Driver_MitsubishiFX_Params");
+                    SetupModbusRtuControls();
+                    btnTestConnect.Location = new Point(646, 90);
+                    btnTestConnect.Visible = true;
                     break;
 
                 case "PanasonicMewtocol":
-                    lblIP.Text = L.GetString("DeviceConfig_IP");
-                    lblIP.Visible = true; txtIP.Visible = true;
-                    lblPort.Text = L.GetString("DeviceConfig_Port");
-                    lblPort.Visible = true; txtPort.Visible = true;
-                    btnTestConnect.Location = new Point(646, 72);
-                    btnTestConnect.Visible = true;
+                    // v3.22.40: 该驱动为串口驱动（只消费 PortName/BaudRate/Parity/DataBits/StopBits），改用串口参数区
                     groupConnection.Text = L.GetString("Driver_PanasonicMewtocol_Params");
+                    SetupModbusRtuControls();
+                    btnTestConnect.Location = new Point(646, 90);
+                    btnTestConnect.Visible = true;
                     break;
 
                 case "HaasCNC":
-                    lblIP.Text = L.GetString("DeviceConfig_IP");
-                    lblIP.Visible = true; txtIP.Visible = true;
-                    lblPort.Text = L.GetString("DeviceConfig_Port");
-                    lblPort.Visible = true; txtPort.Visible = true;
-                    btnTestConnect.Location = new Point(646, 72);
-                    btnTestConnect.Visible = true;
+                    // v3.22.40: 该驱动为串口驱动（只消费 PortName/BaudRate/Parity/DataBits/StopBits），改用串口参数区
                     groupConnection.Text = L.GetString("Driver_HaasCNC_Params");
+                    SetupModbusRtuControls();
+                    btnTestConnect.Location = new Point(646, 90);
+                    btnTestConnect.Visible = true;
                     break;
 
                 case "Siemens840D":
@@ -1314,43 +1363,35 @@ namespace IndustrialDataCollection.Forms
                     break;
 
                 case "Mazak":
-                    lblIP.Text = L.GetString("DeviceConfig_IP");
-                    lblIP.Visible = true; txtIP.Visible = true;
-                    lblPort.Text = L.GetString("DeviceConfig_Port");
-                    lblPort.Visible = true; txtPort.Visible = true;
-                    btnTestConnect.Location = new Point(646, 72);
-                    btnTestConnect.Visible = true;
+                    // v3.22.40: 该驱动为串口驱动（只消费 PortName/BaudRate/Parity/DataBits/StopBits），改用串口参数区
                     groupConnection.Text = L.GetString("Driver_Mazak_Params");
+                    SetupModbusRtuControls();
+                    btnTestConnect.Location = new Point(646, 90);
+                    btnTestConnect.Visible = true;
                     break;
 
                 case "DALI":
-                    lblIP.Text = L.GetString("DeviceConfig_IP");
-                    lblIP.Visible = true; txtIP.Visible = true;
-                    lblPort.Text = L.GetString("DeviceConfig_Port");
-                    lblPort.Visible = true; txtPort.Visible = true;
-                    btnTestConnect.Location = new Point(646, 72);
-                    btnTestConnect.Visible = true;
+                    // v3.22.40: 该驱动为串口驱动（只消费 PortName/BaudRate/Parity/DataBits/StopBits），改用串口参数区
                     groupConnection.Text = L.GetString("Driver_DALI_Params");
+                    SetupModbusRtuControls();
+                    btnTestConnect.Location = new Point(646, 90);
+                    btnTestConnect.Visible = true;
                     break;
 
                 case "MBus":
-                    lblIP.Text = L.GetString("DeviceConfig_IP");
-                    lblIP.Visible = true; txtIP.Visible = true;
-                    lblPort.Text = L.GetString("DeviceConfig_Port");
-                    lblPort.Visible = true; txtPort.Visible = true;
-                    btnTestConnect.Location = new Point(646, 72);
-                    btnTestConnect.Visible = true;
+                    // v3.22.40: 该驱动为串口驱动（只消费 PortName/BaudRate/Parity/DataBits/StopBits），改用串口参数区
                     groupConnection.Text = L.GetString("Driver_MBus_Params");
+                    SetupModbusRtuControls();
+                    btnTestConnect.Location = new Point(646, 90);
+                    btnTestConnect.Visible = true;
                     break;
 
                 case "DLMS":
-                    lblIP.Text = L.GetString("DeviceConfig_IP");
-                    lblIP.Visible = true; txtIP.Visible = true;
-                    lblPort.Text = L.GetString("DeviceConfig_Port");
-                    lblPort.Visible = true; txtPort.Visible = true;
-                    btnTestConnect.Location = new Point(646, 72);
-                    btnTestConnect.Visible = true;
+                    // v3.22.40: 该驱动为串口驱动（只消费 PortName/BaudRate/Parity/DataBits/StopBits），改用串口参数区
                     groupConnection.Text = L.GetString("Driver_DLMS_Params");
+                    SetupModbusRtuControls();
+                    btnTestConnect.Location = new Point(646, 90);
+                    btnTestConnect.Visible = true;
                     break;
 
                 case "HARTIP":
@@ -2074,11 +2115,6 @@ namespace IndustrialDataCollection.Forms
                     config.ConnectionParams["Port"] = txtPort.Text;
                     config.ConnectionParams["PLCType"] = _comboPlcType?.Text ?? "KV-8000";
                     break;
-                case "IEC61850":
-                    config.ConnectionParams["IP"] = txtIP.Text;
-                    config.ConnectionParams["Port"] = txtPort.Text;
-                    config.ConnectionParams["Domain"] = txtStation.Text;
-                    break;
                 case "DNP3":
                     config.ConnectionParams["IP"] = txtIP.Text;
                     config.ConnectionParams["Port"] = txtPort.Text;
@@ -2148,16 +2184,31 @@ namespace IndustrialDataCollection.Forms
                     config.ConnectionParams["Port"] = txtPort.Text;
                     break;
                 case "MitsubishiFX":
-                    config.ConnectionParams["IP"] = txtIP.Text;
-                    config.ConnectionParams["Port"] = txtPort.Text;
+                    // v3.22.40: 串口驱动保存其真正消费的参数键（原来写 IP/Port，驱动读不到 → 配置不生效）
+                    config.ConnectionParams["PortName"] = _comboPortName?.Text ?? "COM1";
+                    config.ConnectionParams["BaudRate"] = _comboBaudRate?.Text ?? "9600";
+                    config.ConnectionParams["Parity"] = _comboParity?.Text ?? "None";
+                    config.ConnectionParams["DataBits"] = _comboDataBits?.Text ?? "8";
+                    config.ConnectionParams["StopBits"] = _comboStopBits?.Text ?? "1";
+                    config.ConnectionParams["Station"] = FindDynamicText("Station") ?? "1";
                     break;
                 case "PanasonicMewtocol":
-                    config.ConnectionParams["IP"] = txtIP.Text;
-                    config.ConnectionParams["Port"] = txtPort.Text;
+                    // v3.22.40: 串口驱动保存其真正消费的参数键（原来写 IP/Port，驱动读不到 → 配置不生效）
+                    config.ConnectionParams["PortName"] = _comboPortName?.Text ?? "COM1";
+                    config.ConnectionParams["BaudRate"] = _comboBaudRate?.Text ?? "9600";
+                    config.ConnectionParams["Parity"] = _comboParity?.Text ?? "None";
+                    config.ConnectionParams["DataBits"] = _comboDataBits?.Text ?? "8";
+                    config.ConnectionParams["StopBits"] = _comboStopBits?.Text ?? "1";
+                    config.ConnectionParams["Station"] = FindDynamicText("Station") ?? "1";
                     break;
                 case "HaasCNC":
-                    config.ConnectionParams["IP"] = txtIP.Text;
-                    config.ConnectionParams["Port"] = txtPort.Text;
+                    // v3.22.40: 串口驱动保存其真正消费的参数键（原来写 IP/Port，驱动读不到 → 配置不生效）
+                    config.ConnectionParams["PortName"] = _comboPortName?.Text ?? "COM1";
+                    config.ConnectionParams["BaudRate"] = _comboBaudRate?.Text ?? "9600";
+                    config.ConnectionParams["Parity"] = _comboParity?.Text ?? "None";
+                    config.ConnectionParams["DataBits"] = _comboDataBits?.Text ?? "8";
+                    config.ConnectionParams["StopBits"] = _comboStopBits?.Text ?? "1";
+                    config.ConnectionParams["Station"] = FindDynamicText("Station") ?? "1";
                     break;
                 case "Siemens840D":
                     config.ConnectionParams["IP"] = txtIP.Text;
@@ -2165,20 +2216,40 @@ namespace IndustrialDataCollection.Forms
                     config.ConnectionParams["NCU"] = txtStation.Text;
                     break;
                 case "Mazak":
-                    config.ConnectionParams["IP"] = txtIP.Text;
-                    config.ConnectionParams["Port"] = txtPort.Text;
+                    // v3.22.40: 串口驱动保存其真正消费的参数键（原来写 IP/Port，驱动读不到 → 配置不生效）
+                    config.ConnectionParams["PortName"] = _comboPortName?.Text ?? "COM1";
+                    config.ConnectionParams["BaudRate"] = _comboBaudRate?.Text ?? "9600";
+                    config.ConnectionParams["Parity"] = _comboParity?.Text ?? "None";
+                    config.ConnectionParams["DataBits"] = _comboDataBits?.Text ?? "8";
+                    config.ConnectionParams["StopBits"] = _comboStopBits?.Text ?? "1";
+                    config.ConnectionParams["Station"] = FindDynamicText("Station") ?? "1";
                     break;
                 case "DALI":
-                    config.ConnectionParams["IP"] = txtIP.Text;
-                    config.ConnectionParams["Port"] = txtPort.Text;
+                    // v3.22.40: 串口驱动保存其真正消费的参数键（原来写 IP/Port，驱动读不到 → 配置不生效）
+                    config.ConnectionParams["PortName"] = _comboPortName?.Text ?? "COM1";
+                    config.ConnectionParams["BaudRate"] = _comboBaudRate?.Text ?? "9600";
+                    config.ConnectionParams["Parity"] = _comboParity?.Text ?? "None";
+                    config.ConnectionParams["DataBits"] = _comboDataBits?.Text ?? "8";
+                    config.ConnectionParams["StopBits"] = _comboStopBits?.Text ?? "1";
+                    config.ConnectionParams["Station"] = FindDynamicText("Station") ?? "1";
                     break;
                 case "MBus":
-                    config.ConnectionParams["IP"] = txtIP.Text;
-                    config.ConnectionParams["Port"] = txtPort.Text;
+                    // v3.22.40: 串口驱动保存其真正消费的参数键（原来写 IP/Port，驱动读不到 → 配置不生效）
+                    config.ConnectionParams["PortName"] = _comboPortName?.Text ?? "COM1";
+                    config.ConnectionParams["BaudRate"] = _comboBaudRate?.Text ?? "9600";
+                    config.ConnectionParams["Parity"] = _comboParity?.Text ?? "None";
+                    config.ConnectionParams["DataBits"] = _comboDataBits?.Text ?? "8";
+                    config.ConnectionParams["StopBits"] = _comboStopBits?.Text ?? "1";
+                    config.ConnectionParams["Station"] = FindDynamicText("Station") ?? "1";
                     break;
                 case "DLMS":
-                    config.ConnectionParams["IP"] = txtIP.Text;
-                    config.ConnectionParams["Port"] = txtPort.Text;
+                    // v3.22.40: 串口驱动保存其真正消费的参数键（原来写 IP/Port，驱动读不到 → 配置不生效）
+                    config.ConnectionParams["PortName"] = _comboPortName?.Text ?? "COM1";
+                    config.ConnectionParams["BaudRate"] = _comboBaudRate?.Text ?? "9600";
+                    config.ConnectionParams["Parity"] = _comboParity?.Text ?? "None";
+                    config.ConnectionParams["DataBits"] = _comboDataBits?.Text ?? "8";
+                    config.ConnectionParams["StopBits"] = _comboStopBits?.Text ?? "1";
+                    config.ConnectionParams["Station"] = FindDynamicText("Station") ?? "1";
                     break;
                 case "HARTIP":
                     config.ConnectionParams["IP"] = txtIP.Text;

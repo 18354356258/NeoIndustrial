@@ -598,7 +598,7 @@ VALUES
             if (conn is SQLiteConnection)
                 return SQL_CREATE_SQLITE;
 
-            if (conn is MySql.Data.MySqlClient.MySqlConnection)
+            if (conn is MySqlConnector.MySqlConnection)
                 return @"CREATE TABLE industrial_data (
     id INT AUTO_INCREMENT PRIMARY KEY COMMENT 'Auto-increment record ID',
     db_type VARCHAR(50) NOT NULL COMMENT 'Database type: MySQL/SQLite/PostgreSQL/etc',
@@ -801,8 +801,8 @@ VALUES
                 p = new SQLiteParameter(name, value);
             else if (conn is SqlConnection)
                 p = new SqlParameter(name, value);
-            else if (conn is MySql.Data.MySqlClient.MySqlConnection)
-                p = new MySql.Data.MySqlClient.MySqlParameter(name, value);
+            else if (conn is MySqlConnector.MySqlConnection)
+                p = new MySqlConnector.MySqlParameter(name, value);
             else if (conn is Npgsql.NpgsqlConnection)
                 p = new Npgsql.NpgsqlParameter(name, value);
             else if (conn is TdengineConnection)
@@ -878,7 +878,7 @@ VALUES
                     "DELETE FROM {0} WHERE id IN (SELECT id FROM {0} WHERE timestamp < @cutoff LIMIT {1})",
                     TABLE_NAME, batchSize);
             }
-            else if (conn is MySql.Data.MySqlClient.MySqlConnection)
+            else if (conn is MySqlConnector.MySqlConnection)
             {
                 sql = string.Format("DELETE FROM {0} WHERE timestamp < @cutoff LIMIT {1}",
                     TABLE_NAME, batchSize);
@@ -926,7 +926,7 @@ VALUES
                     return new SQLiteConnection("Data Source=" + path + ";Version=3;");
                 }
                 case "MySQL":
-                    return new MySql.Data.MySqlClient.MySqlConnection(
+                    return new MySqlConnector.MySqlConnection(
                         "Server=" + cfg.Server + ";Port=" + cfg.Port + ";Database=" + cfg.Database
                         + ";Uid=" + cfg.User + ";Pwd=" + cfg.Password + ";CharSet=utf8mb4;Connect Timeout=5;");
                 case "SQL Server":

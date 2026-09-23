@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Threading;
@@ -119,12 +119,12 @@ namespace IndustrialDataCollection.Drivers
             switch (point.DataType.ToLower())
             {
                 case "int32": case "int":
-                case "uint32": case "dword":
-                case "float": case "real":
+                case "uint32": case "dword": case "uint":
+                case "float": case "real": case "float32": case "single":
                     regCount = 2;
                     break;
-                case "int64": case "uint64":
-                case "double":
+                case "int64": case "uint64": case "long": case "ulong":
+                case "double": case "float64":
                     regCount = 4;
                     break;
                 default:
@@ -179,25 +179,25 @@ namespace IndustrialDataCollection.Drivers
                 registers[i] = (ushort)((respData[i * 2] << 8) | respData[i * 2 + 1]);
 
             // Use ModbusHelper for byte order conversion
-            byte[] valueBytes = ModbusHelper.RegistersToBytes(registers, point.ByteOrder);
+            byte[] valueBytes = ModbusHelper.RegistersToNumericBytes(registers, point.ByteOrder); // fix 2026-09-09: numeric decode must feed little-endian bytes to BitConverter
 
             switch (point.DataType.ToLower())
             {
-                case "bool":
-                    return (object)((respData[0] & 0x01) != 0);
+                case "bool": case "bit": case "boolean":
+                    return (object)((registers[0] & 0x01) != 0); // fix 2026-09-09: bit0 of the register (LSB), was wrongly high-byte bit0
                 case "byte":
                     return (object)(double)respData[0];
                 case "int16": case "short":
                     return (object)(double)BitConverter.ToInt16(valueBytes, 0);
                 case "uint16": case "ushort": case "word":
                     return (object)(double)BitConverter.ToUInt16(valueBytes, 0);
-                case "int32": case "int": case "dword":
+                case "int32": case "int":
                     return (object)(double)BitConverter.ToInt32(valueBytes, 0);
-                case "uint32":
+                case "uint32": case "dword": case "uint":
                     return (object)(double)BitConverter.ToUInt32(valueBytes, 0);
-                case "float": case "real":
+                case "float": case "real": case "float32": case "single":
                     return (object)(double)BitConverter.ToSingle(valueBytes, 0);
-                case "double":
+                case "double": case "float64":
                     return (object)BitConverter.ToDouble(valueBytes, 0);
                 default:
                     return (object)(double)registers[0];

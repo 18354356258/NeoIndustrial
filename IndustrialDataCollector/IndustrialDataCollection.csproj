@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0" DefaultTargets="Build">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -7,9 +8,9 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>IndustrialDataCollection</RootNamespace>
-    <AssemblyName>IndustrialDataCollector</AssemblyName>
+    <AssemblyName>IndustrialDataCollection</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    
+    <!-- <LangVersion>7.3</LangVersion> -->
     <ApplicationIcon>tubiao.ico</ApplicationIcon>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -53,9 +54,11 @@
       <HintPath>..\packages\S7netplus.0.20.0\lib\net462\S7.Net.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MySql.Data">
-      <HintPath>..\packages\MySql.Data.8.0.33\lib\net48\MySql.Data.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="MySqlConnector">
+      <HintPath>..\packages\MySqlConnector.2.3.7\lib\net48\MySqlConnector.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.DiagnosticSource">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.8.0.1\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="Npgsql">
       <HintPath>..\packages\Npgsql.4.1.14\lib\net461\Npgsql.dll</HintPath>
@@ -85,24 +88,24 @@
       <HintPath>..\packages\Microsoft.Bcl.HashCode.1.1.1\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=6.0.0.4, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.4\lib\net461\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=7.0.0.1, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.7.0.1\lib\net462\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Opc.Ua.Core, Version=1.5.374.0, Culture=neutral, PublicKeyToken=bfa7a73c5cf4b6e8, processorArchitecture=MSIL">
-      <HintPath>..\packages\OPCFoundation.NetStandard.Opc.Ua.Core.1.5.374.176\lib\net48\Opc.Ua.Core.dll</HintPath>
+      <HintPath>..\packages\OPCFoundation.NetStandard.Opc.Ua.Core.1.5.374.118\lib\net48\Opc.Ua.Core.dll</HintPath>
     </Reference>
     <Reference Include="Opc.Ua.Client, Version=1.5.374.0, Culture=neutral, PublicKeyToken=bfa7a73c5cf4b6e8, processorArchitecture=MSIL">
-      <HintPath>..\packages\OPCFoundation.NetStandard.Opc.Ua.Client.1.5.374.176\lib\net48\Opc.Ua.Client.dll</HintPath>
+      <HintPath>..\packages\OPCFoundation.NetStandard.Opc.Ua.Client.1.5.374.118\lib\net48\Opc.Ua.Client.dll</HintPath>
     </Reference>
     <Reference Include="Opc.Ua.Configuration, Version=1.5.374.0, Culture=neutral, PublicKeyToken=bfa7a73c5cf4b6e8, processorArchitecture=MSIL">
-      <HintPath>..\packages\OPCFoundation.NetStandard.Opc.Ua.Configuration.1.5.374.176\lib\net48\Opc.Ua.Configuration.dll</HintPath>
+      <HintPath>..\packages\OPCFoundation.NetStandard.Opc.Ua.Configuration.1.5.374.118\lib\net48\Opc.Ua.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="Opc.Ua.Bindings.Https, Version=1.5.374.0, Culture=neutral, PublicKeyToken=bfa7a73c5cf4b6e8, processorArchitecture=MSIL">
-      <HintPath>..\packages\OPCFoundation.NetStandard.Opc.Ua.Bindings.Https.1.5.374.176\lib\net48\Opc.Ua.Bindings.Https.dll</HintPath>
+      <HintPath>..\packages\OPCFoundation.NetStandard.Opc.Ua.Bindings.Https.1.5.374.118\lib\net48\Opc.Ua.Bindings.Https.dll</HintPath>
     </Reference>
     <Reference Include="Opc.Ua.Security.Certificates, Version=1.5.374.0, Culture=neutral, PublicKeyToken=bfa7a73c5cf4b6e8, processorArchitecture=MSIL">
-      <HintPath>..\packages\OPCFoundation.NetStandard.Opc.Ua.Security.Certificates.1.5.374.176\lib\net48\Opc.Ua.Security.Certificates.dll</HintPath>
+      <HintPath>..\packages\OPCFoundation.NetStandard.Opc.Ua.Security.Certificates.1.5.374.118\lib\net48\Opc.Ua.Security.Certificates.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Data.SQLite">
@@ -139,7 +142,6 @@
     <Compile Include="Drivers\ProfinetDriver.cs" />
     <Compile Include="Drivers\BACnetDriver.cs" />
     <Compile Include="Drivers\IEC104Driver.cs" />
-    <Compile Include="Drivers\IEC61850Driver.cs" />
     <Compile Include="Drivers\DNP3Driver.cs" />
     <Compile Include="Drivers\LonWorksDriver.cs" />
     <Compile Include="Drivers\KNXDriver.cs" />
@@ -171,6 +173,37 @@
     <Compile Include="Controls\TunnelSelectionControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Forms\DashboardForm.cs" />
+    <Compile Include="Forms\DeviceCloneForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DeviceCloneForm.Designer.cs">
+      <DependentUpon>DeviceCloneForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\TemplateApplyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TemplateApplyForm.Designer.cs">
+      <DependentUpon>TemplateApplyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\TemplateGeneratorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TemplateGeneratorForm.Designer.cs">
+      <DependentUpon>TemplateGeneratorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\TemplateManagerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TemplateManagerForm.Designer.cs">
+      <DependentUpon>TemplateManagerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SemanticManagementForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SemanticNodePickerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -184,9 +217,6 @@
     <Compile Include="Forms\DeviceConfigForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\PointEditForm_Edge.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Forms\DeviceConfigForm.Designer.cs">
       <DependentUpon>DeviceConfigForm.cs</DependentUpon>
     </Compile>
@@ -196,9 +226,27 @@
     <Compile Include="Forms\MqttConfigForm.Designer.cs">
       <DependentUpon>MqttConfigForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Forms\DatabaseConfigForm.resx">
       <DependentUpon>DatabaseConfigForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Forms\ActivationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PointEditForm_Edge.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TunnelEditDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -206,6 +254,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\DatabaseConfigForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ApiServiceConfigForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\McpConfigForm.cs">
@@ -220,24 +271,58 @@
     <Compile Include="Models\TableMeta.cs" />
     <Compile Include="Models\MqttConfig.cs" />
     <Compile Include="Models\CollectedData.cs" />
+    <Compile Include="Models\SemanticWorkshop.cs" />
+    <Compile Include="Models\SemanticProductionLine.cs" />
+    <Compile Include="Models\SemanticEquipment.cs" />
+    <Compile Include="Models\SemanticTag.cs" />
+    <Compile Include="Models\SemanticEquipmentRelation.cs" />
+    <Compile Include="Models\SemanticEquipmentEvent.cs" />
+    <Compile Include="Models\SemanticNode.cs" />
+    <Compile Include="Models\SemanticVariableRelation.cs" />
+    <Compile Include="Models\SemanticVariableEvent.cs" />
+    <Compile Include="Models\EventProcessingModels.cs" />
+    <Compile Include="Models\FabricModels.cs" />
+    <Compile Include="Models\TemplateModels.cs" />
+    <Compile Include="Models\Tag.cs" />
+    <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\TunnelPoolService.cs" />
     <Compile Include="Services\ConfigService.cs" />
     <Compile Include="Services\DataCollectionService.cs" />
     <Compile Include="Services\DataSourceService.cs" />
     <Compile Include="Services\DatabaseWriteService.cs" />
+    <Compile Include="Services\TdengineConnection.cs" />
     <Compile Include="Services\DbAdapters\IDbAdapter.cs" />
     <Compile Include="Services\DbAdapters\MySqlAdapter.cs" />
     <Compile Include="Services\DbAdapters\SQLiteAdapter.cs" />
     <Compile Include="Services\DbAdapters\SqlServerAdapter.cs" />
     <Compile Include="Services\DbAdapters\PostgreSqlAdapter.cs" />
+    <Compile Include="Services\DbAdapters\TDengineAdapter.cs" />
+    <Compile Include="Services\DbAdapters\OracleAdapter.cs" />
     <Compile Include="Services\DbAdapters\DataSourceRouter.cs" />
     <Compile Include="Services\RestApiService.cs" />
     <Compile Include="Services\McpService.cs" />
     <Compile Include="Services\MqttPublishService.cs" />
+    <Compile Include="Services\OfflineCacheService.cs" />
+    <Compile Include="Services\LicenseService.cs" />
     <Compile Include="Services\DataProcessor.cs" />
+    <Compile Include="Services\SemanticService.cs" />
+    <Compile Include="Services\EventProcessingService.cs" />
+    <Compile Include="Services\McpSemanticTools.cs" />
     <Compile Include="Services\McpDeviceTools.cs" />
+    <Compile Include="Services\TagGenerationService.cs" />
+    <Compile Include="Services\TagMappingService.cs" />
+    <Compile Include="Services\TagMigrationService.cs" />
+    <Compile Include="Services\McpSemanticWriteTools.cs" />
     <Compile Include="Models\DataPacket.cs" />
+    <Compile Include="Services\ISink.cs" />
+    <Compile Include="Services\DataStreamEngine.cs" />
+    <Compile Include="Services\McpFabricEngine.cs" />
     <Compile Include="Services\McpPlatformIntroService.cs" />
+    <Compile Include="Services\ApplicationLifecycle.cs" />
+    <Compile Include="Services\DeviceCloneService.cs" />
+    <Compile Include="Services\TemplateService.cs" />
+    <Compile Include="Services\Sinks\MqttSink.cs" />
+    <Compile Include="Services\Sinks\DatabaseSink.cs" />
     <Compile Include="Utils\LanguageManager.cs" />
     <Compile Include="Utils\CredentialStore.cs" />
     <Compile Include="Utils\Logger.cs" />
@@ -253,7 +338,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-  <Compile Include="Services\CommunityStubs.cs" /></ItemGroup>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="tubiao.ico" />
     <EmbeddedResource Include="Forms\AboutForm.resx">
@@ -285,8 +370,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <PropertyGroup>
-    <PostBuildEvent>rem SQLite Interop handled by NuGet package restore</PostBuildEvent>
-  </PropertyGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>powershell -Command "Copy-Item '$(ProjectDir)..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.119.0\build\net46\x86\SQLite.Interop.dll' '$(TargetDir)' -Force"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

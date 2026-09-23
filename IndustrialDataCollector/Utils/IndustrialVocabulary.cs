@@ -1188,7 +1188,7 @@ namespace IndustrialDataCollection.Utils
             {"FX系列", "fx_series"}, {"Q系列", "q_series"}, {"R系列", "r_series"},
 
             // 电力自动化协议
-            {"IEC61850", "iec61850"}, {"MMS", "mms"}, {"Goose", "goose"},
+            {"MMS", "mms"}, {"Goose", "goose"},
             {"DNP3", "dnp3"}, {"电力自动化", "power_automation"},
 
             // 楼宇自动化协议

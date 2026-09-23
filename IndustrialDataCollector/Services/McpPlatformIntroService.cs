@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Text;
 
 namespace IndustrialDataCollection.Services
@@ -83,8 +83,8 @@ namespace IndustrialDataCollection.Services
                 "║ Mitsubishi FX / MELSEC MC / Keyence KV / Panasonic Mewtocol                     ║",
                 "║ Omron FINS / HostLink / CODESYS(Modbus) / Beckhoff ADS(TwinCAT)                 ║",
                 "║                                                                                 ║",
-                "║ 【楼宇/电力/仪表 8 种】                                                          ║",
-                "║ BACnet / IEC 61850 / IEC 104 / DNP3                                             ║",
+                "║ 【楼宇/电力/仪表 7 种】                                                          ║",
+                "║ BACnet / IEC 104 / DNP3                                                          ║",
                 "║ DLMS(电表) / M-Bus(仪表总线) / KNX(楼宇) / DALI(照明)                           ║",
                 "║                                                                                 ║",
                 "║ 【现场总线 4 种】                                                               ║",

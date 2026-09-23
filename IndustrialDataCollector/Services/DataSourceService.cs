@@ -396,7 +396,7 @@ namespace IndustrialDataCollection.Services
                         return new SQLiteConnection(cs);
                     }
                 case "MySQL":
-                    return new MySql.Data.MySqlClient.MySqlConnection(
+                    return new MySqlConnector.MySqlConnection(
                         string.Format("Server={0};Port={1};Database={2};Uid={3};Pwd={4};CharSet=utf8mb4;AllowUserVariables=True;",
                             source.Server, port, source.Database, source.User, source.Password));
                 case "SQL Server":

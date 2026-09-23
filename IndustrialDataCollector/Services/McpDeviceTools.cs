@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,7 +31,7 @@ namespace IndustrialDataCollection.Services
                 "ModbusTcp","ModbusRtu","SiemensS7","Siemens840D","OpcUa","OPCDA","OpcUaPubSub",
                 "BACnet","EtherNetIp","Profinet","PROFIBUS","BeckhoffADS","CODESYS",
                 "MitsubishiFX","MELSECMc","KeyenceKV","PanasonicMewtocol","Fins","HostLink",
-                "FanucFocas","HaasCNC","Mazak","Heidenhain","IEC104","IEC61850","DNP3",
+                "FanucFocas","HaasCNC","Mazak","Heidenhain","IEC104","DNP3",
                 "KNX","DALI","LonWorks","MBus","DLMS","HARTIP","DeviceNet","CCLink",
                 "SecsGem","MTConnect","MqttSubscribe","SparkplugB","HttpRest","Simulator"
             };

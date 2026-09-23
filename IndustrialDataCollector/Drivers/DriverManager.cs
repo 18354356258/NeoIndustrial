@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using IndustrialDataCollection.Models;
 
@@ -19,7 +19,7 @@ namespace IndustrialDataCollection.Drivers
             "FanucFocas", "HaasCNC", "Mazak", "Heidenhain",
             "KeyenceKV", "MitsubishiFX", "MELSECMc", "PanasonicMewtocol",
             "Fins", "HostLink", "CODESYS", "BeckhoffADS",
-            "BACnet", "IEC104", "IEC61850", "DNP3",
+            "BACnet", "IEC104", "DNP3",
             "KNX", "DALI", "MBus", "DLMS",
             "PROFIBUS", "DeviceNet", "CCLink", "HARTIP",
             "MqttSubscribe", "HttpRest", "MTConnect", "SparkplugB",
@@ -72,7 +72,8 @@ namespace IndustrialDataCollection.Drivers
                 case "KeyenceKV":
                     return new KeyenceKVDriver();
                 case "IEC61850":
-                    return new IEC61850Driver();
+                    // v3.22.39 剥离：依赖 iec61850dotnet (GPL-3.0)，随闭源商用包分发有授权风险
+                    throw new NotSupportedException("IEC 61850 已从平台剥离（依赖 GPLv3 库）：请改用采集驱动插件接入合规实现");
                 case "DNP3":
                     return new DNP3Driver();
                 case "LonWorks":
