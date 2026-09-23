@@ -68,7 +68,7 @@ It is a WinForms desktop application written in C# on .NET Framework 4.8 — one
 | 📋 **Event rules** | Rules attached to semantic-tree nodes with 12 handling methods — alarm, message, email, SMS, HTTP callback, work order, AI analysis … |
 | 📦 **Templates · cloning · batch deployment** | Export a device's full configuration as a template, apply it to many devices, or clone an identical device and just change the IP |
 | 🕳️ **Network tunnels** | VPN / NAT tunnel management with IP mapping for devices behind cross-segment networks — no need to re-address devices |
-| 🤖 **AI assistant over MCP** | Built-in MCP server with 50 tools — any MCP-capable client (Claude Desktop, etc.) manages devices, variables and queries in natural language |
+| 🤖 **AI assistant over MCP** | Built-in MCP server with 44 tools — any MCP-capable client (Claude Desktop, etc.) manages devices, variables and queries in natural language |
 | 🔄 **REST API** | Standalone HTTP service with Bearer-token authentication and optional Swagger docs for third-party integration |
 | 📊 **CSV bulk import/export** | Excel-compatible UTF-8 files for creating hundreds of variables in one go |
 | 🌍 **Bilingual UI** | Chinese / English switchable at runtime — about 650 UI strings flip instantly, no restart |
@@ -138,7 +138,33 @@ Drivers are organized in **7 categories** — pick the category, then the driver
 | **OPC UA PubSub** | OPC UA publish/subscribe mode |
 | **Simulator** | Built-in simulated variables for testing, demos and training |
 
-> ⚖️ **Driver licensing notice.** All drivers listed above are implemented in this repository. Drivers marked 🔑 are governed by **commercial licenses or membership terms** from the original vendor or the standards body (FANUC for FOCAS, HEIDENHAIN, Siemens for 840D options, SEMI + your SDK vendor for SECS/GEM, OPC Foundation/server vendors for OPC DA, FieldComm Group for HART IP, ODVA for EtherNet/IP and DeviceNet, CLPA for CC-Link, KNX Association, DLMS User Association, LonMark International). **Before production, commercial or customer-facing use, obtain a legitimate license from the vendor or licensing body.** The unmarked drivers (Modbus, S7, MC/FX, KV, Mewtocol, FINS/HostLink, ADS, CODESYS, Haas, Mazak, MTConnect, PROFIBUS, PROFINET, BACnet, OPC UA, IEC 104, DNP3, DALI, M-Bus, MQTT, Sparkplug B, HTTP REST, …) are implemented from open specifications; for a few of those the specification document itself must be purchased (e.g. ASHRAE 135 / BACnet, IEC 62386 / DALI, EN 13757 / M-Bus, IEC 60870-5-104, IEEE 1815 / DNP3) — buying the specification is enough to implement, with no vendor license fee involved. This software implements protocol connectivity only — it never bundles, resells or cracks any vendor SDK, license file or licensed feature option. Whether a license is required is ultimately governed by the vendor's and standards body's current terms; this notice is a heads-up, not legal advice.
+> ⚖️ **Drivers that require a license — please read first**
+>
+> **All 39 drivers in this repository are open-source implementations**, and the runtime libraries shipped with the package are under open-source licences too. **No commercially licensed driver that must be bought from a vendor is pre-installed or bundled.**
+>
+> If a device on site needs a commercially licensed driver, there are two routes: **① integrate it yourself** — deploy the driver you have purchased and licensed (`.dll` / `.zip`); **② let the AI add it** — the WEB Commercial Edition ships a driver-management UI that accepts uploads, and its built-in AI can search online for candidates, state the source and licence, and install only after you agree. **The licence itself must still be obtained by the user — the platform only loads the driver, it never resells or cracks anything.**
+>
+> The drivers marked 🔑 above are governed by **commercial licenses or membership terms from the original vendor or the standards body**. **Before production, commercial or customer-facing use, contact the vendor or licensing body, purchase a legitimate license and obtain formal permission.** Without a license, use them for learning, research and evaluation only.
+>
+> This software only implements protocol connectivity. It does **not** bundle, resell, crack or redistribute any vendor SDK, license file, license key or licensed feature option, and does not act as an agent for any vendor licensing.
+>
+> | 🔑 Licensed drivers | Who to contact | Typical license form |
+> |---|---|---|
+> | Fanuc FOCAS | FANUC or an authorized distributor | FOCAS library license (agreement required) |
+> | Heidenhain (Remo Tools / DNC) | HEIDENHAIN | Paid machine DNC / Remo option |
+> | Siemens 840D (OPC UA / Access MyMachine) | SIEMENS | Paid CNC runtime option |
+> | SECS/GEM | SEMI (standards must be purchased) + the vendor SDK you use | Standards documents + vendor SDK |
+> | OPC DA | The third-party OPC server vendor you connect to | Commercial OPC server license |
+> | HART IP | FieldComm Group | Membership / specification license |
+> | EtherNet/IP / DeviceNet | ODVA | Membership + specification subscription |
+> | CC-Link | CC-Link Partner Association (CLPA) | Membership / specification license |
+> | KNX | KNX Association | Membership (specifications are member-only) |
+> | DLMS/COSEM | DLMS User Association | Membership (specifications are member-only) |
+> | LonWorks | LonMark International / licensors | Membership / specification license |
+>
+> **Unmarked drivers** (Modbus, Siemens S7, Mitsubishi MC/FX, Keyence KV, Panasonic Mewtocol, Omron FINS/HostLink, Beckhoff ADS, CODESYS, Haas, Mazak, MTConnect, PROFIBUS, PROFINET, BACnet, OPC UA, IEC 104, DNP3, DALI, M-Bus, MQTT, Sparkplug B, HTTP REST, etc.) are implemented from open specifications and normally require no vendor license to implement: **MTConnect is documented by its owner as an open, royalty-free standard**, **PI states explicitly that PI membership is not required to implement PROFINET/PROFIBUS**, and **Beckhoff permits royalty-free redistribution of the unmodified ADS DLLs**. For some protocols the **standards documents themselves must be purchased or are member-only** (e.g. ASHRAE 135 / BACnet, IEC 62386 / DALI, EN 13757 / M-Bus, IEC 60870-5-104, IEEE 1815 / DNP3) — but buying the specification is enough to implement; no vendor license fee is involved. **Whether a license is required is ultimately governed by the vendor's and standards body's current terms — this table is a heads-up only.**
+>
+> **Compliance & responsibility**: users must verify and obtain all licenses and permissions required for the devices and protocols they use. This software is provided "as is" with no warranty regarding third-party protocol licensing; any liability or dispute arising from the use of such protocols without a license rests with the user.
 
 ---
 
@@ -305,7 +331,7 @@ All targets share the same row schema — one row per collected value: `device`,
 
 ### MCP AI integration
 
-The built-in **MCP server** exposes **50 AI-callable tools**. Any MCP-capable client — Claude Desktop and friends — connects over Streamable HTTP and then operates the collector in plain language:
+The built-in **MCP server** exposes **44 AI-callable tools**. Any MCP-capable client — Claude Desktop and friends — connects over Streamable HTTP and then operates the collector in plain language:
 
 ```
 User: Add a Siemens S7-1200 PLC at IP 192.168.1.100
@@ -431,6 +457,154 @@ High-frequency time-series workloads land in TDengine through its REST interface
 | **Rolling config backups** | Every save rotates `devices.json.bak.1 ~ .bak.50`; roll back from **Tools → Config History**, or press **Ctrl+Z** outside text fields |
 | **Single instance** | A global mutex blocks double launch |
 | **Clean shutdown** | Reverse-order shutdown of every subsystem, 5-second timeout per step |
+
+---
+
+## 🆚 Enterprise Edition vs WEB Commercial Edition
+
+One protocol driver core, two delivery forms: the **Enterprise Edition** is a desktop client installed on an industrial PC (this repository, open source); the **WEB Commercial Edition** is a browser platform that lives on a server (closed source, commercially licensed).
+
+| Capability | Enterprise Edition (this repo) | WEB Commercial Edition |
+|----------|:---:|:---:|
+| Industrial protocol drivers (PLC / CNC / power / building / semiconductor) | 39 | 39 (same core, **all open-source implementations**) |
+| Millisecond MQTT push | ✅ | ✅ |
+| SQLite / MySQL / SQL Server / PostgreSQL | ✅ | ✅ |
+| TDengine time-series database | ✅ | ✅ |
+| Dameng DM8 (domestic database) | ❌ | ✅ |
+| MCP AI tools | 44 | **150** |
+| **Driver management (categories / upload / AI-added)** | ❌ | ✅ |
+| REST API | ✅ | ✅ |
+| CSV bulk import/export | ✅ | ✅ |
+| UI languages | Chinese / English | Chinese / English / Vietnamese (+ built-in manual) |
+| **Semantic-layer digital-twin modeling** | ✅ | ✅ |
+| **2D / 3D knowledge-graph visualization** | ❌ | ✅ |
+| **Fabric time-series engine** | ✅ (8 operators) | ✅ (27 operators) |
+| **Dashboard monitoring wall** | ✅ | ✅ |
+| **Config templates · device cloning** | ✅ | ✅ |
+| **Offline caching · re-send** | ✅ | ✅ |
+| **Event rule engine** | ✅ | ✅ |
+| **Auth · hardware binding · Token** | ✅ | ✅ |
+| **Multi-user online collaboration · audit trail** | ❌ | ✅ |
+| **AI multi-agent · memory & self-evolving skills** | ❌ | ✅ |
+| **Browser (B/S) access — no per-PC install** | ❌ | ✅ |
+| **Xinchuang Linux support (self-contained package)** | ❌ | ✅ |
+| **Multi-generation rolling config backups** | ✅ | ✅ |
+| **Commercial license · technical support** | ✅ | ✅ |
+
+> 🖥️ **Enterprise Edition**: single-machine desktop, works offline, 39 drivers out of the box — ideal for deep acquisition on one plant/machine and for edge-side deployment.
+> 🌐 **WEB Commercial Edition**: the whole factory in a browser — multi-user collaboration, AI multi-agent orchestration, 2D/3D knowledge graph and Xinchuang support. See the next section.
+
+---
+
+## 🌐 WEB Commercial Edition — The Whole Factory in a Browser
+
+> The Enterprise Edition is software installed on an industrial PC; the WEB Commercial Edition is an industrial data operating system that lives on a server.
+>
+> The same protocol driver core, plus B/S multi-user collaboration, AI multi-agent orchestration and 2D/3D industrial semantics. It is not a port of the desktop edition — it is a redesigned, web-native platform.
+
+What it solves that the desktop edition cannot:
+
+- **One industrial PC → one network**: open a browser and go. No per-machine installs; upgrade once and the whole plant is on the new version.
+- **One operator → a whole team online**: three-tier permissions (organization / role / user) with concurrent access; who changed a config, who exported which data — everything is logged and auditable.
+- **AI as an add-on → AI-native**: a built-in AI chat workspace with multi-agent orchestration. AI operates the platform directly — add devices, configure variables, query historical data, build dashboards — and agents can dispatch tasks to one another.
+- **Forgets you → learns you**: AI memory, team knowledge distillation, and skills that are captured automatically and self-improve. The longer you use it, the better it understands your plant and your process.
+- **Flat tables → 2D/3D knowledge graph**: an industrial semantic tree plus relationship-graph visualization turns "40001 = 245.6" into a digital twin you can see, click into, and trace.
+
+### 📸 Semantic knowledge graph in 2D / 3D
+
+<div align="center">
+
+<img src="picture/web-gif-01-force-expand.gif" width="47%" alt="Force-directed layout — unfold animation">&nbsp;<img src="picture/web-gif-02-radial-to-force.gif" width="47%" alt="Layout switch: Radial → Force-directed">
+
+<img src="picture/web-gif-03-2d-to-3d.gif" width="47%" alt="2D → 3D demo switch">&nbsp;<img src="picture/web-gif-04-3d-rotation.gif" width="47%" alt="3D sphere rotation">
+
+<img src="picture/web-gif-05-star-orbit.gif" width="47%" alt="Star-orbit layout">&nbsp;<img src="picture/web-gif-06-3d-layouts.gif" width="47%" alt="3D layout switch">
+
+<img src="picture/web-gif-07-3d-suspend.gif" width="47%" alt="3D floating network">
+
+**▲ Semantic-graph highlights — layout switching · 2D / 3D** (looping GIFs)
+
+</div>
+
+### 🎬 WEB Commercial Edition — full demo video
+
+<div align="center">
+
+<a href="picture/web-demo.mp4"><img src="picture/web-demo-cover.jpg" width="90%" alt="▶ Click to watch the WEB Commercial Edition demo video"></a>
+
+**▶ Click the cover to watch the full demo** (1 min 53 s · 1080p)
+
+</div>
+
+This video is a complete walkthrough of the **WEB Commercial Edition** — from **data collection** to the **semantic knowledge graph (2D / 3D)** and the **Hermes Evolution Agent**:
+
+- **① Data collection**: device-tree management (workshop → process → device) with per-variable configuration and custom Python post-processing scripts (e.g. sliding-window filtering) that turn raw signals into clean, production-ready data;
+- **② Semantic graph 2D / 3D**: switch between force-directed, radial, tree, star, star-orbit, flow, chip and ring layouts in one click; in 3D sphere mode you can rotate and zoom to grasp the whole relationship network at a glance;
+- **③ Hermes Evolution Agent**: **self-evolution** (automatic skill distillation, evolution-proposal approval, feedback-driven skill refinement) · **scheduled tasks** (report / query-summary / alert / digest jobs with custom cron, generating daily briefs and HTML boards from natural-language instructions) · **push settings** (in-site messages + email + WeCom / DingTalk / Feishu bot webhooks).
+
+> 📺 Recorded on the WEB Commercial Edition; best viewed at 1080p.
+
+### Core capabilities
+
+| Capability | Details |
+|------|------|
+| 🔌 Industrial protocol drivers | **39** production-ready drivers built in, **all of them open-source implementations** (PLC / CNC / power / building / semiconductor / meters), sharing the same core as the Enterprise Edition; organized into 7 driver categories — pick the category first, then the driver |
+| 🧩 Driver management | A single driver inventory: driver / category / source / provider / size / installed at / status, filterable by keyword, source and category. **Commercial-licensed drivers you have purchased, or open-source drivers, can be uploaded by you**; built-in drivers can be disabled and restored, plugin drivers can be deleted |
+| 🤖 AI adds drivers | For a protocol the platform does not have, just ask the built-in AI to search online: it explains the source and the license, and installs into the category you choose once you agree. The source URL and time are recorded server-side, and the inventory marks it "Added by AI" |
+| 🗄️ Parallel database writes | 6 kinds: SQLite / MySQL / SQL Server / PostgreSQL / TDengine / Dameng DM8 (domestic, Xinchuang-ready) |
+| 🤖 MCP atomic tools | **150** AI-callable tools, covering device collection & control, collection drivers, data sources, offline cache, Fabric time-series analysis and industrial semantics |
+| 🧠 AI multi-agent | Built-in chat workspace; create your own agents, grant each one a capability boundary, and let them collaborate by dispatching tasks |
+| 🔬 Fabric time-series engine | 27 hot-pluggable operators: aggregate / correlation / anomaly / digital-twin benchmarking / rate / accumulate / threshold / prediction… |
+| 🕸️ Industrial semantics & knowledge graph | Semantic tree + variable relation types + event type catalog, with 2D/3D graph visualization |
+| 📊 Dashboards · alarms · scheduled jobs | Real-time monitoring wall, 4-level alarms, scheduled reports, in-app messages and a document workspace |
+| 👥 Permissions & audit | Three-tier permissions (organization / role / user), user activity tracing, system logs, hardware management |
+| 🌍 Trilingual | Chinese / English / Vietnamese, switchable at runtime, with the built-in product manual in all three |
+| 🧩 Xinchuang-ready | A self-contained Linux x64 runtime package (no .NET install required), with Dameng DM8 usable out of the box |
+| 🚀 Deployment | Runs on a single machine; .NET 8 + Blazor, browser access, no client install on every PC |
+
+### 🔌 Driver categories & driver management
+
+Connecting a device is a two-level choice — **category first, then driver** — and the collection page and the driver management page share one category definition:
+
+| Category | Covers | Built-in drivers |
+|------|------|:---:|
+| Industrial common | General industrial protocols, simulator | 8 |
+| PLC / industrial control | Mainstream PLCs and controllers | 8 |
+| CNC | Machine tools and CNC systems | 6 |
+| Building automation | HVAC, lighting, meters | 4 |
+| Power / energy | Power protocols and metering | 5 |
+| Semiconductor | Semiconductor and fieldbuses | 3 |
+| General / other | HTTP, OPC, etc. | 5 |
+
+What the driver management page does:
+
+- **One inventory** — driver / category / source / provider / size / installed at / status / actions, filterable by keyword, source and category;
+- **Upload assigns the category** — uploading a `.dll` or `.zip` (≤100 MB) requires choosing the category first, so the driver lands exactly where it belongs;
+- **Re-categorise in place** — a plugin driver's category can be switched right in the list;
+- **Built-in drivers can be disabled / restored, plugin drivers deleted** — built-in drivers ship with the program (their code cannot be deleted) and can be disabled and restored; uploaded plugins can be removed together with their folder;
+- **Added by AI** — for a protocol the platform lacks, ask the AI to search online, explain the source and licence, and install into the chosen category once you agree (marked "Added by AI"; source URL and timestamp are recorded server-side, not self-reported by the AI).
+
+### Which edition should you choose?
+
+| Your scenario | Recommended edition |
+|----------|----------|
+| Single plant, single machine, deep desktop use, semantic layer + dashboards | **Enterprise Edition** — open source in this repository; the client is downloadable from Releases, and a formal license is issued by machine ID |
+| Multi-user online collaboration, plant-wide governance, AI multi-agent, Xinchuang environments | **WEB Commercial Edition** — apply to the author (licensed by device/machine count) |
+
+### How to get it (important)
+
+- **Enterprise Edition (this repository)**: the client is **freely downloadable from this repository's Releases page** for evaluation; the source is Apache 2.0, so you can clone and build it yourself. For a formal license, send your machine ID by email.
+- **WEB Commercial Edition**: **no public download**. A license must be applied for directly from the author, priced by device/machine count.
+
+**To apply for a WEB Commercial Edition license, please state the following five items in your email or call:**
+
+1. **Use case** — which industry, which production line, and what problem you want to solve;
+2. **Applicant** — a company or an individual;
+3. **Intended purpose** — in-house production / project delivery / teaching & research / secondary development…;
+4. **License period** — the expected term and go-live date;
+5. **Number of devices** — how many devices or machines you need to manage.
+
+📮 Email: `751326339@qq.com`　📞 Phone: `18354356258` / `18854344113` (Zhang Chenglong, WeChat available)
 
 ---
 
