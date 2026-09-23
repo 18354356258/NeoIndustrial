@@ -386,7 +386,7 @@ namespace IndustrialDataCollection.Forms
         {
             this.Text = S("Contact_Title", "联系我");
             lblTitle.Text = S("Contact_Title", "联系我");
-            lblDesc.Text = S("Contact_Subtitle", "开源仓库（Apache-2.0）与 WEB 商业版授权，都在这里");
+            lblDesc.Text = S("Contact_Subtitle", "开源仓库（AGPLv3）与 WEB 商业版授权，都在这里");
             lblReposTitle.Text = S("Contact_ReposTitle", "开源仓库（点击直达）");
             lnkGithub.Text = S("Contact_RepoGithub", "GitHub：github.com/18354356258/NeoIndustrial");
             lnkGitee.Text = S("Contact_RepoGitee", "Gitee：gitee.com/JEDI_MASTER/neoIndustrial");

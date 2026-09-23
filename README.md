@@ -7,7 +7,7 @@
 **新工业 AI 数据基座 · 已开源的工业数据采集桌面客户端**
 
 [![.NET Framework 4.8](https://img.shields.io/badge/.NET-4.8-blue)](https://dotnet.microsoft.com/)
-[![License](https://img.shields.io/badge/License-Apache%202.0-green)](LICENSE)
+[![License](https://img.shields.io/badge/License-AGPLv3-blue)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey)]()
 [![GitHub](https://img.shields.io/badge/GitHub-NeoIndustrial-black)](https://github.com/18354356258/NeoIndustrial)
 [![Gitee](https://img.shields.io/badge/Gitee-JEDI_MASTER-red)](https://gitee.com/JEDI_MASTER/neoIndustrial)
@@ -20,7 +20,7 @@ GitHub：<https://github.com/18354356258/NeoIndustrial> ｜ Gitee：<https://git
 
 </div>
 
-> **一句话定位**：这是一套完整开源（Apache License 2.0）的工业数据采集与语义建模工作站——向下用 39 种协议驱动连接 PLC、CNC、电力仪表、楼宇设备，向上把数据写入五类数据库、发布到 MQTT，中间提供边缘计算清洗、事件报警、看板监控、REST API、MCP AI 助手与语义层数字孪生建模。源码全部开放，可自行下载、编译、部署与二次开发。
+> **一句话定位**：这是一套完整开源（AGPLv3）的工业数据采集与语义建模工作站——向下用 39 种协议驱动连接 PLC、CNC、电力仪表、楼宇设备，向上把数据写入五类数据库、发布到 MQTT，中间提供边缘计算清洗、事件报警、看板监控、REST API、MCP AI 助手与语义层数字孪生建模。源码全部开放，可自行下载、编译、部署与二次开发。
 
 ---
 
@@ -619,7 +619,7 @@ GET /api/status                               # 系统状态
 
 ### 获取方式（重要）
 
-- **企业版（本仓库）**：客户端可直接从本仓库 Releases 页面下载试用；源码 Apache 2.0，可克隆自行编译。正式授权请发送机器码至邮箱。
+- **企业版（本仓库）**：客户端可直接从本仓库 Releases 页面下载试用；源码 AGPLv3，可克隆自行编译。正式授权请发送机器码至邮箱。
 - **WEB 商业版**：**不提供公开下载**，需联系作者申请授权，按机台数量计费。
 - **客户端内入口**：企业版客户端「帮助 → 联系我」可一键打开两个开源仓库、复制授权邮箱；登录页也有「联系我 · 获取商业版 / 查看开源仓库」链接。
 
@@ -657,7 +657,7 @@ NeoIndustrial/
 ├─ picture/                            # README 截图
 ├─ IndustrialDataCollector.sln         # 解决方案
 ├─ setup.bat                           # 一键环境准备（清缓存 → 解除文件安全标记 → NuGet 还原）
-└─ LICENSE                             # Apache License 2.0
+└─ LICENSE                             # GNU AGPLv3
 ```
 
 ---
@@ -753,7 +753,7 @@ NeoIndustrial/
 
 ## 📄 许可证
 
-**源码**以 [Apache License 2.0](LICENSE) 开源（Copyright 2026 张成龙），可自由用于商业与非商业用途，保留版权与许可声明即可。
+**源码**以 [GNU Affero 通用公共许可证 v3.0（AGPLv3）](LICENSE) 开源（Copyright 2026 张成龙）。你可以自由使用、修改与分发，但**衍生作品必须同样以 AGPLv3 开源**；若把修改后的版本作为网络服务提供给他人使用，也必须向使用者提供完整的对应源码。保留版权与许可声明。
 
 **第三方依赖**：各 NuGet 包遵循其自身开源许可（如 MySqlConnector (MIT)、OPC UA 官方栈（OPC Foundation, RCL）、S7netplus、NModbus、Npgsql、System.Data.SQLite、MQTTnet、log4net 等），清单见 `IndustrialDataCollector/packages.config`（31 个包）。
 
@@ -773,7 +773,7 @@ NeoIndustrial/
 
 从 UI 原型到低层协议栈，从 Dashboard 到时序引擎，从数据库 schema 到 39 种工业协议驱动——全部一个人写完。不是为了证明什么，只是真的需要一副能连接一切工业设备的神经末梢，让数字孪生活起来。
 
-现在，我把这套企业版桌面客户端完整开源——Apache 2.0。因为我知道：一个工程师想在自己的工控机上装一套能用的、干净的、不设防的数据采集软件有多难。工业数据采集是数字孪生和智能制造最基础的地基——地基应该干干净净地开放。你下载、编译、连接你的设备，就这么简单。
+现在，我把这套企业版桌面客户端完整开源——AGPLv3。因为我知道：一个工程师想在自己的工控机上装一套能用的、干净的、不设防的数据采集软件有多难。工业数据采集是数字孪生和智能制造最基础的地基——地基应该干干净净地开放。你下载、编译、连接你的设备，就这么简单。
 
 我的铝挤压数字孪生项目已经落地，正在疯狂迭代中（三语界面、AI 分析、温度趋势看板、秒级数据同步、毫米级模型位移、实时对应生产现场设备运转），未来有可能也会开源，敬请期待。
 
@@ -785,7 +785,7 @@ NeoIndustrial/
 
 **IndustrialDataCollector — 数字孪生的数据基座**
 
-© 2026 张成龙 · Apache License 2.0
+© 2026 张成龙 · GNU AGPLv3
 
 📮 `751326339@qq.com` ｜ 📞 `18354356258` / `18854344113`（微信同号）
 

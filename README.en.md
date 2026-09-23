@@ -9,12 +9,12 @@
 **An open-source, enterprise-grade industrial data acquisition desktop client for Windows**
 
 [![.NET Framework 4.8](https://img.shields.io/badge/.NET-4.8-blue)](https://dotnet.microsoft.com/download/dotnet-framework/net48)
-[![License](https://img.shields.io/badge/License-Apache%202.0-green)](LICENSE)
+[![License](https://img.shields.io/badge/License-AGPLv3-blue)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey)]()
 [![GitHub](https://img.shields.io/badge/GitHub-NeoIndustrial-black)](https://github.com/18354356258/NeoIndustrial)
 [![Gitee](https://img.shields.io/badge/Gitee-JEDI_MASTER-red)](https://gitee.com/JEDI_MASTER/neoIndustrial)
 
-**39 protocol drivers · millisecond MQTT uplink · 7 database targets · AI-native via MCP · Apache 2.0**
+**39 protocol drivers · millisecond MQTT uplink · 7 database targets · AI-native via MCP · AGPLv3**
 
 </div>
 
@@ -26,7 +26,7 @@ Industrial Data Collector is a production-grade industrial data acquisition work
 
 It is a WinForms desktop application written in C# on .NET Framework 4.8 — one executable, no server, no container, no database server required to get started. Connect a device, start collection, and watch the data land.
 
-> This repository contains the **complete source code** of the enterprise desktop client, released under the Apache License 2.0 — download it, build it, deploy it, adapt it.
+> This repository contains the **complete source code** of the enterprise desktop client, released under the GNU Affero General Public License v3.0 (AGPLv3) — download it, build it, deploy it, adapt it.
 
 ### 📸 See it in action
 
@@ -593,7 +593,7 @@ What the driver management page does:
 
 ### How to get it (important)
 
-- **Enterprise Edition (this repository)**: the client is **freely downloadable from this repository's Releases page** for evaluation; the source is Apache 2.0, so you can clone and build it yourself. For a formal license, send your machine ID by email.
+- **Enterprise Edition (this repository)**: the client is **freely downloadable from this repository's Releases page** for evaluation; the source is AGPLv3, so you can clone and build it yourself. For a formal license, send your machine ID by email.
 - **WEB Commercial Edition**: **no public download**. A license must be applied for directly from the author, priced by device/machine count.
 - **In-app shortcut**: in the desktop client, **Help → Contact Me** opens both repositories and lets you copy the licensing e-mail; the login screen also carries a “Contact Me · Get Commercial Edition” link.
 
@@ -617,7 +617,7 @@ What the driver management page does:
 NeoIndustrial/
 ├── IndustrialDataCollector.sln      # the solution
 ├── setup.bat                        # one-click environment prep (clean + unblock + nuget restore)
-├── LICENSE                          # Apache License 2.0
+├── LICENSE                          # GNU AGPLv3
 ├── docs/                            # user manuals (EN/CN) and release notes
 ├── picture/                         # screenshots used by this README
 └── IndustrialDataCollector/         # the application source
@@ -715,7 +715,7 @@ If this project helped you connect a PLC and solve a real problem, **give it a S
 
 ## 📄 License
 
-The source code in this repository is released under the [Apache License 2.0](LICENSE) — free for commercial and non-commercial use, redistributable under the license terms.
+The source code in this repository is released under the [GNU Affero General Public License v3.0 (AGPLv3)](LICENSE), Copyright 2026 Zhang Chenglong. You are free to use, modify and redistribute it, but **derivative works must also be licensed under AGPLv3**; if you run a modified version as a network service, you must offer the corresponding source code to its users. Copyright and license notices must be preserved.
 
 **Software activation:** the application includes an activation module — a license key bound to the machine's MAC address, activated online or offline, verified at every start. To obtain a license key for a deployed instance, contact the author:
 
@@ -743,6 +743,6 @@ Why open source? Because getting a usable data-acquisition program onto your own
 
 **Industrial Data Collector — the data foundation of the digital twin**
 
-© 2026 Zhang Chenglong · Apache License 2.0
+© 2026 Zhang Chenglong · GNU AGPLv3
 
 </div>
