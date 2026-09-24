@@ -1069,7 +1069,15 @@ namespace IndustrialDataCollection.Forms
                 try
                 {
 
-                    ConfigService.Instance.SaveDevices(new System.Collections.Generic.List<DeviceConfig> { _parentDevice });
+                    // v3.22.44 修复：原实现只把「当前这一台设备」写进 devices.json，会把其它设备整段抹掉
+                    // （实测日志：[SafeReload] 文件设备数(1) < 内存设备数(2) → 语义节点被反复标记删除/重建，重启后其它设备丢失）。
+                    // 改为「读完整列表 → 按 Id 覆盖或追加本台 → 整表落盘」。
+                    var allDevices = ConfigService.Instance.LoadDevices()
+                        ?? new System.Collections.Generic.List<DeviceConfig>();
+                    int existIdx = allDevices.FindIndex(d => d.Id == _parentDevice.Id);
+                    if (existIdx >= 0) allDevices[existIdx] = _parentDevice;
+                    else allDevices.Add(_parentDevice);
+                    ConfigService.Instance.SaveDevices(allDevices);
                     DataProcessor.Instance.UnregisterDevicePoints(_parentDevice.Id);
                     DataProcessor.Instance.RegisterDevicePoints(_parentDevice);
                     Logger.Info(string.Format("[Apply] {0} 配置已保存并热生效", _parentDevice.Name));

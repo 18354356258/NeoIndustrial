@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -109,9 +109,14 @@ namespace IndustrialDataCollection.Forms
             }
             else
             {
+                // v3.22.44：补充「哪些设备只在内存里」+ 疑似原因，便于现场定位（此前的计数告警无法判断丢了谁）
+                var fileIds = new HashSet<string>(fromFile.Select(d => d.Id ?? ""));
+                var missing = _devices.Where(d => !fileIds.Contains(d.Id ?? ""))
+                                      .Select(d => d.Name ?? d.Id).Take(5).ToArray();
                 Logger.Warn(string.Format(
-                    "[SafeReload] 文件设备数({0}) < 内存设备数({1})，拒绝从文件覆盖，保持内存列表",
-                    fromFile.Count, _devices.Count));
+                    "[SafeReload] 文件设备数({0}) < 内存设备数({1})，拒绝从文件覆盖，保持内存列表。仅在内存中（文件里缺失）：{2}。疑似部分保存（只写了一台设备）——v3.22.44 已修复点位编辑的部分保存；此处按内存为准，保存任一设备配置即会重写完整列表。",
+                    fromFile.Count, _devices.Count,
+                    missing.Length == 0 ? "（无，可能仅顺序/空项差异）" : string.Join("、", missing)));
             }
             RefreshDeviceTree();
         }

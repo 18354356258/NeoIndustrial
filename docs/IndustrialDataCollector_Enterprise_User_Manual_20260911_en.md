@@ -1,4 +1,4 @@
-# Industrial Data Collector (Enterprise Edition) — User Manual
+﻿# Industrial Data Collector (Enterprise Edition) — User Manual
 
 | Item | Content |
 |------|---------|
@@ -357,6 +357,37 @@ Both JSON shapes — "nested batch" (with a `values` array) and "flat single-var
 > **Compliance & responsibility**: users must verify and obtain all licenses and permissions required for the devices and protocols they use; any liability arising from the use of such protocols without a license rests with the user.
 >
 > The full marked list (🔑) and explanation are in the bundled README, "The Complete List of 40 Protocol Drivers".
+
+### 6.2.1 OPC DA integration & troubleshooting (since v1.2.4)
+
+> OPC DA runs over Windows COM/DCOM. Unlike drivers that frame their own requests (e.g. Modbus), **the point address must be the real ItemID of the OPC server**. A wrong or empty address usually does not raise a "configuration error" - it simply yields **no value**. Since v1.2.4 the driver no longer turns failures into a silent 0; anything unreadable leaves an explicit log entry.
+
+**1. Point address = OPC ItemID (the most common trap)**
+
+- Correct example: `S7:[S7 connection_1]DB100,REAL0` (item 0 of type REAL in DB100 under an S7 connection).
+- ItemID syntax differs per OPC server. Copy it from the server's own browse tool - do not type it by hand.
+- An empty address, or the placeholder `0` / `1` left over from creating the point, is rejected by the server. The new driver **self-checks right after connecting** and warns: N point(s) have no valid address and will collect nothing.
+
+**2. Value is 0 / no data - read the log in this order**
+
+| What the log shows | Meaning | What to do |
+|---|---|---|
+| `connection failed` + HRESULT `0x800401F3` | ProgID not registered on this machine | Install/register that OPC server, or use a registered ProgID |
+| `connection failed` + HRESULT `0x80070005` / `0x800706BA` | DCOM access denied / RPC server unavailable | Configure DCOM permissions (`dcomcnfg`), verify network and firewall |
+| `connected` but `read failed` (rate-limited to one per 15 s) | ItemID does not exist or type mismatch | Verify the ItemID with the OPC browse tool |
+| `quality Bad (0x00)` + substatus | Item exists but is currently unusable (e.g. PLC offline) | Check the field device and the OPC server channel |
+| `quality Uncertain (0x40)` | Value usable but not certain (e.g. manually forced) | Usually acceptable; keep only Good if you need strictness |
+
+> Quality codes: `Good (0xC0)`, `Uncertain (0x40)`, `Bad (0x00)`. **Bad or failed reads are never written as 0** - they are skipped so history is not polluted.
+
+**3. Verify the "storage -> dashboard -> semantic" chain first: simulation mode**
+
+Set `Simulate` to `true` on that OPC DA device (**off by default**). The driver then generates simulated values from the configured points, and the log marks them as simulated (non-real) data with a WARN. Use it for verification only - **set it back to `false` before production**.
+
+**4. Deployment requirements**
+
+- Client and OPC server must have the **same bitness** (both 32-bit or both 64-bit); cross-machine access requires a domain or correct DCOM configuration.
+- Multiple devices on one OPC server share a single connection; the driver caches and reuses it and reconnects on demand after a server restart.
 
 ### 6.3 Device creation flow
 
