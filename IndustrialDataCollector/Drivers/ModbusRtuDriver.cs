@@ -51,7 +51,7 @@ namespace IndustrialDataCollection.Drivers
             }
 
             string stopStr = config.GetParam("StopBits", "One");
-            _stopBits = stopStr == "Two" ? StopBits.Two : StopBits.One;
+            _stopBits = (stopStr == "Two" || stopStr == "2") ? StopBits.Two : StopBits.One;
 
             try
             {

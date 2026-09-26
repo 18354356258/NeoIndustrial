@@ -663,7 +663,6 @@ namespace IndustrialDataCollection.Forms
                 // v3.22.40: 串口类驱动统一回填（PortName/BaudRate/Parity/DataBits/StopBits/Station）
                 case "ModbusRtu":
                 case "DALI":
-                case "DLMS":
                 case "HaasCNC":
                 case "Mazak":
                 case "MitsubishiFX":
@@ -676,6 +675,10 @@ namespace IndustrialDataCollection.Forms
                 // 导致这些驱动保存后重开显示默认值——OPC DA 的 ProgID 被回填成 127.0.0.1 即此类）
                 case "OPCDA":
                     txtIP.Text = _originalConfig.GetParam("ProgID", "OPC.SimaticNET.1");
+                    SetDynamicAny("OpcNode", _originalConfig.GetParam("OpcNode", ""));
+                    SetDynamicAny("ReadSource", _originalConfig.GetParam("ReadSource", "cache"));
+                    SetDynamicAny("UpdateRate", _originalConfig.GetParam("UpdateRate", "500"));
+                    SetDynamicAny("Simulate", _originalConfig.GetParam("Simulate", "false"));
                     break;
                 case "MTConnect":
                     if (_txtBaseUrl != null) _txtBaseUrl.Text = _originalConfig.GetParam("URL", "http://127.0.0.1:5000");
@@ -722,8 +725,18 @@ namespace IndustrialDataCollection.Forms
                 case "Siemens840D":
                     txtStation.Text = _originalConfig.GetParam("NCU", "1");
                     break;
+                case "CODESYS":
+                    txtStation.Text = _originalConfig.GetParam("Station", "1");
+                    break;
+                case "DLMS":
+                    RestoreSerialParams();
+                    SetDynamicAny("ClientAddress", _originalConfig.GetParam("ClientAddress", "16"));
+                    SetDynamicAny("ServerAddress", _originalConfig.GetParam("ServerAddress", "1"));
+                    break;
                 case "BeckhoffADS":
                     txtStation.Text = _originalConfig.GetParam("AmsNetId", "");
+                    SetDynamicAny("AmsPort", _originalConfig.GetParam("AmsPort", "801"));
+                    SetDynamicAny("AmsPortSource", _originalConfig.GetParam("AmsPortSource", "802"));
                     break;
                 case "Profinet":
                     txtStation.Text = _originalConfig.GetParam("SubSlot", "1");
@@ -862,7 +875,8 @@ namespace IndustrialDataCollection.Forms
         }
 
         /// <summary>
-        /// OPC DA 参数设置（无 IP/Port，仅 ProgID）
+        /// OPC DA 参数设置：ProgID + 远程节点 + 读数源 + 更新周期 + 模拟模式
+        /// （v3.22.59：这四项此前只能改 json，界面上无法配置）
         /// </summary>
         private void SetupOPCDAControls()
         {
@@ -871,6 +885,45 @@ namespace IndustrialDataCollection.Forms
             txtIP.Visible = true;
             txtIP.MaxLength = 256;
             if (string.IsNullOrEmpty(txtIP.Text)) txtIP.Text = "OPC.SimaticNET.1";
+
+            int y = 55;
+            AddLabel("OPC 节点(远程主机，本地留空):", 10, y, 150);
+            AddTextBox("", 165, y, 200).Tag = "OpcNode";
+
+            y = 85;
+            AddLabel("读数源:", 10, y, 55);
+            var cRs = AddCombo(new[] { "cache", "device" }, 70, y, 100);
+            cRs.Tag = "ReadSource";
+            cRs.DropDownStyle = ComboBoxStyle.DropDown;
+            AddLabel("更新周期(ms):", 200, y, 90);
+            AddTextBox("500", 295, y, 70).Tag = "UpdateRate";
+
+            y = 115;
+            AddLabel("模拟模式:", 10, y, 55);
+            var cSim = AddCombo(new[] { "false", "true" }, 70, y, 100);
+            cSim.Tag = "Simulate";
+            cSim.DropDownStyle = ComboBoxStyle.DropDown;
+        }
+
+        /// <summary>按 Tag 找动态控件（TextBox 优先，其次 ComboBox）</summary>
+        private string FindDynamicAny(string tag)
+        {
+            foreach (var c in _dynamicControls)
+            {
+                if (c is TextBox tb && (string)tb.Tag == tag) return tb.Text;
+                if (c is ComboBox cb && (string)cb.Tag == tag) return cb.Text;
+            }
+            return null;
+        }
+
+        /// <summary>按 Tag 回填动态控件</summary>
+        private void SetDynamicAny(string tag, string value)
+        {
+            foreach (var c in _dynamicControls)
+            {
+                if (c is TextBox tb && (string)tb.Tag == tag) { tb.Text = value; return; }
+                if (c is ComboBox cb && (string)cb.Tag == tag) { cb.Text = value; return; }
+            }
         }
 
         /// <summary>
@@ -888,7 +941,7 @@ namespace IndustrialDataCollection.Forms
             foreach (var c in _dynamicControls)
             {
                 if (c is TextBox tb && (string)tb.Tag == "Station")
-                    tb.Text = _originalConfig.GetParam("Station", "1");
+                    tb.Text = _originalConfig.GetParam("StationNo", _originalConfig.GetParam("Station", "1"));
             }
         }
 
@@ -1273,7 +1326,13 @@ namespace IndustrialDataCollection.Forms
                     lblIP.Visible = true; txtIP.Visible = true;
                     lblPort.Text = L.GetString("DeviceConfig_Port");
                     lblPort.Visible = true; txtPort.Visible = true;
-                    btnTestConnect.Location = new Point(646, 72);
+                    // v3.22.59：驱动把 Station 用作 Modbus Unit ID，必须可配
+                    lblStation.Text = "单元号:";
+                    lblStation.Location = new Point(10, 55);
+                    txtStation.Location = new Point(85, 52);
+                    lblStation.Visible = true; txtStation.Visible = true;
+                    groupConnection.Size = new Size(1076, 125);
+                    btnTestConnect.Location = new Point(646, 82);
                     btnTestConnect.Visible = true;
                     groupConnection.Text = L.GetString("Driver_CODESYS_Params");
                     break;
@@ -1287,6 +1346,11 @@ namespace IndustrialDataCollection.Forms
                     lblStation.Location = new Point(10, 55);
                     txtStation.Location = new Point(85, 52);
                     lblStation.Visible = true; txtStation.Visible = true;
+                    // v3.22.59：AMS 端口驱动写进报文，补两个输入框
+                    AddLabel("AMS 端口(目标):", 215, 55, 90);
+                    AddTextBox("801", 310, 52, 70).Tag = "AmsPort";
+                    AddLabel("AMS 端口(本机):", 400, 55, 90);
+                    AddTextBox("802", 495, 52, 70).Tag = "AmsPortSource";
                     groupConnection.Size = new Size(1076, 125);
                     btnTestConnect.Location = new Point(646, 82);
                     btnTestConnect.Visible = true;
@@ -1387,10 +1451,15 @@ namespace IndustrialDataCollection.Forms
                     break;
 
                 case "DLMS":
-                    // v3.22.40: 该驱动为串口驱动（只消费 PortName/BaudRate/Parity/DataBits/StopBits），改用串口参数区
+                    // v3.22.59：串口参数区 + 逻辑地址（ClientAddress/ServerAddress 驱动会写进 DLMS 帧）
                     groupConnection.Text = L.GetString("Driver_DLMS_Params");
                     SetupModbusRtuControls();
-                    btnTestConnect.Location = new Point(646, 90);
+                    AddLabel("客户端地址:", 10, 95, 70);
+                    AddTextBox("16", 85, 95, 70).Tag = "ClientAddress";
+                    AddLabel("服务器地址:", 215, 95, 70);
+                    AddTextBox("1", 290, 95, 70).Tag = "ServerAddress";
+                    groupConnection.Size = new Size(1076, 155);
+                    btnTestConnect.Location = new Point(646, 120);
                     btnTestConnect.Visible = true;
                     break;
 
@@ -1463,8 +1532,9 @@ namespace IndustrialDataCollection.Forms
             _comboPortName.DropDownStyle = ComboBoxStyle.DropDown;
 
             AddLabel(L.GetString("DeviceConfig_Rtu_BaudRate"), 215, y, 50);
-            _comboBaudRate = AddCombo(new[] { "9600", "19200", "38400", "57600", "115200" }, 270, y, 90);
-            _comboBaudRate.SelectedIndex = 0;
+            _comboBaudRate = AddCombo(new[] { "1200", "2400", "4800", "9600", "19200", "38400", "57600", "115200" }, 270, y, 90);
+            _comboBaudRate.DropDownStyle = ComboBoxStyle.DropDown;   // v3.22.59：允许填非标准波特率
+            _comboBaudRate.SelectedIndex = 3;
 
             AddLabel(L.GetString("DeviceConfig_Rtu_Station"), 380, y, 50);
             var txtRtuStation = AddTextBox("1", 430, y, 70);
@@ -1479,7 +1549,7 @@ namespace IndustrialDataCollection.Forms
             _comboDataBits.SelectedIndex = 0;
 
             AddLabel(L.GetString("DeviceConfig_Rtu_StopBits"), 380, y, 50);
-            _comboStopBits = AddCombo(new[] { "1", "2" }, 430, y, 70);
+            _comboStopBits = AddCombo(new[] { "One", "Two" }, 430, y, 70);   // v3.22.59：与驱动取值口径一致（原来给 1/2 恒回落 One）
         }
 
         private void SetupMqttSubscribeControls()
@@ -2165,11 +2235,14 @@ namespace IndustrialDataCollection.Forms
                 case "CODESYS":
                     config.ConnectionParams["IP"] = txtIP.Text;
                     config.ConnectionParams["Port"] = txtPort.Text;
+                    config.ConnectionParams["Station"] = txtStation.Text;
                     break;
                 case "BeckhoffADS":
                     config.ConnectionParams["IP"] = txtIP.Text;
                     config.ConnectionParams["Port"] = txtPort.Text;
                     config.ConnectionParams["AmsNetId"] = txtStation.Text;
+                    config.ConnectionParams["AmsPort"] = FindDynamicAny("AmsPort") ?? "801";
+                    config.ConnectionParams["AmsPortSource"] = FindDynamicAny("AmsPortSource") ?? "802";
                     break;
                 case "CCLink":
                     config.ConnectionParams["IP"] = txtIP.Text;
@@ -2184,22 +2257,24 @@ namespace IndustrialDataCollection.Forms
                     config.ConnectionParams["Port"] = txtPort.Text;
                     break;
                 case "MitsubishiFX":
-                    // v3.22.40: 串口驱动保存其真正消费的参数键（原来写 IP/Port，驱动读不到 → 配置不生效）
+                    // v3.22.59：站号同时写 StationNo（驱动读 StationNo，此前只写 Station → 站号不生效）
                     config.ConnectionParams["PortName"] = _comboPortName?.Text ?? "COM1";
                     config.ConnectionParams["BaudRate"] = _comboBaudRate?.Text ?? "9600";
                     config.ConnectionParams["Parity"] = _comboParity?.Text ?? "None";
                     config.ConnectionParams["DataBits"] = _comboDataBits?.Text ?? "8";
-                    config.ConnectionParams["StopBits"] = _comboStopBits?.Text ?? "1";
+                    config.ConnectionParams["StopBits"] = _comboStopBits?.Text ?? "One";
                     config.ConnectionParams["Station"] = FindDynamicText("Station") ?? "1";
+                    config.ConnectionParams["StationNo"] = FindDynamicText("Station") ?? "1";
                     break;
                 case "PanasonicMewtocol":
-                    // v3.22.40: 串口驱动保存其真正消费的参数键（原来写 IP/Port，驱动读不到 → 配置不生效）
+                    // v3.22.59：站号同时写 StationNo（驱动读 StationNo）
                     config.ConnectionParams["PortName"] = _comboPortName?.Text ?? "COM1";
                     config.ConnectionParams["BaudRate"] = _comboBaudRate?.Text ?? "9600";
                     config.ConnectionParams["Parity"] = _comboParity?.Text ?? "None";
                     config.ConnectionParams["DataBits"] = _comboDataBits?.Text ?? "8";
-                    config.ConnectionParams["StopBits"] = _comboStopBits?.Text ?? "1";
+                    config.ConnectionParams["StopBits"] = _comboStopBits?.Text ?? "One";
                     config.ConnectionParams["Station"] = FindDynamicText("Station") ?? "1";
+                    config.ConnectionParams["StationNo"] = FindDynamicText("Station") ?? "1";
                     break;
                 case "HaasCNC":
                     // v3.22.40: 串口驱动保存其真正消费的参数键（原来写 IP/Port，驱动读不到 → 配置不生效）
@@ -2243,20 +2318,26 @@ namespace IndustrialDataCollection.Forms
                     config.ConnectionParams["Station"] = FindDynamicText("Station") ?? "1";
                     break;
                 case "DLMS":
-                    // v3.22.40: 串口驱动保存其真正消费的参数键（原来写 IP/Port，驱动读不到 → 配置不生效）
+                    // v3.22.59：串口键取下拉当前值（含用户自填波特率）+ 逻辑地址
                     config.ConnectionParams["PortName"] = _comboPortName?.Text ?? "COM1";
                     config.ConnectionParams["BaudRate"] = _comboBaudRate?.Text ?? "9600";
                     config.ConnectionParams["Parity"] = _comboParity?.Text ?? "None";
                     config.ConnectionParams["DataBits"] = _comboDataBits?.Text ?? "8";
-                    config.ConnectionParams["StopBits"] = _comboStopBits?.Text ?? "1";
-                    config.ConnectionParams["Station"] = FindDynamicText("Station") ?? "1";
+                    config.ConnectionParams["StopBits"] = _comboStopBits?.Text ?? "One";
+                    config.ConnectionParams["ClientAddress"] = FindDynamicAny("ClientAddress") ?? "16";
+                    config.ConnectionParams["ServerAddress"] = FindDynamicAny("ServerAddress") ?? "1";
                     break;
                 case "HARTIP":
                     config.ConnectionParams["IP"] = txtIP.Text;
                     config.ConnectionParams["Port"] = txtPort.Text;
                     break;
                 case "OPCDA":
+                    // v3.22.59：ProgID + 远程节点 + 读数源 + 更新周期 + 模拟模式（此前界面只能配 ProgID）
                     config.ConnectionParams["ProgID"] = txtIP.Text;
+                    config.ConnectionParams["OpcNode"] = FindDynamicAny("OpcNode") ?? "";
+                    config.ConnectionParams["ReadSource"] = FindDynamicAny("ReadSource") ?? "cache";
+                    config.ConnectionParams["UpdateRate"] = FindDynamicAny("UpdateRate") ?? "500";
+                    config.ConnectionParams["Simulate"] = FindDynamicAny("Simulate") ?? "false";
                     break;
             }
 

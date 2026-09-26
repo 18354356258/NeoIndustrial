@@ -45,9 +45,9 @@ namespace IndustrialDataCollection.Services
                 DriverType = driver,
                 Group = group
             };
-            if (!string.IsNullOrWhiteSpace(ip)) dev.ConnectionParams["ip"] = ip;
-            if (port > 0) dev.ConnectionParams["port"] = port.ToString();
-            dev.ConnectionParams["scanIntervalMs"] = scanInterval.ToString();
+            if (!string.IsNullOrWhiteSpace(ip)) dev.ConnectionParams["IP"] = ip;
+            if (port > 0) dev.ConnectionParams["Port"] = port.ToString();
+            dev.ConnectionParams["PollInterval"] = scanInterval.ToString();
 
             var all = ConfigService.Instance.GetAllDevices();
             all.Add(dev);
@@ -86,10 +86,10 @@ namespace IndustrialDataCollection.Services
 
             var changes = new List<string>();
             if (!string.IsNullOrWhiteSpace(nm) && nm != device.Name) { device.Name = nm; changes.Add("名称"); }
-            if (!string.IsNullOrWhiteSpace(ip)) { device.ConnectionParams["ip"] = ip; changes.Add("IP"); }
-            if (pt.HasValue && pt > 0) { device.ConnectionParams["port"] = pt.ToString(); changes.Add("端口"); }
+            if (!string.IsNullOrWhiteSpace(ip)) { device.ConnectionParams["IP"] = ip; changes.Add("IP"); }
+            if (pt.HasValue && pt > 0) { device.ConnectionParams["Port"] = pt.ToString(); changes.Add("端口"); }
             if (!string.IsNullOrWhiteSpace(grp)) { device.Group = grp; changes.Add("分组"); }
-            if (si.HasValue && si > 0) { device.ConnectionParams["scanIntervalMs"] = si.ToString(); changes.Add("扫描间隔"); }
+            if (si.HasValue && si > 0) { device.ConnectionParams["PollInterval"] = si.ToString(); changes.Add("扫描间隔"); }
 
             if (changes.Count == 0)
                 return Task.FromResult<object>(new { error = "未提供需要更新的字段" });
