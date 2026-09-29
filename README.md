@@ -1,4 +1,4 @@
-# 工业数采平台企业版 · IndustrialDataCollector
+# 工业数采平台企业版 · NeoIndustrial
 
 <div align="center">
 
@@ -26,7 +26,7 @@ GitHub：<https://github.com/18354356258/NeoIndustrial> ｜ Gitee：<https://git
 
 ## 🧭 这是什么
 
-**IndustrialDataCollector（工业数采平台企业版）** 是一个 Windows 桌面单机程序（WinForms / C# / .NET Framework 4.8），为工厂现场而生：
+**NeoIndustrial（工业数采平台企业版）** 是一个 Windows 桌面单机程序（WinForms / C# / .NET Framework 4.8），为工厂现场而生：
 
 - **连得上**：39 种生产就绪协议驱动，覆盖 PLC / 控制器、CNC 数控、工业以太网、现场总线、电力能源、楼宇自动化、物联网与半导体设备；
 - **采得下**：设备四级树管理、变量点级配置（清洗 / 计算 / 边缘计算 / 自定义脚本 / 报警 / 语义标签）、毫秒级采集周期、断网离线缓存与恢复补发；
