@@ -1,4 +1,4 @@
-# NeoIndustrial · Industrial Data Collector
+﻿# NeoIndustrial · Industrial Data Collector
 
 [中文](README.md) | **English**
 
@@ -17,6 +17,33 @@
 **39 protocol drivers · millisecond MQTT uplink · 7 database targets · AI-native via MCP · AGPLv3**
 
 </div>
+
+---
+
+## 🎬 15-Minute Full Demo
+
+<div align="center">
+
+[![NeoIndustrial · 15-minute full demo](picture/web-demo-15min-cover.png)](picture/web-demo-15min.mp4)
+
+**▶ Click the cover to watch the full demo** (15:40 · 1600×900 · Chinese subtitles · narration)
+
+</div>
+
+One continuous walkthrough — real UI, real device data — from **shop-floor devices** to **AI-generated deliverables**:
+
+| Stage | What you will see |
+|---|---|
+| Data acquisition | 6 devices / 262 tags; live reads over Siemens S7 and Mitsubishi MC |
+| Device operations | per-device start/stop, tag editing, CSV import/export, config cloning |
+| Drivers | 31 acquisition + 11 database drivers across 7 categories; hot-loaded plugins |
+| Semantic layer | ontology modelling, data mapping (bindings / inheritance rules / candidates) |
+| Knowledge graph | relationship layer, 3D force layout, star-orbit; rotate and zoom |
+| AI Agent | a real question → auto-decomposed 5-step plan → real platform tool calls |
+| AI deliverables | JY-27 live dashboard with trend charts; scheduled HTML report |
+| Domestic stack | Dameng / MySQL / SQL Server / PostgreSQL |
+
+> A shorter 1:53 overview video is also available in the [WEB Commercial Edition section](#-web-commercial-edition-put-the-whole-factory-in-a-browser).
 
 ---
 
