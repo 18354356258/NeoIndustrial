@@ -1,4 +1,4 @@
-﻿# NeoIndustrial · Industrial Data Collector
+﻿# NeoIndustrial · Industrial Data Acquisition & Analytics
 
 [中文](README.md) | **English**
 
@@ -6,27 +6,30 @@
 
 ![logo](picture/elephant_logo_512.png)
 
-**An open-source, enterprise-grade industrial data acquisition desktop client for Windows**
+**Two editions: WEB Enterprise (browser platform) · Community (open-source desktop client)**
 
 [![.NET Framework 4.8](https://img.shields.io/badge/.NET-4.8-blue)](https://dotnet.microsoft.com/download/dotnet-framework/net48)
 [![License](https://img.shields.io/badge/License-AGPLv3-blue)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey)]()
 [![GitHub](https://img.shields.io/badge/GitHub-NeoIndustrial-black)](https://github.com/18354356258/NeoIndustrial)
 [![Gitee](https://img.shields.io/badge/Gitee-JEDI_MASTER-red)](https://gitee.com/JEDI_MASTER/neoIndustrial)
+[![Release](https://img.shields.io/badge/Download-Releases-brightgreen)](https://github.com/18354356258/NeoIndustrial/releases)
 
-**39 protocol drivers · millisecond MQTT uplink · 7 database targets · AI-native via MCP · AGPLv3**
+**39 protocol drivers · millisecond MQTT uplink · 5 database targets · AI-native via MCP · AGPLv3**
 
 </div>
 
 ---
 
-## 🎬 15-Minute Full Demo
+## 🌐 WEB Enterprise · 15-Minute Full Demo
 
 <div align="center">
 
 [![NeoIndustrial · 15-minute full demo](picture/web-demo-15min-cover.png)](picture/web-demo-15min.mp4)
 
 **▶ Click the cover to watch the full demo** (15:40 · 1600×900 · Chinese subtitles · narration)
+
+**This video demonstrates the WEB Enterprise Edition** — the browser-based industrial data platform, not the open-source Community client in this repository.
 
 </div>
 
@@ -43,17 +46,32 @@ One continuous walkthrough — real UI, real device data — from **shop-floor d
 | AI deliverables | JY-27 live dashboard with trend charts; scheduled HTML report |
 | Domestic stack | Dameng / MySQL / SQL Server / PostgreSQL |
 
-> A shorter 1:53 overview video is also available in the [WEB Commercial Edition section](#-web-commercial-edition-put-the-whole-factory-in-a-browser).
+> A shorter 1:53 overview video is also available in the [WEB Enterprise Edition section](#-web-enterprise-edition--the-whole-factory-in-a-browser).
+
+### What is the WEB Enterprise Edition?
+
+- **One process**: acquisition, database writes, MQTT, REST API and AI all run inside a single service — no middleware to glue together.
+- **31 acquisition + 11 database drivers** across 7 categories, hot-loaded plugins.
+- **Semantic layer + 3D knowledge graph**: ontology modelling, data mapping, force / star-orbit / chord layouts, rotate and zoom.
+- **Hermes Agent**: reads the platform's own data, decomposes tasks, calls tools, produces dashboards and HTML reports.
+- **Domestic stack ready**: Dameng / Kylin, single-root tar deployment, Windows and Xinchuang packages.
+
+> The WEB Enterprise Edition is closed-source and commercially licensed — see [How to get it](#how-to-get-it-important).
+> Everything below describes the **open-source Community Edition** in this repository.
 
 ---
 
-## What is this?
 
-Industrial Data Collector is a production-grade industrial data acquisition workstation that runs on a single Windows PC. Downward, it speaks to PLCs, CNC machines, power equipment, meters and building-automation devices through **39 built-in protocol drivers**. Upward, it writes collected data into **seven kinds of databases** and publishes it over **MQTT** with millisecond latency. In between, it cleans data at the edge, models a factory-wide semantic layer, raises four-level alarms, renders a live dashboard, and hands control to AI assistants over **MCP** and third-party systems over a **REST API**.
+
+---
+
+## 🖥️ Community Edition (this repository, open source)
+
+The Community Edition is a production-grade industrial data acquisition workstation that runs on a single Windows PC. Downward, it speaks to PLCs, CNC machines, power equipment, meters and building-automation devices through **39 built-in protocol drivers**. Upward, it writes collected data into **seven kinds of databases** and publishes it over **MQTT** with millisecond latency. In between, it cleans data at the edge, models a factory-wide semantic layer, raises four-level alarms, renders a live dashboard, and hands control to AI assistants over **MCP** and third-party systems over a **REST API**.
 
 It is a WinForms desktop application written in C# on .NET Framework 4.8 — one executable, no server, no container, no database server required to get started. Connect a device, start collection, and watch the data land.
 
-> This repository contains the **complete source code** of the enterprise desktop client, released under the GNU Affero General Public License v3.0 (AGPLv3) — download it, build it, deploy it, adapt it.
+> This repository contains the **complete source code** of the community desktop client, released under the GNU Affero General Public License v3.0 (AGPLv3) — download it, build it, deploy it, adapt it.
 
 ### 📸 See it in action
 
@@ -169,7 +187,7 @@ Drivers are organized in **7 categories** — pick the category, then the driver
 >
 > **All 39 drivers in this repository are open-source implementations**, and the runtime libraries shipped with the package are under open-source licences too. **No commercially licensed driver that must be bought from a vendor is pre-installed or bundled.**
 >
-> If a device on site needs a commercially licensed driver, there are two routes: **① integrate it yourself** — deploy the driver you have purchased and licensed (`.dll` / `.zip`); **② let the AI add it** — the WEB Commercial Edition ships a driver-management UI that accepts uploads, and its built-in AI can search online for candidates, state the source and licence, and install only after you agree. **The licence itself must still be obtained by the user — the platform only loads the driver, it never resells or cracks anything.**
+> If a device on site needs a commercially licensed driver, there are two routes: **① integrate it yourself** — deploy the driver you have purchased and licensed (`.dll` / `.zip`); **② let the AI add it** — the WEB Enterprise Edition ships a driver-management UI that accepts uploads, and its built-in AI can search online for candidates, state the source and licence, and install only after you agree. **The licence itself must still be obtained by the user — the platform only loads the driver, it never resells or cracks anything.**
 >
 > The drivers marked 🔑 above are governed by **commercial licenses or membership terms from the original vendor or the standards body**. **Before production, commercial or customer-facing use, contact the vendor or licensing body, purchase a legitimate license and obtain formal permission.** Without a license, use them for learning, research and evaluation only.
 >
@@ -487,11 +505,11 @@ High-frequency time-series workloads land in TDengine through its REST interface
 
 ---
 
-## 🆚 Enterprise Edition vs WEB Commercial Edition
+## 🆚 Community Edition vs WEB Enterprise Edition
 
-One protocol driver core, two delivery forms: the **Enterprise Edition** is a desktop client installed on an industrial PC (this repository, open source); the **WEB Commercial Edition** is a browser platform that lives on a server (closed source, commercially licensed).
+One protocol driver core, two delivery forms: the **Community Edition** is a desktop client installed on an industrial PC (this repository, open source); the **WEB Enterprise Edition** is a browser platform that lives on a server (closed source, commercially licensed).
 
-| Capability | Enterprise Edition (this repo) | WEB Commercial Edition |
+| Capability | Community Edition (this repo) | WEB Enterprise Edition |
 |----------|:---:|:---:|
 | Industrial protocol drivers (PLC / CNC / power / building / semiconductor) | 39 | 39 (same core, **all open-source implementations**) |
 | Millisecond MQTT push | ✅ | ✅ |
@@ -518,14 +536,14 @@ One protocol driver core, two delivery forms: the **Enterprise Edition** is a de
 | **Multi-generation rolling config backups** | ✅ | ✅ |
 | **Commercial license · technical support** | ✅ | ✅ |
 
-> 🖥️ **Enterprise Edition**: single-machine desktop, works offline, 39 drivers out of the box — ideal for deep acquisition on one plant/machine and for edge-side deployment.
-> 🌐 **WEB Commercial Edition**: the whole factory in a browser — multi-user collaboration, AI multi-agent orchestration, 2D/3D knowledge graph and Xinchuang support. See the next section.
+> 🖥️ **Community Edition**: single-machine desktop, works offline, 39 drivers out of the box — ideal for deep acquisition on one plant/machine and for edge-side deployment.
+> 🌐 **WEB Enterprise Edition**: the whole factory in a browser — multi-user collaboration, AI multi-agent orchestration, 2D/3D knowledge graph and Xinchuang support. See the next section.
 
 ---
 
-## 🌐 WEB Commercial Edition — The Whole Factory in a Browser
+## 🌐 WEB Enterprise Edition — The Whole Factory in a Browser
 
-> The Enterprise Edition is software installed on an industrial PC; the WEB Commercial Edition is an industrial data operating system that lives on a server.
+> The Community Edition is software installed on an industrial PC; the WEB Enterprise Edition is an industrial data operating system that lives on a server.
 >
 > The same protocol driver core, plus B/S multi-user collaboration, AI multi-agent orchestration and 2D/3D industrial semantics. It is not a port of the desktop edition — it is a redesigned, web-native platform.
 
@@ -553,29 +571,29 @@ What it solves that the desktop edition cannot:
 
 </div>
 
-### 🎬 WEB Commercial Edition — full demo video
+### 🎬 WEB Enterprise Edition — full demo video
 
 <div align="center">
 
-<a href="https://github.com/18354356258/NeoIndustrial/raw/main/picture/web-demo.mp4"><img src="picture/web-demo-cover.jpg" width="90%" alt="▶ Click to watch the WEB Commercial Edition demo video"></a>
+<a href="https://github.com/18354356258/NeoIndustrial/raw/main/picture/web-demo.mp4"><img src="picture/web-demo-cover.jpg" width="90%" alt="▶ Click to watch the WEB Enterprise Edition demo video"></a>
 
 **▶ Click the cover to watch the full demo** (1 min 53 s · 1080p)
 
 </div>
 
-This video is a complete walkthrough of the **WEB Commercial Edition** — from **data collection** to the **semantic knowledge graph (2D / 3D)** and the **Hermes Evolution Agent**:
+This video is a complete walkthrough of the **WEB Enterprise Edition** — from **data collection** to the **semantic knowledge graph (2D / 3D)** and the **Hermes Evolution Agent**:
 
 - **① Data collection**: device-tree management (workshop → process → device) with per-variable configuration and custom Python post-processing scripts (e.g. sliding-window filtering) that turn raw signals into clean, production-ready data;
 - **② Semantic graph 2D / 3D**: switch between force-directed, radial, tree, star, star-orbit, flow, chip and ring layouts in one click; in 3D sphere mode you can rotate and zoom to grasp the whole relationship network at a glance;
 - **③ Hermes Evolution Agent**: **self-evolution** (automatic skill distillation, evolution-proposal approval, feedback-driven skill refinement) · **scheduled tasks** (report / query-summary / alert / digest jobs with custom cron, generating daily briefs and HTML boards from natural-language instructions) · **push settings** (in-site messages + email + WeCom / DingTalk / Feishu bot webhooks).
 
-> 📺 Recorded on the WEB Commercial Edition; best viewed at 1080p.
+> 📺 Recorded on the WEB Enterprise Edition; best viewed at 1080p.
 
 ### Core capabilities
 
 | Capability | Details |
 |------|------|
-| 🔌 Industrial protocol drivers | **39** production-ready drivers built in, **all of them open-source implementations** (PLC / CNC / power / building / semiconductor / meters), sharing the same core as the Enterprise Edition; organized into 7 driver categories — pick the category first, then the driver |
+| 🔌 Industrial protocol drivers | **39** production-ready drivers built in, **all of them open-source implementations** (PLC / CNC / power / building / semiconductor / meters), sharing the same core as the Community Edition; organized into 7 driver categories — pick the category first, then the driver |
 | 🧩 Driver management | A single driver inventory: driver / category / source / provider / size / installed at / status, filterable by keyword, source and category. **Commercial-licensed drivers you have purchased, or open-source drivers, can be uploaded by you**; built-in drivers can be disabled and restored, plugin drivers can be deleted |
 | 🤖 AI adds drivers | For a protocol the platform does not have, just ask the built-in AI to search online: it explains the source and the license, and installs into the category you choose once you agree. The source URL and time are recorded server-side, and the inventory marks it "Added by AI" |
 | 🗄️ Parallel database writes | 6 kinds: SQLite / MySQL / SQL Server / PostgreSQL / TDengine / Dameng DM8 (domestic, Xinchuang-ready) |
@@ -615,18 +633,19 @@ What the driver management page does:
 
 | Your scenario | Recommended edition |
 |----------|----------|
-| Single plant, single machine, deep desktop use, semantic layer + dashboards | **Enterprise Edition** — open source in this repository; the client is downloadable from Releases, and a formal license is issued by machine ID |
-| Multi-user online collaboration, plant-wide governance, AI multi-agent, Xinchuang environments | **WEB Commercial Edition** — apply to the author (licensed by device/machine count) |
+| Single plant, single machine, deep desktop use, semantic layer + dashboards | **Community Edition** — open source in this repository; the client is downloadable from Releases, and a formal license is issued by machine ID |
+| Multi-user online collaboration, plant-wide governance, AI multi-agent, Xinchuang environments | **WEB Enterprise Edition** — apply to the author (licensed by device/machine count) |
 
 ### How to get it (important)
 
-- **Enterprise Edition (this repository)**: the client is **freely downloadable from this repository's Releases page** for evaluation; the source is AGPLv3, so you can clone and build it yourself. For a formal license, send your machine ID by email.
-- **WEB Commercial Edition**: **no public download**. A license must be applied for directly from the author, priced by device/machine count.
-- **In-app shortcut**: in the desktop client, **Help → Contact Me** opens both repositories and lets you copy the licensing e-mail; the login screen also carries a “Contact Me · Get Commercial Edition” link.
+- **Community Edition (this repository)**: prebuilt client is available for direct download — [GitHub Releases](https://github.com/18354356258/NeoIndustrial/releases) | [Gitee Releases](https://gitee.com/JEDI_MASTER/neoIndustrial/releases)
+  Unzip and run (Windows 7 SP1+ with .NET Framework 4.8, no installer needed). Source is AGPLv3 — clone and build it yourself if you prefer. For a formal license, send us your machine code.
+- **WEB Enterprise Edition**: **no public download**. A license must be applied for directly from the author, priced by device/machine count.
+- **In-app shortcut**: in the desktop client, **Help → Contact Me** opens both repositories and lets you copy the licensing e-mail; the login screen also carries a “Contact Me · Get Enterprise Edition” link.
 
 <img src="picture/联系我.png" width="70%" alt="Contact Me (repositories + licensing)">
 
-**To apply for a WEB Commercial Edition license, please state the following five items in your email or call:**
+**To apply for a WEB Enterprise Edition license, please state the following five items in your email or call:**
 
 1. **Use case** — which industry, which production line, and what problem you want to solve;
 2. **Applicant** — a company or an individual;
