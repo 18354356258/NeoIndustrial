@@ -1,6 +1,6 @@
 ﻿# NeoIndustrial · Industrial Data Acquisition & Analytics
 
-[中文](README.md) | **English**
+[中文](README.zh-CN.md) | **English**
 
 <div align="center">
 
