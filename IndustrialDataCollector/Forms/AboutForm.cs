@@ -107,7 +107,7 @@ namespace IndustrialDataCollection.Forms
             // 品牌副标题
             lblBrandSub = new Label
             {
-                Text = "企业版 · ENTERPRISE",
+                Text = "社区版 · COMMUNITY",
                 Font = new Font("Segoe UI", 11F, FontStyle.Regular),
                 ForeColor = Color.FromArgb(148, 163, 184),
                 BackColor = Color.Transparent,
@@ -179,7 +179,7 @@ namespace IndustrialDataCollection.Forms
             // 标题
             lblTitle = new Label
             {
-                Text = "NeoIndustrial 企业版",
+                Text = "NeoIndustrial 社区版",
                 Font = new Font("Microsoft YaHei UI", 20F, FontStyle.Bold),
                 ForeColor = CText,
                 Location = new Point(40, 40),
@@ -317,7 +317,7 @@ namespace IndustrialDataCollection.Forms
             var L = LanguageManager.Instance;
             this.Text = L.GetString("About_Title");
             lblSlogan.Text = L.GetString("Login_Slogan");
-            lblTitle.Text = "NeoIndustrial 企业版";
+            lblTitle.Text = "NeoIndustrial 社区版";
             lblDesc.Text = "工业数采平台 · 内置 39 种协议驱动\n覆盖 PLC / CNC / 工业以太网 / 现场总线 / 电力 / 楼宇 / IoT";
             btnOk.Text = L.GetString("PointEdit_Ok");
         }

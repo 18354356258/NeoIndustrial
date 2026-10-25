@@ -324,7 +324,7 @@ namespace IndustrialDataCollection.Services
                 openapi = "3.0.0",
                 info = new
                 {
-                    title = "NeoIndustrial 企业版 API",
+                    title = "NeoIndustrial 社区版 API",
                     version = "1.0.0",
                     description = "实时工业设备数据查询接口。点击右上角 🔒 Authorize 按钮输入 Token（如 admin123），或通过 ?token=xxx 参数传递。"
                 },

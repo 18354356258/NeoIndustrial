@@ -68,7 +68,7 @@ namespace IndustrialDataCollection.Forms
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(200, 28);
             this.label1.TabIndex = 9;
-            this.label1.Text = "企业版 · ENTERPRISE";
+            this.label1.Text = "社区版 · COMMUNITY";
             this.label1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // panelDecor
@@ -298,7 +298,7 @@ namespace IndustrialDataCollection.Forms
             this.MinimizeBox = false;
             this.Name = "LoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "NeoIndustrial 企业版 - 工业网络数采平台";
+            this.Text = "NeoIndustrial 社区版 - 工业网络数采平台";
             this.panelLeft.ResumeLayout(false);
             this.panelLeft.PerformLayout();
             this.panelRight.ResumeLayout(false);

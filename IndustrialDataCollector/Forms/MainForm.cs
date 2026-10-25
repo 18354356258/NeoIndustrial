@@ -366,7 +366,7 @@ namespace IndustrialDataCollection.Forms
             _trayIcon = new NotifyIcon
             {
                 Icon = this.Icon,
-                Text = "NeoIndustrial 企业版 - 工业网络数采平台",
+                Text = "NeoIndustrial 社区版 - 工业网络数采平台",
                 Visible = false
             };
 
@@ -2614,7 +2614,7 @@ namespace IndustrialDataCollection.Forms
                 bool minimizeToTray = true;
                 using (var dlg = new Form())
                 {
-                    dlg.Text = "NeoIndustrial 企业版 - 工业网络数采平台";
+                    dlg.Text = "NeoIndustrial 社区版 - 工业网络数采平台";
                     dlg.FormBorderStyle = FormBorderStyle.FixedDialog;
                     dlg.MaximizeBox = false;
                     dlg.MinimizeBox = false;
@@ -2675,7 +2675,7 @@ namespace IndustrialDataCollection.Forms
                     e.Cancel = true;
                     this.Hide();
                     _trayIcon.Visible = true;
-                    _trayIcon.ShowBalloonTip(2000, "NeoIndustrial 企业版 - 工业网络数采平台",
+                    _trayIcon.ShowBalloonTip(2000, "NeoIndustrial 社区版 - 工业网络数采平台",
                         LanguageManager.Instance.GetString("Status_TrayMinimized"), ToolTipIcon.Info);
                     Logger.Info("最小化到系统托盘");
                     return;

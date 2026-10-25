@@ -107,7 +107,7 @@ namespace IndustrialDataCollection.Forms
 
             lblBrandSub = new Label
             {
-                Text = "企业版 · ENTERPRISE",
+                Text = "社区版 · COMMUNITY",
                 Font = new Font("Microsoft YaHei UI", 11F),
                 ForeColor = CTextMuted,
                 BackColor = Color.Transparent,

@@ -770,7 +770,7 @@
             this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "NeoIndustrial 企业版 - 工业网络数采平台";
+            this.Text = "NeoIndustrial 社区版 - 工业网络数采平台";
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.toolStrip.ResumeLayout(false);
