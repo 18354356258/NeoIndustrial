@@ -15,7 +15,7 @@
 [![Gitee](https://img.shields.io/badge/Gitee-JEDI_MASTER-red)](https://gitee.com/JEDI_MASTER/neoIndustrial)
 [![Release](https://img.shields.io/badge/Download-Releases-brightgreen)](https://github.com/18354356258/NeoIndustrial/releases)
 
-**39 protocol drivers · millisecond MQTT uplink · 5 database targets · AI-native via MCP · AGPLv3**
+**Industrial data acquisition · millisecond MQTT uplink · 7 database targets · AI-native via MCP · AGPLv3**
 
 </div>
 
@@ -39,7 +39,7 @@ One continuous walkthrough — real UI, real device data — from **shop-floor d
 |---|---|
 | Data acquisition | 6 devices / 262 tags; live reads over Siemens S7 and Mitsubishi MC |
 | Device operations | per-device start/stop, tag editing, CSV import/export, config cloning |
-| Drivers | 31 acquisition + 11 database drivers across 7 categories; hot-loaded plugins |
+| Drivers | Protocol and database drivers across 7 categories; hot-loaded plugins |
 | Semantic layer | ontology modelling, data mapping (bindings / inheritance rules / candidates) |
 | Knowledge graph | relationship layer, 3D force layout, star-orbit; rotate and zoom |
 | AI Agent | a real question → auto-decomposed 5-step plan → real platform tool calls |
@@ -48,13 +48,21 @@ One continuous walkthrough — real UI, real device data — from **shop-floor d
 
 > A shorter 1:53 overview video is also available in the [WEB Enterprise Edition section](#-web-enterprise-edition--the-whole-factory-in-a-browser).
 
+### Video walkthrough (English subtitles)
+
+- `NeoIndustrial_EN.mp4` — full 15-minute demo of the running system:
+  [watch](picture/NeoIndustrial_EN.mp4)
+- Subtitles: `NeoIndustrial_EN.srt` — download both files into the same folder and open
+  the video in VLC; the subtitles load automatically.
+
 ### What is the WEB Enterprise Edition?
 
 - **One process**: acquisition, database writes, MQTT, REST API and AI all run inside a single service — no middleware to glue together.
-- **31 acquisition + 11 database drivers** across 7 categories, hot-loaded plugins.
-- **Semantic layer + 3D knowledge graph**: ontology modelling, data mapping, force / star-orbit / chord layouts, rotate and zoom.
-- **Hermes Agent**: reads the platform's own data, decomposes tasks, calls tools, produces dashboards and HTML reports.
-- **Domestic stack ready**: Dameng / Kylin, single-root tar deployment, Windows and Xinchuang packages.
+- **30 production-ready protocol drivers** in 7 categories (9 legacy drivers removed for licensing or compliance), plus **7 database drivers** written in parallel, including Dameng DM8. Hot-loaded plugins. Current build: **v3.26.254**.
+- **Semantic layer + 3D knowledge graph**: nine entity classes with attribute inheritance, 17 relation types, 12 event handling modes; ontology modelling, data mapping, force / star-orbit / chord layouts, rotate and zoom.
+- **Hermes Agent**: reads the platform's own data, decomposes tasks, calls tools, produces dashboards and HTML reports. The platform exposes **253 built-in MCP tools** (unique names; each configured data source adds query aliases at runtime).
+- **Domestic stack ready**: Dameng / Kylin, SELinux enforcing mode, single-root tar deployment, offline version upgrade, versions switchable and reversible from the web UI.
+- **Execution governance**: writes move as command tickets — dry run on the same validation path as real dispatch, approval by a named person, expiry, interlock and circuit breaker, read-back reconciliation with five verdicts. Implemented and validated on the test channel; no action has ever been executed on a production machine tool.
 
 > The WEB Enterprise Edition is closed-source and commercially licensed — see [How to get it](#how-to-get-it-important).
 > Everything below describes the **open-source Community Edition** in this repository.
@@ -511,17 +519,17 @@ One protocol driver core, two delivery forms: the **Community Edition** is a des
 
 | Capability | Community Edition (this repo) | WEB Enterprise Edition |
 |----------|:---:|:---:|
-| Industrial protocol drivers (PLC / CNC / power / building / semiconductor) | 39 | 39 (same core, **all open-source implementations**) |
+| Industrial protocol drivers (PLC / CNC / power / building / semiconductor) | 39 | 30 production-ready (same core; 9 legacy drivers removed for licensing or compliance) |
 | Millisecond MQTT push | ✅ | ✅ |
 | SQLite / MySQL / SQL Server / PostgreSQL | ✅ | ✅ |
 | TDengine time-series database | ✅ | ✅ |
 | Dameng DM8 (domestic database) | ❌ | ✅ |
-| MCP AI tools | 44 | **150** |
+| MCP AI tools | 44 | **253** (v3.26.254) |
 | **Driver management (categories / upload / AI-added)** | ❌ | ✅ |
 | REST API | ✅ | ✅ |
 | CSV bulk import/export | ✅ | ✅ |
 | UI languages | Chinese / English | Chinese / English / Vietnamese (+ built-in manual) |
-| **Semantic-layer digital-twin modeling** | ✅ | ✅ |
+| **Semantic-layer digital-twin modeling** | ✅ (14 node types) | ✅ (9 entity classes with inheritance) |
 | **2D / 3D knowledge-graph visualization** | ❌ | ✅ |
 | **Fabric time-series engine** | ✅ (8 operators) | ✅ (27 operators) |
 | **Dashboard monitoring wall** | ✅ | ✅ |
@@ -531,10 +539,13 @@ One protocol driver core, two delivery forms: the **Community Edition** is a des
 | **Auth · hardware binding · Token** | ✅ | ✅ |
 | **Multi-user online collaboration · audit trail** | ❌ | ✅ |
 | **AI multi-agent · memory & self-evolving skills** | ❌ | ✅ |
+| **Execution governance (command tickets, dry run, approval, read-back)** | ❌ | ✅ (validated on test channel) |
 | **Browser (B/S) access — no per-PC install** | ❌ | ✅ |
 | **Xinchuang Linux support (self-contained package)** | ❌ | ✅ |
 | **Multi-generation rolling config backups** | ✅ | ✅ |
 | **Commercial license · technical support** | ✅ | ✅ |
+
+> WEB Enterprise numbers reflect the current build, v3.26.254 (November 2026).
 
 > 🖥️ **Community Edition**: single-machine desktop, works offline, 39 drivers out of the box — ideal for deep acquisition on one plant/machine and for edge-side deployment.
 > 🌐 **WEB Enterprise Edition**: the whole factory in a browser — multi-user collaboration, AI multi-agent orchestration, 2D/3D knowledge graph and Xinchuang support. See the next section.
@@ -593,18 +604,21 @@ This video is a complete walkthrough of the **WEB Enterprise Edition** — from 
 
 | Capability | Details |
 |------|------|
-| 🔌 Industrial protocol drivers | **39** production-ready drivers built in, **all of them open-source implementations** (PLC / CNC / power / building / semiconductor / meters), sharing the same core as the Community Edition; organized into 7 driver categories — pick the category first, then the driver |
+| 🔌 Industrial protocol drivers | **30** production-ready drivers in the current build (v3.26.254), organized into 7 driver categories — pick the category first, then the driver. 9 legacy drivers (OPC UA, PROFIBUS, DeviceNet, CC-Link, OPC UA PubSub, Sparkplug B, Mazak, DLMS/COSEM, IEC 61850) were removed for licensing or compliance; if a site needs one, a compliant implementation can be loaded as a plugin |
 | 🧩 Driver management | A single driver inventory: driver / category / source / provider / size / installed at / status, filterable by keyword, source and category. **Commercial-licensed drivers you have purchased, or open-source drivers, can be uploaded by you**; built-in drivers can be disabled and restored, plugin drivers can be deleted |
 | 🤖 AI adds drivers | For a protocol the platform does not have, just ask the built-in AI to search online: it explains the source and the license, and installs into the category you choose once you agree. The source URL and time are recorded server-side, and the inventory marks it "Added by AI" |
-| 🗄️ Parallel database writes | 6 kinds: SQLite / MySQL / SQL Server / PostgreSQL / TDengine / Dameng DM8 (domestic, Xinchuang-ready) |
-| 🤖 MCP atomic tools | **150** AI-callable tools, covering device collection & control, collection drivers, data sources, offline cache, Fabric time-series analysis and industrial semantics |
+| 🗄️ Parallel database writes | 7 kinds: SQLite / MySQL / SQL Server / PostgreSQL / Oracle / TDengine / Dameng DM8 (domestic, Xinchuang-ready) |
+| 🤖 MCP atomic tools | **253** built-in AI-callable tools (unique names; each configured data source adds query aliases at runtime), covering device collection & control, collection drivers, data sources, offline cache, Fabric time-series analysis and industrial semantics |
 | 🧠 AI multi-agent | Built-in chat workspace; create your own agents, grant each one a capability boundary, and let them collaborate by dispatching tasks |
 | 🔬 Fabric time-series engine | 27 hot-pluggable operators: aggregate / correlation / anomaly / digital-twin benchmarking / rate / accumulate / threshold / prediction… |
-| 🕸️ Industrial semantics & knowledge graph | Semantic tree + variable relation types + event type catalog, with 2D/3D graph visualization |
+| 🕸️ Industrial semantics & knowledge graph | 9 entity classes with attribute inheritance, 17 variable relation types, 12 event handling modes; 2D/3D graph visualization |
+| 🧭 Process flow designer | Canvas-based process flowcharts: swimlanes, nodes, links and data-source bindings; saving a flow syncs it into platform process templates (steps resolve to devices); AI can read and write flows (bindings and structure); the canvas embeds read-only into dashboards and the home page, zoomable and clickable |
+| 🗂️ NC program library & DNC | Versioned program library (version + SHA-256 + approval), DNC delivery over three channel kinds (folder / FTP / SFTP) with read-back verification; scheduled reconciliation sorts each machine file into one of five verdicts (matched / mismatch / missing / unexpected / unknown) |
 | 📊 Dashboards · alarms · scheduled jobs | Real-time monitoring wall, 4-level alarms, scheduled reports, in-app messages and a document workspace |
+| 🪹 Execution governance | Writes move as command tickets: dry run on the same validation path as real dispatch, approval by a named person, expiry, interlock and circuit breaker, all-or-nothing batches with per-item manual retry, playbook conditional branches and chained calls, read-back reconciliation with five verdicts. Validated on the test channel; never executed on a production machine |
 | 👥 Permissions & audit | Three-tier permissions (organization / role / user), user activity tracing, system logs, hardware management |
 | 🌍 Trilingual | Chinese / English / Vietnamese, switchable at runtime, with the built-in product manual in all three |
-| 🧩 Xinchuang-ready | A self-contained Linux x64 runtime package (no .NET install required), with Dameng DM8 usable out of the box |
+| 🧩 Xinchuang-ready | A self-contained Linux x64 runtime package (no .NET install required), Dameng DM8 usable out of the box, SELinux enforcing mode, offline version upgrade, versions switchable and reversible from the web UI |
 | 🚀 Deployment | Runs on a single machine; .NET 8 + Blazor, browser access, no client install on every PC |
 
 ### 🔌 Driver categories & driver management
@@ -771,13 +785,21 @@ The source code in this repository is released under the [GNU Affero General Pub
 
 ---
 
+## Related work
+
+- [AssetOpsBench (IBM)](https://github.com/IBM/AssetOpsBench) is an open benchmark for
+  tool-using AI agents in industrial asset operations and maintenance
+  ([paper](https://arxiv.org/abs/2506.03828)). NeoIndustrial works on the deployment side
+  of the same question: what must hold before an agent's output is acted on in a real
+  workshop.
+
 ## 👤 About the Author
 
 **Zhang Chenglong** — art student turned full-stack developer, digital-twin system architect.
 
 In the spring of 2026, while building the UI prototypes and driver logic for an aluminum-extrusion digital-twin system, one thing was missing: something that could actually connect to every device on the shop floor. PLCs, CNCs, sensors, meters, power cabinets, building controllers — they all speak different languages. The options out there were either absurdly expensive, too heavy for an industrial PC, or so old they had never heard of AI.
 
-**So the brush went down and Visual Studio opened.** (Background: joined a steel plant right after graduation; 3 years in the aluminum-extrusion industry; 12 years in IT in total.) In under three months, one person built from scratch: 39 industrial protocol drivers, multi-database parallel writes, millisecond MQTT publishing, 50 MCP AI tools, a REST API and a live dashboard — the set of nerve endings that brings a digital twin to life.
+**So the brush went down and Visual Studio opened.** (Background: joined a steel plant right after graduation; 3 years in the aluminum-extrusion industry; 12 years in IT in total.) In under three months, one person built from scratch: 39 industrial protocol drivers, multi-database parallel writes, millisecond MQTT publishing, an MCP tool surface for AI agents, a REST API and a live dashboard — the set of nerve endings that brings a digital twin to life.
 
 Why open source? Because getting a usable data-acquisition program onto your own industrial PC, for free, shouldn't require sky-high license fees, pirated installers, or two months wrestling with a patchwork of components that still can't talk to your devices. Industrial data acquisition is the bedrock of digital twins and smart manufacturing — and now it's here, source and all: download, build, connect your devices.
 
