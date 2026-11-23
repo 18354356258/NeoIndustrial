@@ -1,0 +1,511 @@
+1
+00:00:38,000 --> 00:00:42,200
+Opens in a browser. No client to install.
+
+2
+00:00:44,000 --> 00:00:48,000
+The database ships with it and initialises on first run.
+
+3
+00:00:51,000 --> 00:00:54,600
+Chinese, English and Vietnamese.
+
+4
+00:00:57,000 --> 00:01:02,600
+Two builds: a self-contained Windows package, and a domestic-stack package.
+
+5
+00:01:05,000 --> 00:01:10,100
+Three steps to deploy: unpack, start, open a browser.
+
+6
+00:01:13,000 --> 00:01:19,300
+The data directory is configurable. Upgrades replace the program, not the data.
+
+7
+00:01:20,000 --> 00:01:25,000
+The device tree groups by company, workshop, then process.
+
+8
+00:01:29,000 --> 00:01:34,100
+Six devices and 262 variables, connected now.
+
+9
+00:01:36,000 --> 00:01:40,100
+Open a device and all 79 of its variables are listed.
+
+10
+00:01:43,000 --> 00:01:48,600
+The data comes from a Siemens S7-1200, on a one-second cycle.
+
+11
+00:01:54,000 --> 00:01:57,600
+Every variable carries a full semantic path.
+
+12
+00:01:58,000 --> 00:02:03,800
+Types: boolean, integer, float, double word, string.
+
+13
+00:02:11,000 --> 00:02:14,600
+The polling cycle is set per device.
+
+14
+00:02:16,000 --> 00:02:19,600
+A single device can be started or stopped.
+
+15
+00:02:20,000 --> 00:02:25,600
+Variables can be edited, exported as CSV, or a whole device copied.
+
+16
+00:02:29,000 --> 00:02:33,800
+Changes apply immediately. The collector does not restart.
+
+17
+00:02:36,000 --> 00:02:40,300
+For many tags, prepare them in Excel and import once.
+
+18
+00:02:43,000 --> 00:02:47,200
+The imported CSV goes straight into process analysis.
+
+19
+00:02:48,000 --> 00:02:51,700
+An existing Excel tag list imports in one go.
+
+20
+00:02:56,000 --> 00:03:00,900
+Same interface. Changing the protocol only changes the driver.
+
+21
+00:03:01,000 --> 00:03:06,200
+This aging furnace speaks Mitsubishi MC, with 35 variables.
+
+22
+00:03:08,000 --> 00:03:14,500
+Zone one reads 100.2 degrees, a D-register address, unsigned 16-bit.
+
+23
+00:03:16,000 --> 00:03:20,700
+Address, type and cycle are parsed by the driver's own rules.
+
+24
+00:03:22,000 --> 00:03:27,800
+S7 data blocks, Mitsubishi D and M areas, Modbus registers.
+
+25
+00:03:28,000 --> 00:03:34,000
+The differences are absorbed in the driver. Above it, every variable looks the same.
+
+26
+00:03:40,000 --> 00:03:44,600
+Thirty-one acquisition drivers and eleven database drivers built in.
+
+27
+00:03:47,000 --> 00:03:50,900
+Seven categories covering the main industrial protocols.
+
+28
+00:03:51,000 --> 00:03:58,400
+Modbus, Siemens, Mitsubishi, OPC UA, HTTP, MQTT.
+
+29
+00:04:05,000 --> 00:04:09,700
+A protocol you do not have can be uploaded as a plugin and hot-loaded.
+
+30
+00:04:11,000 --> 00:04:17,900
+Four database drivers: MySQL, SQL Server, PostgreSQL, Dameng.
+
+31
+00:04:24,000 --> 00:04:27,800
+Plugins can be written in-house or supplied by a vendor.
+
+32
+00:04:29,000 --> 00:04:33,100
+Every upload is recorded: source and install time.
+
+33
+00:04:35,000 --> 00:04:43,600
+General category: HTTP REST, OPC DA, SECS-GEM, SNMP, OPC UA.
+
+34
+00:04:50,000 --> 00:04:53,900
+Add a device: category, protocol, then address and port.
+
+35
+00:04:54,000 --> 00:04:57,600
+The parameter panel switches with the protocol.
+
+36
+00:04:58,000 --> 00:05:04,100
+Tags can be added one by one, imported as CSV, or copied from another device.
+
+37
+00:05:06,000 --> 00:05:08,900
+Devices on another subnet go through a tunnel.
+
+38
+00:05:09,000 --> 00:05:12,600
+No need to open a port for every device.
+
+39
+00:05:13,000 --> 00:05:17,500
+Semantic management: organise tags into an ontology.
+
+40
+00:05:18,000 --> 00:05:22,900
+Devices, process steps, relations, metrics.
+
+41
+00:05:24,000 --> 00:05:29,000
+Tags map to the ontology, and the ontology is maintained by you.
+
+42
+00:05:30,000 --> 00:05:33,600
+Semantics are what give the data business meaning.
+
+43
+00:05:35,000 --> 00:05:39,900
+Workshops name things differently; the semantic layer unifies them.
+
+44
+00:05:42,000 --> 00:05:46,000
+Only then does a cross-workshop comparison mean anything.
+
+45
+00:05:47,000 --> 00:05:51,400
+Mapping: the raw tag label to an ontology attribute.
+
+46
+00:05:56,000 --> 00:06:02,600
+Bindings, covered attributes, key bindings, relation instances, inheritance.
+
+47
+00:06:09,000 --> 00:06:13,000
+Candidate bindings are confirmed or withdrawn one by one.
+
+48
+00:06:15,000 --> 00:06:20,500
+Renaming a device changes the mapping only. History is not recomputed.
+
+49
+00:06:22,000 --> 00:06:27,200
+Unconfirmed candidates wait as pending. They never apply silently.
+
+50
+00:06:30,000 --> 00:06:38,200
+Relation layer: synonym, cross-reference, upstream, key, schedule, order, acquisition.
+
+51
+00:06:47,000 --> 00:06:53,800
+Nodes: workshop, line, device, variable, data source, binding.
+
+52
+00:07:01,000 --> 00:07:05,000
+A 3D view: structure, in space.
+
+53
+00:07:07,000 --> 00:07:11,100
+At a glance, how many tags each machine carries.
+
+54
+00:07:12,000 --> 00:07:16,800
+Every relation carries a count. These are real references.
+
+55
+00:07:20,000 --> 00:07:23,600
+Drag with the left button and the graph turns.
+
+56
+00:07:24,000 --> 00:07:27,600
+Turn it and the device clusters separate.
+
+57
+00:07:29,000 --> 00:07:33,300
+Extrusion, melting and aging each form their own cluster.
+
+58
+00:07:34,000 --> 00:07:37,700
+Variable nodes hang off a device like branches.
+
+59
+00:07:39,000 --> 00:07:41,900
+You cannot see this structure by paging through tables.
+
+60
+00:07:42,000 --> 00:07:45,900
+Turn it round and the variables under a device come into view.
+
+61
+00:07:49,000 --> 00:07:53,100
+Dozens of tags per machine, and the count is visible.
+
+62
+00:07:55,000 --> 00:07:59,300
+Scroll to zoom: in for a detail, out for the whole.
+
+63
+00:08:01,000 --> 00:08:04,600
+One button restores the view.
+
+64
+00:08:08,000 --> 00:08:13,800
+The diagnostic path: plant, workshop, device, variable.
+
+65
+00:08:14,000 --> 00:08:18,400
+"Whole view" resets the camera. It is not an undo.
+
+66
+00:08:22,000 --> 00:08:25,600
+Force layout: it settles by relation.
+
+67
+00:08:29,000 --> 00:08:32,600
+Tightly related machines pull together.
+
+68
+00:08:34,000 --> 00:08:38,400
+Add a device or change the semantics and the graph changes at once.
+
+69
+00:08:40,000 --> 00:08:44,100
+The more devices, the more the line structure shows.
+
+70
+00:08:46,000 --> 00:08:49,700
+What drifts to the edge is usually an orphan variable.
+
+71
+00:08:52,000 --> 00:08:55,600
+Which is exactly how you find the gaps.
+
+72
+00:08:58,000 --> 00:09:02,800
+Stellar view: nodes over a sphere, edges woven across it.
+
+73
+00:09:04,000 --> 00:09:07,800
+Rotate to read density, not a single point.
+
+74
+00:09:10,000 --> 00:09:14,500
+With thousands of tags, dense and empty areas are obvious.
+
+75
+00:09:18,000 --> 00:09:22,700
+It shows, visually, how much scale the system carries.
+
+76
+00:09:23,000 --> 00:09:27,200
+Uneven density shows which processes carry most points.
+
+77
+00:09:29,000 --> 00:09:33,100
+Industry templates ship with aluminium and other scenarios.
+
+78
+00:09:35,000 --> 00:09:39,900
+Device models, tag naming and metric definitions are already there.
+
+79
+00:09:40,000 --> 00:09:44,300
+A new project starts from a template, not from zero.
+
+80
+00:09:46,000 --> 00:09:50,400
+Applying one generates the ontology nodes and mapping rules.
+
+81
+00:09:52,000 --> 00:09:56,500
+Across parallel projects, the template is maintained once.
+
+82
+00:10:03,000 --> 00:10:08,600
+Hermes: an assistant that knows the devices, the variables and the semantic paths.
+
+83
+00:10:12,000 --> 00:10:17,800
+Ask it directly: status, variable comparison, connection faults.
+
+84
+00:10:21,000 --> 00:10:24,600
+Scheduled tasks produce reports on time.
+
+85
+00:10:26,000 --> 00:10:30,000
+Documents: feed the assistant your site material.
+
+86
+00:10:31,000 --> 00:10:34,900
+An analysis done three times can be fixed as a skill.
+
+87
+00:10:36,000 --> 00:10:40,400
+Next time you call it. You do not re-describe it.
+
+88
+00:10:42,000 --> 00:10:45,900
+A real question: summarise device status.
+
+89
+00:10:47,000 --> 00:10:51,900
+It does not invent an answer. It decomposes the task first.
+
+90
+00:10:52,000 --> 00:10:59,600
+Five steps: list devices, count online, total variables, check details, conclude.
+
+91
+00:11:04,000 --> 00:11:07,600
+Every step calls a real platform tool.
+
+92
+00:11:09,000 --> 00:11:12,600
+Each step's time and result are recorded.
+
+93
+00:11:14,000 --> 00:11:17,600
+A failure can be located to the step.
+
+94
+00:11:19,000 --> 00:11:24,000
+The task list shows the step, the current action, and what is done.
+
+95
+00:11:30,000 --> 00:11:33,600
+You can tell whether it is working or stuck.
+
+96
+00:11:35,000 --> 00:11:40,000
+The plan lives on the server. Log in elsewhere and it continues.
+
+97
+00:11:42,000 --> 00:11:46,900
+It has a process. It can be interrupted. It can be inspected.
+
+98
+00:11:47,000 --> 00:11:50,600
+It can do jobs like "check every device".
+
+99
+00:11:53,000 --> 00:11:57,200
+Not a one-shot answer, but an observable execution.
+
+100
+00:12:00,000 --> 00:12:04,600
+A second AI product: the live board for press 27.
+
+101
+00:12:10,000 --> 00:12:14,700
+A conclusion, four metric cards, and the schedule detail.
+
+102
+00:12:19,000 --> 00:12:23,400
+Recipe, ram speed and schedule all come from the database.
+
+103
+00:12:26,000 --> 00:12:29,600
+The live area refreshes every three seconds.
+
+104
+00:12:32,000 --> 00:12:36,600
+Built for a shop-floor screen, sized to be read from a distance.
+
+105
+00:12:40,000 --> 00:12:45,200
+Left: measured ram speed. Each square wave is one cycle.
+
+106
+00:12:47,000 --> 00:12:52,200
+Right: the set speed. The shift shows a setting was changed.
+
+107
+00:12:56,000 --> 00:13:00,700
+Side by side, plan against actual is visible at a glance.
+
+108
+00:13:04,000 --> 00:13:09,300
+Tens of thousands of points at one second each: equal widths mean it is right.
+
+109
+00:13:31,000 --> 00:13:36,300
+Metadata, six metric cards, a conclusion, and SVG charts.
+
+110
+00:13:39,000 --> 00:13:44,400
+Totals are computed by the framework. The page self-checks consistency.
+
+111
+00:13:46,000 --> 00:13:50,700
+The header states the rule version, the base time and the data source.
+
+112
+00:13:54,000 --> 00:13:57,600
+A deliverable you can send to the workshop.
+
+113
+00:13:58,000 --> 00:14:03,200
+Each row carries the plan and work-order number, so it reconciles to MES.
+
+114
+00:14:07,000 --> 00:14:09,900
+No manual cross-checking.
+
+115
+00:14:10,000 --> 00:14:13,900
+Data source management: write collected data into the business database.
+
+116
+00:14:14,000 --> 00:14:19,400
+MySQL, SQL Server, PostgreSQL, Dameng.
+
+117
+00:14:25,000 --> 00:14:28,900
+One table takes many variables, incrementally or in full.
+
+118
+00:14:29,000 --> 00:14:32,900
+A target can be disabled at any time without affecting collection.
+
+119
+00:14:33,000 --> 00:14:34,900
+The write policy is configured per table.
+
+120
+00:14:35,000 --> 00:14:38,900
+Different tables can use different cycles and field mappings.
+
+121
+00:14:39,000 --> 00:14:42,600
+The system database supports the same four.
+
+122
+00:14:44,000 --> 00:14:49,100
+Dameng loads its driver on demand; connection string and schema adapt.
+
+123
+00:14:55,000 --> 00:14:59,900
+If the service is down it says so, and retries every ten seconds.
+
+124
+00:15:04,000 --> 00:15:06,900
+It will not start hard into an error.
+
+125
+00:15:07,000 --> 00:15:10,600
+The connection is verified before switching.
+
+126
+00:15:11,000 --> 00:15:15,700
+If verification fails, the current configuration is untouched.
+
+127
+00:15:17,000 --> 00:15:22,600
+Six devices, 262 variables, one process.
+
+128
+00:15:26,000 --> 00:15:34,200
+The closing card is from an earlier build and counts installed plugins too. The current release ships 30 acquisition drivers built in.
