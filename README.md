@@ -58,7 +58,7 @@ One continuous walkthrough — real UI, real device data — from **shop-floor d
 ### What is the WEB Enterprise Edition?
 
 - **One process**: acquisition, database writes, MQTT, REST API and AI all run inside a single service — no middleware to glue together.
-- **30 production-ready protocol drivers** in 7 categories (9 legacy drivers removed for licensing or compliance), plus **7 database drivers** written in parallel, including Dameng DM8. Hot-loaded plugins. Current build: **v3.26.254**.
+- **19 production-ready protocol drivers** in 7 categories (9 legacy drivers removed for licensing or compliance, plus 11 skeleton drivers deleted because their protocol layer was never implemented correctly — we ship only drivers that actually read data), plus **7 database drivers** written in parallel, including Dameng DM8. Hot-loaded plugins. Current build: **v3.26.266**.
 - **Semantic layer + 3D knowledge graph**: nine entity classes with attribute inheritance, 17 relation types, 12 event handling modes; ontology modelling, data mapping, force / star-orbit / chord layouts, rotate and zoom.
 - **Hermes Agent**: reads the platform's own data, decomposes tasks, calls tools, produces dashboards and HTML reports. The platform exposes **253 built-in MCP tools** (unique names; each configured data source adds query aliases at runtime).
 - **Domestic stack ready**: Dameng / Kylin, SELinux enforcing mode, single-root tar deployment, offline version upgrade, versions switchable and reversible from the web UI.
@@ -519,12 +519,12 @@ One protocol driver core, two delivery forms: the **Community Edition** is a des
 
 | Capability | Community Edition (this repo) | WEB Enterprise Edition |
 |----------|:---:|:---:|
-| Industrial protocol drivers (PLC / CNC / power / building / semiconductor) | 39 | 30 production-ready (same core; 9 legacy drivers removed for licensing or compliance) |
+| Industrial protocol drivers (PLC / CNC / general) | 39 | **19 production-ready** (v3.26.266; same core — 9 removed for licensing/compliance, 11 skeleton drivers removed because they never worked) |
 | Millisecond MQTT push | ✅ | ✅ |
 | SQLite / MySQL / SQL Server / PostgreSQL | ✅ | ✅ |
 | TDengine time-series database | ✅ | ✅ |
 | Dameng DM8 (domestic database) | ❌ | ✅ |
-| MCP AI tools | 44 | **253** (v3.26.254) |
+| MCP AI tools | 44 | **253** (v3.26.266) |
 | **Driver management (categories / upload / AI-added)** | ❌ | ✅ |
 | REST API | ✅ | ✅ |
 | CSV bulk import/export | ✅ | ✅ |
@@ -545,7 +545,7 @@ One protocol driver core, two delivery forms: the **Community Edition** is a des
 | **Multi-generation rolling config backups** | ✅ | ✅ |
 | **Commercial license · technical support** | ✅ | ✅ |
 
-> WEB Enterprise numbers reflect the current build, v3.26.254 (November 2026).
+> WEB Enterprise numbers reflect the current build, **v3.26.266** (25 November 2026).
 
 > 🖥️ **Community Edition**: single-machine desktop, works offline, 39 drivers out of the box — ideal for deep acquisition on one plant/machine and for edge-side deployment.
 > 🌐 **WEB Enterprise Edition**: the whole factory in a browser — multi-user collaboration, AI multi-agent orchestration, 2D/3D knowledge graph and Xinchuang support. See the next section.
@@ -604,7 +604,7 @@ This video is a complete walkthrough of the **WEB Enterprise Edition** — from 
 
 | Capability | Details |
 |------|------|
-| 🔌 Industrial protocol drivers | **30** production-ready drivers in the current build (v3.26.254), organized into 7 driver categories — pick the category first, then the driver. 9 legacy drivers (OPC UA, PROFIBUS, DeviceNet, CC-Link, OPC UA PubSub, Sparkplug B, Mazak, DLMS/COSEM, IEC 61850) were removed for licensing or compliance; if a site needs one, a compliant implementation can be loaded as a plugin |
+| 🔌 Industrial protocol drivers | **19** production-ready drivers in the current build (v3.26.266), organized into 7 driver categories — pick the category first, then the driver. 9 legacy drivers (OPC UA, PROFIBUS, DeviceNet, CC-Link, OPC UA PubSub, Sparkplug B, Mazak, DLMS/COSEM, IEC 61850) were removed for licensing or compliance; if a site needs one, a compliant implementation can be loaded as a plugin |
 | 🧩 Driver management | A single driver inventory: driver / category / source / provider / size / installed at / status, filterable by keyword, source and category. **Commercial-licensed drivers you have purchased, or open-source drivers, can be uploaded by you**; built-in drivers can be disabled and restored, plugin drivers can be deleted |
 | 🤖 AI adds drivers | For a protocol the platform does not have, just ask the built-in AI to search online: it explains the source and the license, and installs into the category you choose once you agree. The source URL and time are recorded server-side, and the inventory marks it "Added by AI" |
 | 🗄️ Parallel database writes | 7 kinds: SQLite / MySQL / SQL Server / PostgreSQL / Oracle / TDengine / Dameng DM8 (domestic, Xinchuang-ready) |
@@ -621,19 +621,38 @@ This video is a complete walkthrough of the **WEB Enterprise Edition** — from 
 | 🧩 Xinchuang-ready | A self-contained Linux x64 runtime package (no .NET install required), Dameng DM8 usable out of the box, SELinux enforcing mode, offline version upgrade, versions switchable and reversible from the web UI |
 | 🚀 Deployment | Runs on a single machine; .NET 8 + Blazor, browser access, no client install on every PC |
 
+### 🛡️ Actuation & Program Delivery
+
+> **Boundary first**: this entire actuation chain has **never once been executed on a production machine tool** — no start, stop, feed hold or alarm reset. The read path (collection, semantic model, dashboards, AI analysis) runs on site every day; the write path (command tickets, dry run, dual approval, approval with expiry, read-back, post-hoc re-verification, program reconciliation, batches, playbooks) has only been exercised on the **test channel**. That boundary is stated in the product and stated here.
+
+| Stage | How it works |
+|------|------|
+| **Action definitions** | 10 built-in actions: device start/stop, alarm reset, parameter write, program select, program download, recipe load, output set, process advance, e-stop (L3 — refused). Each carries a parameter schema with limits; risk level can only go up |
+| **Binding** | Action centre → device node + action code + channel (`simulator` / `modbus` / `dnc_folder` / `dnc_ftp` / `dnc_sftp`) + channel parameters. A binding declares "how this machine may be moved" |
+| **Six gates** | ① design: whitelist + parameter schema + capability matrix; ② proposal: preconditions + dry run (zero side effects); ③ approval: separation of duties, dual approval, 30-minute expiry, parameter digest locked; ④ execution: per-device mutex, timeout, idempotency, circuit breaker; ⑤ receipt: **mandatory read-back** (sent ≠ executed); ⑥ after the fact: hash-chained evidence — who proposed, who approved, what was sent, what the device reported |
+| **Risk levels** | L1 executes directly; L2 needs dual approval (program delivery, parameter writes); **L3 (e-stop / safety gate) is refused by the platform** — the platform does not claim a functional-safety level; that stays in the PLC safety circuit |
+| **Program library** | SHA256 computed on upload; an approved version is immutable (changes require a new version); **only approved versions can enter a command ticket**, and the payload is generated by the library — never hand-typed |
+| **Three DNC channels** | `dnc_folder` share / `dnc_ftp` / `dnc_sftp` under one contract: three-element verification, file downloaded back and SHA256 recomputed on read-back, failure if it cannot be read; uploads are atomic (temp file + rename) so a machine never reads half a program |
+| **Reconciliation** | Read-only scan of what is actually on the machine: `matched` / `mismatch` (highest risk) / `missing` / `unexpected` / no baseline. Fast mode compares size only and **never claims a match**; `unexpected` is silent by default — 7 false alarms out of 11 machines would drown the real problem |
+| **Batches** | Swap programs across machines in one ticket: created only if every pre-check passes (transactional), stops at the first failure; "resume" only touches items that never ran; failed items must be named by a human to retry (max 3 per item, re-approval required); **verified items are never redone** |
+| **Playbooks** | sequential / wait / gate / verify / probe / if / nested (depth 5, 50 steps); stops at any approval and resumes after it is granted |
+| **Permissions** | `action:view` / `propose` / `approve` / `execute` (further split by device, alarm, parameter, program, process) / `manage` / `interlock` / `emergency` |
+
 ### 🔌 Driver categories & driver management
 
 Connecting a device is a two-level choice — **category first, then driver** — and the collection page and the driver management page share one category definition:
 
 | Category | Covers | Built-in drivers |
 |------|------|:---:|
-| Industrial common | General industrial protocols, simulator | 8 |
-| PLC / industrial control | Mainstream PLCs and controllers | 8 |
-| CNC | Machine tools and CNC systems | 6 |
-| Building automation | HVAC, lighting, meters | 4 |
-| Power / energy | Power protocols and metering | 5 |
-| Semiconductor | Semiconductor and fieldbuses | 3 |
-| General / other | HTTP, OPC, etc. | 5 |
+| Industrial common | Modbus TCP / RTU, Siemens S7, MQTT subscribe, Simulator | 5 |
+| PLC / industrial control | Mitsubishi MC, Omron FINS / HostLink, Keyence KV, Beckhoff ADS, Mitsubishi FX, Panasonic Mewtocol | 7 |
+| CNC | FANUC FOCAS, Heidenhain, MTConnect, Haas CNC | 4 |
+| Building automation | none built in (BACnet / KNX / DALI / M-Bus removed — protocol layer never implemented); plugin only | 0 |
+| Power / energy | none built in (IEC 104 / DNP3 / HART-IP same reason); plugin only | 0 |
+| Semiconductor | none built in (SECS/GEM framing was wrong); plugin only | 0 |
+| General / other | HTTP REST, OPC DA (Windows only), SNMP | 3 |
+
+> **19 production-ready drivers** in total (v3.26.266). Empty categories stay visible in the UI and accept imported plugin drivers — we do not pad the list with stubs that look supported but read nothing.
 
 What the driver management page does:
 
