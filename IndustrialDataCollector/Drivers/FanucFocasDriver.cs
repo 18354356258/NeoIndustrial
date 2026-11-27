@@ -44,6 +44,11 @@ namespace IndustrialDataCollection.Drivers
         private bool _disposed;
         private int _simCounter;
 
+        // FOCAS 库句柄（rev465 社区版）：库加载成功且有句柄时才走真实读取，否则保持模拟。
+        private ushort _flibHndl;
+        private bool _hasHandle;
+        private bool _libTried;
+
         public string DriverType { get { return "FanucFocas"; } }
         public bool IsConnected { get; private set; }
 
@@ -67,6 +72,10 @@ namespace IndustrialDataCollection.Drivers
                 _stream.WriteTimeout = 3000;
 
                 IsConnected = true;
+
+                // rev465：TCP 通了之后尝试装 FOCAS 库并分配句柄。
+                // 拿不到库不影响「已连接」，只是读值仍为模拟——并在日志里写清原因，不静默。
+                TryInitFocas();
                 NotifyStatus(true, string.Format("Fanuc Focas 已连接 ({0}:{1}, CNC={2})", _ipAddress, _port, _cncType));
                 Logger.Debug(string.Format("Fanuc Focas 连接成功: {0}:{1}, CNC={2}", _ipAddress, _port, _cncType));
                 return true;
@@ -192,8 +201,146 @@ namespace IndustrialDataCollection.Drivers
             Logger.Debug(string.Format("Fanuc Focas 采集结束: {0}", _config.Name));
         }
 
+
+        /// <summary>rev465：装载 FOCAS 库并分配句柄；失败只记日志（读值退回模拟），不影响 TCP 连接状态。</summary>
+        private void TryInitFocas()
+        {
+            if (_libTried) return;
+            _libTried = true;
+
+            try
+            {
+                var libPath = _config == null ? "" : _config.GetParam("FocasLibPath", "");
+                if (!FocasNative.TryLoad(libPath))
+                {
+                    Logger.Warn("Fanuc FOCAS[" + (_config == null ? "" : _config.Name) + "] 库不可用，读值为模拟：" + FocasNative.LastError);
+                    return;
+                }
+
+                ushort h;
+                short ret = FocasNative.Alloc(_ipAddress, (ushort)_port, 10, out h);
+                if (ret != 0)
+                {
+                    Logger.Warn("Fanuc FOCAS[" + (_config == null ? "" : _config.Name) + "] cnc_allclibhndl3 失败：" + FocasNative.DescribeError(ret));
+                    return;
+                }
+
+                _flibHndl = h;
+                _hasHandle = true;
+                Logger.Info("Fanuc FOCAS[" + (_config == null ? "" : _config.Name) + "] 已装载 " + FocasNative.LoadedPath + "，句柄 " + h);
+            }
+            catch (Exception ex)
+            {
+                Logger.Warn("Fanuc FOCAS 初始化异常：" + ex.Message);
+            }
+        }
+
+        /// <summary>rev465：真实读取。地址 @ 开头走动态点位，纯数字走宏变量。</summary>
+        private object ReadReal(DataPoint point)
+        {
+            var addr = (point.Address ?? "").Trim();
+            if (addr.StartsWith("@")) return ReadDynamic(point, addr.ToUpperInvariant());
+            return ReadMacro(point, addr);
+        }
+
+        /// <summary>宏变量读取：地址填宏号（100 或 #100）。</summary>
+        private object ReadMacro(DataPoint point, string addr)
+        {
+            int macroNo = ParseMacroNo(addr);
+            FocasNative.OdbMacro m;
+            short ret = FocasNative.RdmAcro(_flibHndl, (short)macroNo, 1, out m);
+            if (ret != 0)
+                throw new Exception("cnc_rdmacro #" + macroNo + " 返回 " + FocasNative.DescribeError(ret));
+
+            // dec_val 表示小数位数：mcr_val 是放大后的整数
+            if (m.dec_val > 0)
+            {
+                double v = m.mcr_val / Math.Pow(10, Math.Min(9, (int)m.dec_val));
+                if (string.Equals(point.DataType, "string", StringComparison.OrdinalIgnoreCase))
+                    return v.ToString("F" + Math.Min(9, (int)m.dec_val));
+                return v;
+            }
+
+            if (string.Equals(point.DataType, "string", StringComparison.OrdinalIgnoreCase))
+                return m.mcr_val.ToString();
+            return m.mcr_val;
+        }
+
+        /// <summary>动态点位：@SPINDLE @FEED @X @Y @Z @ALARM @RUN（不需要机床写宏程序）。</summary>
+        private object ReadDynamic(DataPoint point, string addr)
+        {
+            switch (addr)
+            {
+                case "@SPINDLE":
+                {
+                    if (FocasNative.Acts == null) throw new Exception("当前 FOCAS 库不含 cnc_acts 导出");
+                    FocasNative.OdbAct a;
+                    short ret = FocasNative.Acts(_flibHndl, out a);
+                    if (ret != 0) throw new Exception("cnc_acts 返回 " + FocasNative.DescribeError(ret));
+                    return a.data;
+                }
+                case "@FEED":
+                {
+                    if (FocasNative.Actf == null) throw new Exception("当前 FOCAS 库不含 cnc_actf 导出");
+                    FocasNative.OdbAct a;
+                    short ret = FocasNative.Actf(_flibHndl, out a);
+                    if (ret != 0) throw new Exception("cnc_actf 返回 " + FocasNative.DescribeError(ret));
+                    return a.data;
+                }
+                case "@X":
+                case "@Y":
+                case "@Z":
+                {
+                    if (FocasNative.Absolute == null) throw new Exception("当前 FOCAS 库不含 cnc_absolute 导出");
+                    short axis = (short)(addr == "@X" ? 1 : (addr == "@Y" ? 2 : 3));
+                    FocasNative.OdbAxis ax;
+                    short ret = FocasNative.Absolute(_flibHndl, axis, 1, out ax);
+                    if (ret != 0) throw new Exception("cnc_absolute(轴 " + axis + ") 返回 " + FocasNative.DescribeError(ret));
+                    // FOCAS 坐标单位 0.001mm
+                    double mm = (ax.data != null && ax.data.Length > 0) ? ax.data[0] / 1000.0 : 0.0;
+                    return mm;
+                }
+                case "@ALARM":
+                {
+                    if (FocasNative.Alarm2 == null) throw new Exception("当前 FOCAS 库不含 cnc_alarm2 导出");
+                    int no;
+                    short ret = FocasNative.Alarm2(_flibHndl, out no);
+                    if (ret != 0) throw new Exception("cnc_alarm2 返回 " + FocasNative.DescribeError(ret));
+                    return no;
+                }
+                case "@RUN":
+                {
+                    if (FocasNative.Statinfo == null) throw new Exception("当前 FOCAS 库不含 cnc_statinfo 导出");
+                    FocasNative.OdbSt st;
+                    short ret = FocasNative.Statinfo(_flibHndl, out st);
+                    if (ret != 0) throw new Exception("cnc_statinfo 返回 " + FocasNative.DescribeError(ret));
+                    if (st.emergency == 1) return "急停";
+                    if (st.run == 3 || st.run == 4) return "运行";
+                    if (st.run == 2) return "保持";
+                    if (st.run == 1) return "停止";
+                    return "复位";
+                }
+                default:
+                    throw new Exception("未知的动态点位地址 " + addr +
+                        "（支持 @SPINDLE / @FEED / @X / @Y / @Z / @ALARM / @RUN，或填宏号如 100）");
+            }
+        }
+
+        private static int ParseMacroNo(string address)
+        {
+            var m = System.Text.RegularExpressions.Regex.Match(address ?? "", "(\\d+)");
+            if (!m.Success) throw new Exception("宏变量号无法解析: " + address + "（地址填宏号，例如 100 或 #100）");
+            return int.Parse(m.Groups[1].Value);
+        }
+
         public Task<object> ReadAsync(DataPoint point)
         {
+            // rev465：库与句柄就绪时走真实读取（宏变量 / 动态点位），不再返回模拟值。
+            if (_hasHandle && FocasNative.IsLoaded)
+            {
+                return Task.FromResult<object>(ReadReal(point));
+            }
+
             object result = 0;
             _simCounter++;
 

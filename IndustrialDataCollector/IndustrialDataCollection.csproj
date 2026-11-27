@@ -147,6 +147,7 @@
     <Compile Include="Drivers\KNXDriver.cs" />
     <Compile Include="Drivers\SecsGemDriver.cs" />
     <Compile Include="Drivers\FanucFocasDriver.cs" />
+    <Compile Include="Drivers\FocasNative.cs" />
     <Compile Include="Drivers\MTConnectDriver.cs" />
     <Compile Include="Drivers\HeidenhainDriver.cs" />
     <Compile Include="Drivers\OpcUaPubSubDriver.cs" />
