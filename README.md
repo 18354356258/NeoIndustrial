@@ -154,7 +154,7 @@ Drivers are organized in **7 categories** — pick the category, then the driver
 
 | Driver | Covers |
 |------|------|
-| **Fanuc FOCAS** 🔑 ⚠ | 0i/16i/18i/21i/30i/31i/32i — protocol skeleton: connects on 8193, **returns simulated values**; real reads need the FANUC FOCAS library (bring your own, not redistributable) |
+| **Fanuc FOCAS** 🔑 | 0i/16i/18i/21i/30i/31i/32i — real reads via the FOCAS library: macro variables (`100` / `#100`) and dynamic points `@SPINDLE` `@FEED` `@X/Y/Z` `@ALARM` `@RUN`; the library is vendor-licensed and **not** in this repo — put `Fwlib64.dll` next to the exe, otherwise values fall back to simulation |
 | **Siemens 840D** 🔑 | Sinumerik 840D/840Di CNC systems |
 | **Haas CNC** | The full NGC controller range (serial) |
 | **Mazak** | Mazatrol controllers (Smooth series) |

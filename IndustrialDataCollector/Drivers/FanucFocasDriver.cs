@@ -11,11 +11,11 @@ namespace IndustrialDataCollection.Drivers
     /// <summary>
     /// Fanuc FOCAS 驱动（社区版）——标准端口 8193。
     ///
-    /// ## 当前状态（务必知悉）
-    /// 本驱动目前是**协议骨架**：ConnectAsync 会真实建立 TCP 连接，
-    /// 但 ReadAsync 返回的是**模拟值**，还没有对接 FANUC 的读取接口。
-    /// 原因：FANUC 的 FOCAS 走 8193 私有二进制协议，未公开；官方只提供 Fwlib 库封装，
-    /// 而该库受厂商授权约束，不能随本仓库（AGPL）分发。
+    /// ## 当前状态
+    /// 已接入真实读取：ConnectAsync 建立 TCP 连接后装载 FOCAS 库并分配句柄，
+    /// ReadAsync 通过 Fwlib 读取宏变量与动态点位。
+    /// **库由使用者自备**：FOCAS 受厂商授权约束，不能随本仓库（AGPL）分发；
+    /// 未放库或句柄分配失败时，读值退回模拟值，并在日志里写明原因（不静默）。
     ///
     /// ## 要让社区版真读，需要两步
     ///   1. 自行向 FANUC 或其授权代理取得 FOCAS2 Library（Fwlib32.dll / Fwlib64.dll，含同目录

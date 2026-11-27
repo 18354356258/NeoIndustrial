@@ -149,7 +149,7 @@ GitHub：<https://github.com/18354356258/NeoIndustrial> ｜ Gitee：<https://git
 
 | 驱动 | 说明 |
 |------|------|
-| **Fanuc FOCAS** 🔑 ⚠ | 0i/16i/18i/21i/30i/31i/32i，协议骨架：8193 能连上，**读数是模拟值**；真读需自备 FANUC FOCAS 库（厂商授权，不可随仓库分发） |
+| **Fanuc FOCAS** 🔑 | 0i/16i/18i/21i/30i/31i/32i，真实读取：宏变量（`100` / `#100`）+ 动态点位 `@SPINDLE` `@FEED` `@X/Y/Z` `@ALARM` `@RUN`；FOCAS 库厂商授权、**不随本仓库分发**，把 `Fwlib64.dll` 放到 exe 同目录即可；未放库时读值退回模拟 |
 | **Haas CNC** | NGC 控制器全系列（RS232 Q 命令协议） |
 | **Mazak** | Mazatrol 控制器（Smooth 系列，RS232/ASCII） |
 | **Heidenhain** 🔑 | TNC 系列（HEIDENHAIN Remo Tools / DNC） |
